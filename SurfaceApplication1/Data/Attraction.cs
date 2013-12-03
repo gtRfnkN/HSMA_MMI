@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace FirstTest.Data
+namespace SurfaceApplication1.Data
 {
     public class Attraction
     {
@@ -13,6 +10,7 @@ namespace FirstTest.Data
         public Filter Filter { get; set; }
 
         public String Name { get; set; }
+        public String TitalPhotoPath { get; set; }
 
         public String Address { get; set; }
         public String Teaser { get; set; }

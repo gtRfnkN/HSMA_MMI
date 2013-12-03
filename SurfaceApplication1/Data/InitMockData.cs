@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FirstTest.Data
+namespace SurfaceApplication1.Data
 {
     public class InitMockData
     {

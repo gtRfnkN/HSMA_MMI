@@ -82,6 +82,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\Attraction.cs" />
+    <Compile Include="Data\Categorie.cs" />
+    <Compile Include="Data\Event.cs" />
+    <Compile Include="Data\EventAttraction.cs" />
+    <Compile Include="Data\EventTransport.cs" />
+    <Compile Include="Data\Filter.cs" />
+    <Compile Include="Data\InitMockData.cs" />
+    <Compile Include="Data\TimeTable.cs" />
     <Compile Include="SurfaceWindow1.xaml.cs">
       <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
       <SubType>Code</SubType>
