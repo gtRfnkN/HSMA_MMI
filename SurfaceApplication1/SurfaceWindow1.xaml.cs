@@ -23,7 +23,8 @@ namespace SurfaceApplication1
     /// </summary>
     public partial class SurfaceWindow1 : SurfaceWindow
     {
-        private List<Ellipse> filterCircles;
+        private List<TagCircle> filterCircles;
+        private Dictionary<long, Color> filterColors;
 
         /// <summary>
         /// Default constructor.
@@ -31,83 +32,185 @@ namespace SurfaceApplication1
         public SurfaceWindow1()
         {
             InitializeComponent();
-            filterCircles = new List<Ellipse>();
+            filterCircles = new List<TagCircle>();
+
+            filterColors = new Dictionary<long, Color>();
+            filterColors.Add(0x00, Color.FromArgb(20, 16, 143, 151));
+            filterColors.Add(0x01, Color.FromArgb(20, 255, 139, 107));
+            filterColors.Add(0x02, Color.FromArgb(20, 255, 227, 159));
+            filterColors.Add(0x03, Color.FromArgb(20, 22, 134, 109));
+            filterColors.Add(0x64, Color.FromArgb(20, 16, 54, 54));
         }
 
         private void tagDown(object sender, TouchEventArgs e)
         {
-            if (e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
-                // Create a red Ellipse.
-                Ellipse filterCircle = new Ellipse();
-
-                // Create a SolidColorBrush with a red color to fill the  
-                // Ellipse with.
-                SolidColorBrush mySolidColorBrush = new SolidColorBrush();
-
-                // Describes the brush's color using RGB values.  
-                // Each value has a range of 0-255.
-                mySolidColorBrush.Color = Color.FromArgb(40, 255, 255, 255);
-                filterCircle.Fill = mySolidColorBrush;
-                filterCircle.StrokeThickness = 2;
-                filterCircle.Stroke = Brushes.White;
-
-                // Set the width and height of the Ellipse.
-                filterCircle.Width = 200;
-                filterCircle.Height = 200;
-
-                // set position
-                Canvas _canvas = (Canvas)sender as Canvas;
-                Point tp = e.GetTouchPoint(_canvas).Position;
-                Canvas.SetLeft(filterCircle, tp.X - 100);
-                Canvas.SetTop(filterCircle, tp.Y - 100);
-
-                // add to scene
-                wrapper.Children.Add(filterCircle);
-
-                // append circle object with tag id
-                filterCircle.Tag = e.TouchDevice.Id;
-                filterCircles.Add(filterCircle);
+                Point tp = e.GetTouchPoint(wrapper).Position;
+                TagCircle circle = new TagCircle(tp.X, tp.Y, wrapper, e.TouchDevice.Id, e.TouchDevice.GetOrientation(wrapper), filterColors[e.TouchDevice.GetTagData().Value]);
+                filterCircles.Add(circle);
             }
         }
 
         private void tagMove(object sender, TouchEventArgs e)
         {
-            Ellipse filterCircle = getCircleByTag(e.TouchDevice.Id);
-            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            TagCircle filterCircle = getCircleByTag(e.TouchDevice.Id);
+            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 // update position
-                Canvas _canvas = (Canvas)sender as Canvas;
-                Point tp = e.GetTouchPoint(_canvas).Position;
-                Canvas.SetLeft(filterCircle, tp.X - 100);
-                Canvas.SetTop(filterCircle, tp.Y - 100);
+                Point tp = e.GetTouchPoint(wrapper).Position;
+                filterCircle.updateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(wrapper));
             }
         }
 
         private void tagGone(object sender, TouchEventArgs e)
         {
-            Ellipse filterCircle = getCircleByTag(e.TouchDevice.Id);
-            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            TagCircle filterCircle = getCircleByTag(e.TouchDevice.Id);
+            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 // remove from scene
-                wrapper.Children.Remove(filterCircle);
+                filterCircle.clear();
 
                 // remove from list
                 filterCircles.Remove(filterCircle);
             }
         }
 
-        private Ellipse getCircleByTag(int tag)
+        private TagCircle getCircleByTag(int tag)
         {
-            foreach (Ellipse circle in filterCircles)
+            foreach (TagCircle circle in filterCircles)
             {
-                if ((int)circle.Tag == tag)
+                if (circle.getTag() == tag)
                 {
                     return circle;
                 }
             }
 
             return null;
+        }
+    }
+
+    public class TagCircle
+    {
+        private Ellipse circle; // circle
+        private Rectangle rect;
+        private int tag;        // tag
+
+        private Canvas canvas;
+        private Canvas filterWrapper;
+
+        // initial search radius
+        private int radius = 200;
+
+        // width and height of the textbox
+        private int TEXTBOX_WIDTH = 50;
+        private int TEXTBOX_HEIGHT = 30;
+
+        // constructor
+        public TagCircle(double posX, double posY, Canvas c, int newTag, double rotation, Color newColor)
+        {
+            // save the canvas and tag for later use
+            canvas = c;
+            tag = newTag;
+
+            filterWrapper = new Canvas();
+
+            // Create an ellipse
+            circle = new Ellipse();
+
+            // fill the circle and add a stroke
+            circle.Fill = new SolidColorBrush(newColor);
+            circle.StrokeThickness = 2;
+            circle.Stroke = Brushes.White;
+
+            // set width and height
+            circle.Width = radius;
+            circle.Height = radius;
+
+            // set position
+            Canvas.SetLeft(circle, -(radius / 2));
+            Canvas.SetTop(circle, -(radius / 2));
+
+            // add to grid
+            filterWrapper.Children.Add(circle);
+
+            // Create a rectangle
+            rect = new Rectangle();
+
+            // fill the circle and add a stroke
+            rect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            rect.StrokeThickness = 2;
+            rect.Stroke = Brushes.White;
+
+            // set width and height
+            rect.Width = TEXTBOX_WIDTH;
+            rect.Height = TEXTBOX_HEIGHT;
+
+            // set position
+            Canvas.SetLeft(rect, -(rect.Width / 2));
+            Canvas.SetTop(rect, -(radius / 2) - (rect.Height / 2));
+
+            // touch handlers
+            rect.TouchMove += rectMove;
+            rect.IsManipulationEnabled = true;
+
+            // add to grid
+            filterWrapper.Children.Add(rect);
+
+            // transform the wrapping grid
+            Matrix m = new Matrix();
+            m.Translate(posX, posY);
+            m.RotateAt(rotation, posX, posY);
+            filterWrapper.RenderTransform = new MatrixTransform(m);
+
+            // add grid to canvas
+            canvas.Children.Add(filterWrapper);
+        }
+
+        // get the tag
+        public int getTag()
+        {
+            return tag;
+        }
+
+        // update the rotation
+        public void updateTransform(double posX, double posY, double angle)
+        {
+            Matrix m = new Matrix();
+            m.Translate(posX, posY);
+            m.RotateAt(angle, posX, posY);
+            filterWrapper.RenderTransform = new MatrixTransform(m);
+        }
+
+        public void clear()
+        {
+            canvas.Children.Remove(filterWrapper);
+        }
+
+        private void rectMove(object sender, TouchEventArgs e)
+        {
+            // get the position of the finger relative to the center
+            Point tp = e.GetTouchPoint(filterWrapper).Position;
+            radius = (int)Math.Sqrt((tp.X) * (tp.X) + (tp.Y) * (tp.Y)) * 2;
+
+            // update the element size
+            updateSize();
+        }
+
+        // update the size of the elements by its radius
+        public void updateSize()
+        {
+            // set width and height
+            circle.Width = radius;
+            circle.Height = radius;
+
+            // set position of the circle
+            Canvas.SetLeft(circle, -(radius / 2));
+            Canvas.SetTop(circle, -(radius / 2));
+
+            // set position of the rect
+            Canvas.SetLeft(rect, -(rect.Width / 2));
+            Canvas.SetTop(rect, -(radius / 2) - (rect.Height / 2));
         }
     }
 }
