@@ -6,12 +6,16 @@
     Height="400"
     Title="SurfaceApplication1"
     >
+    <s:SurfaceWindow.Background>
+        <ImageBrush Stretch="UniformToFill" TileMode="None" ImageSource="/SurfaceApplication1;component/Resources/map.png">
+
+        </ImageBrush>
+    </s:SurfaceWindow.Background>
     <Grid>
         <Canvas
             x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Background="Black"
             IsManipulationEnabled="True" />
     </Grid>
 </s:SurfaceWindow>

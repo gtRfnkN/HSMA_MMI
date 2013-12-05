@@ -35,11 +35,11 @@ namespace SurfaceApplication1
             filterCircles = new List<TagCircle>();
 
             filterColors = new Dictionary<long, Color>();
-            filterColors.Add(0x00, Color.FromArgb(20, 16, 143, 151));
-            filterColors.Add(0x01, Color.FromArgb(20, 255, 139, 107));
-            filterColors.Add(0x02, Color.FromArgb(20, 255, 227, 159));
-            filterColors.Add(0x03, Color.FromArgb(20, 22, 134, 109));
-            filterColors.Add(0x64, Color.FromArgb(20, 16, 54, 54));
+            filterColors.Add(0x00, Color.FromArgb(90, 16, 143, 151));
+            filterColors.Add(0x01, Color.FromArgb(90, 255, 139, 107));
+            filterColors.Add(0x02, Color.FromArgb(90, 255, 227, 159));
+            filterColors.Add(0x03, Color.FromArgb(90, 22, 134, 109));
+            filterColors.Add(0x64, Color.FromArgb(90, 16, 54, 54));
         }
 
         private void tagDown(object sender, TouchEventArgs e)
@@ -94,6 +94,7 @@ namespace SurfaceApplication1
     {
         private Ellipse circle; // circle
         private Rectangle rect;
+        private TextBlock text;
         private int tag;        // tag
 
         private Canvas canvas;
@@ -150,12 +151,35 @@ namespace SurfaceApplication1
             Canvas.SetLeft(rect, -(rect.Width / 2));
             Canvas.SetTop(rect, -(radius / 2) - (rect.Height / 2));
 
+            //TODO: ADD Z INDEX
+
             // touch handlers
             rect.TouchMove += rectMove;
             rect.IsManipulationEnabled = true;
 
             // add to grid
             filterWrapper.Children.Add(rect);
+
+            // Create a rectangle
+            text = new TextBlock();
+
+            // set width and height
+            text.Width = TEXTBOX_WIDTH;
+            text.Height = TEXTBOX_HEIGHT;
+
+            // set position
+            Canvas.SetLeft(text, -(rect.Width / 2));
+            Canvas.SetTop(text, -(radius / 2) - (rect.Height / 2));
+
+            // set text output
+            text.Text = radius+"m";
+
+            // touch handlers
+            text.TouchMove += rectMove;
+            text.IsManipulationEnabled = true;
+
+            // add to grid
+            filterWrapper.Children.Add(text);
 
             // transform the wrapping grid
             Matrix m = new Matrix();
@@ -211,6 +235,13 @@ namespace SurfaceApplication1
             // set position of the rect
             Canvas.SetLeft(rect, -(rect.Width / 2));
             Canvas.SetTop(rect, -(radius / 2) - (rect.Height / 2));
+
+            // set position of the text
+            Canvas.SetLeft(text, -(text.Width / 2));
+            Canvas.SetTop(text, -(radius / 2) - (text.Height / 2));
+
+            // set text output
+            text.Text = radius + "m";
         }
     }
 }
