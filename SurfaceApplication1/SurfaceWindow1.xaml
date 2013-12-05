@@ -2,16 +2,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
+    xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
     Width="900"
     Height="400"
     Title="SurfaceApplication1"
     >
     <Grid>
+        <m:Map
+            x:Name="Map"  Mode="Aerial"
+            CredentialsProvider="_your_key_goes_here__"/>
         <Canvas
             x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Background="Black"
+            Background="White"
             IsManipulationEnabled="True" />
     </Grid>
 </s:SurfaceWindow>

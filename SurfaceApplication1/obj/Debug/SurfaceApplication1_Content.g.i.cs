@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/bingmaps/microsoft.maps.mapcontrol.wpf.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("surfaceapplication1.xml")]
 
