@@ -15,7 +15,7 @@
             x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Background="White"
+            Background="Transparent"
             IsManipulationEnabled="True" />
     </Grid>
 </s:SurfaceWindow>
