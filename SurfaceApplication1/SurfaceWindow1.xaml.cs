@@ -46,8 +46,8 @@ namespace SurfaceApplication1
         {
             if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
-                Point tp = e.GetTouchPoint(wrapper).Position;
-                TagCircle circle = new TagCircle(tp.X, tp.Y, wrapper, e.TouchDevice.Id, e.TouchDevice.GetOrientation(wrapper), filterColors[e.TouchDevice.GetTagData().Value]);
+                Point tp = e.GetTouchPoint(cnv_Interact).Position;
+                TagCircle circle = new TagCircle(tp.X, tp.Y, cnv_Draw, cnv_Interact, e.TouchDevice.Id, e.TouchDevice.GetOrientation(cnv_Draw), filterColors[e.TouchDevice.GetTagData().Value]);
                 filterCircles.Add(circle);
             }
         }
@@ -58,8 +58,8 @@ namespace SurfaceApplication1
             if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 // update position
-                Point tp = e.GetTouchPoint(wrapper).Position;
-                filterCircle.updateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(wrapper));
+                Point tp = e.GetTouchPoint(cnv_Draw).Position;
+                filterCircle.updateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
             }
         }
 
@@ -93,28 +93,38 @@ namespace SurfaceApplication1
     public class TagCircle
     {
         private Ellipse circle; // circle
-        private Rectangle rect;
-        private TextBlock text;
+        private Rectangle rect; // TextBlock wrapper
+        private TextBlock text; // TextBlock for the radius
         private int tag;        // tag
 
-        private Canvas canvas;
-        private Canvas filterWrapper;
+        // canvas of the application to draw non-interactive elements
+        private Canvas draw;
+        // canvas to draw interactive elements + interactions
+        private Canvas interact;
+        // canvas to group non-interactive elements
+        private Canvas drawContainer;
+        // canvas to group interactive elements
+        private Canvas interactContainer;
 
-        // initial search radius
+        // current search radius in pixel units
         private int radius = 200;
 
         // width and height of the textbox
         private int TEXTBOX_WIDTH = 50;
         private int TEXTBOX_HEIGHT = 30;
+        private int TEXTBLOCK_HEIGHT = 20;
 
         // constructor
-        public TagCircle(double posX, double posY, Canvas c, int newTag, double rotation, Color newColor)
+        public TagCircle(double posX, double posY, Canvas _draw, Canvas _interact, int newTag, double rotation, Color newColor)
         {
             // save the canvas and tag for later use
-            canvas = c;
+            draw = _draw;
+            interact = _interact;
             tag = newTag;
 
-            filterWrapper = new Canvas();
+            // create containers
+            drawContainer = new Canvas();
+            interactContainer = new Canvas();
 
             // Create an ellipse
             circle = new Ellipse();
@@ -133,7 +143,7 @@ namespace SurfaceApplication1
             Canvas.SetTop(circle, -(radius / 2));
 
             // add to grid
-            filterWrapper.Children.Add(circle);
+            drawContainer.Children.Add(circle);
 
             // Create a rectangle
             rect = new Rectangle();
@@ -158,37 +168,42 @@ namespace SurfaceApplication1
             rect.IsManipulationEnabled = true;
 
             // add to grid
-            filterWrapper.Children.Add(rect);
+            interactContainer.Children.Add(rect);
 
             // Create a rectangle
             text = new TextBlock();
 
             // set width and height
             text.Width = TEXTBOX_WIDTH;
-            text.Height = TEXTBOX_HEIGHT;
+            text.Height = TEXTBLOCK_HEIGHT;
 
             // set position
             Canvas.SetLeft(text, -(rect.Width / 2));
             Canvas.SetTop(text, -(radius / 2) - (rect.Height / 2));
 
             // set text output
-            text.Text = radius+"m";
+            text.Text = Math.Round((radius/1000.0), 2)+"km";
+            text.FontSize = 14;
+            text.TextAlignment = TextAlignment.Center;
 
             // touch handlers
             text.TouchMove += rectMove;
             text.IsManipulationEnabled = true;
 
             // add to grid
-            filterWrapper.Children.Add(text);
+            interactContainer.Children.Add(text);
 
-            // transform the wrapping grid
+            // transform the containers
             Matrix m = new Matrix();
             m.Translate(posX, posY);
             m.RotateAt(rotation, posX, posY);
-            filterWrapper.RenderTransform = new MatrixTransform(m);
+
+            drawContainer.RenderTransform = new MatrixTransform(m);
+            interactContainer.RenderTransform = new MatrixTransform(m);
 
             // add grid to canvas
-            canvas.Children.Add(filterWrapper);
+            draw.Children.Add(drawContainer);
+            interact.Children.Add(interactContainer);
         }
 
         // get the tag
@@ -203,18 +218,21 @@ namespace SurfaceApplication1
             Matrix m = new Matrix();
             m.Translate(posX, posY);
             m.RotateAt(angle, posX, posY);
-            filterWrapper.RenderTransform = new MatrixTransform(m);
+
+            drawContainer.RenderTransform = new MatrixTransform(m);
+            interactContainer.RenderTransform = new MatrixTransform(m);
         }
 
         public void clear()
         {
-            canvas.Children.Remove(filterWrapper);
+            draw.Children.Remove(drawContainer);
+            interact.Children.Remove(interactContainer);
         }
 
         private void rectMove(object sender, TouchEventArgs e)
         {
             // get the position of the finger relative to the center
-            Point tp = e.GetTouchPoint(filterWrapper).Position;
+            Point tp = e.GetTouchPoint(interactContainer).Position;
             radius = (int)Math.Sqrt((tp.X) * (tp.X) + (tp.Y) * (tp.Y)) * 2;
 
             // update the element size
@@ -241,7 +259,7 @@ namespace SurfaceApplication1
             Canvas.SetTop(text, -(radius / 2) - (text.Height / 2));
 
             // set text output
-            text.Text = radius + "m";
+            text.Text = Math.Round((radius / 1000.0), 2) + "km";
         }
     }
 }
