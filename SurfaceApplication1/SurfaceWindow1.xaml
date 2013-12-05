@@ -10,7 +10,7 @@
     <Grid>
         <m:Map
             x:Name="Map"  Mode="Aerial"
-            CredentialsProvider="_your_key_goes_here__"/>
+            CredentialsProvider="AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q"/>
         <Canvas
             x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
