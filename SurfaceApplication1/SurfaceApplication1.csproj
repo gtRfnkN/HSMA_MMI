@@ -127,6 +127,7 @@
   <ItemGroup>
     <Content Include="Resources\BingMaps\Microsoft.Maps.MapControl.WPF.dll" />
     <Resource Include="Resources\BingMaps\Microsoft.Maps.MapControl.WPF.xml" />
+    <Resource Include="Resources\GeoKoords Mannheim.txt" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -8,14 +8,21 @@
     Title="SurfaceApplication1"
     >
     <Grid>
-        <m:Map
-            x:Name="Map"  Mode="Aerial"
-            CredentialsProvider="AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q"/>
         <Canvas
             x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent"
-            IsManipulationEnabled="True" />
+            IsManipulationEnabled="True"
+        />
+        <m:Map
+           x:Name="Map"  Mode="AerialWithLabels"
+           CredentialsProvider="AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q"
+           Padding="5"
+           Center="49.486436,8.470885,0.0000" 
+           ZoomLevel="15.000" AnimationLevel="None"
+           VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+           Grid.ColumnSpan="3"
+        />
     </Grid>
 </s:SurfaceWindow>

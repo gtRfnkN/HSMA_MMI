@@ -11,10 +11,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+using SurfaceApplication1.Data;
 
 namespace SurfaceApplication1
 {
@@ -32,6 +34,12 @@ namespace SurfaceApplication1
         {
             InitializeComponent();
             filterCircles = new List<Ellipse>();
+
+            var waterTowerLocation = new Location(49.484076, 8.475525);
+            var pinAttraction = new Attraction { Name = "Wasserturm", GeoLocation = waterTowerLocation, Teaser = "Das ist der Wasserturm" };
+
+            Map.Children.Add(pinAttraction);
+            MapLayer.SetPosition(pinAttraction, pinAttraction.GeoLocation);
         }
 
         private void tagDown(object sender, TouchEventArgs e)
