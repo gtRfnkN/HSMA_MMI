@@ -9,8 +9,8 @@
     >
     <Grid>
         <Canvas
-            x:Name="wrapper"
-            TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
+            x:Name="Wrapper"
+            TouchDown="TagDown" TouchMove="TagMove" TouchUp="TagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent"
             IsManipulationEnabled="True"
@@ -23,6 +23,12 @@
            ZoomLevel="15.000" AnimationLevel="None"
            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
            Grid.ColumnSpan="3"
+           Culture="de-DE"
+           
         />
+        <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
+            <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" Canvas.Left="0" Canvas.Top="0"/>
+        </Border>
+
     </Grid>
 </s:SurfaceWindow>

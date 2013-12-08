@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Maps.MapControl.WPF;
 
 
 namespace SurfaceApplication1.Data
@@ -11,7 +12,7 @@ namespace SurfaceApplication1.Data
         
         public String Color { get; set; }
         public int Radius { get; set; }
-        public String Position { get; set; } //TODO: Change when Cords oder Position Data are avalible
+        public Location GeoLocation { get; set; } //TODO: Change when Cords oder Position Data are avalible
 
         private List<Attraction> _attractions = new List<Attraction>();
         public List<Attraction> Attractions

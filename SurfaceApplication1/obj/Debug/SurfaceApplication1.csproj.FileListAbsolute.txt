@@ -34,8 +34,6 @@ C:\Users\m.schwarzmann\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\S
 C:\Users\m.schwarzmann\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.g.resources
 C:\Users\m.schwarzmann\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.Properties.Resources.resources
 C:\Users\m.schwarzmann\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.csproj.GenerateResource.Cache
-C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.exe
-C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.pdb
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\bin\Debug\Resources\icon.png
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\bin\Debug\SurfaceApplication1.xml
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\bin\Debug\SurfaceApplication1.exe
@@ -53,3 +51,5 @@ C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceAppli
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.Properties.Resources.resources
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\GenerateResource.read.1.tlog
 C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.exe
+C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.pdb
