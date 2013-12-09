@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using Microsoft.Maps.MapControl.WPF;
 
 
@@ -10,7 +11,7 @@ namespace SurfaceApplication1.Data
         #region Fields
         public String Name;
         
-        public String Color { get; set; }
+        public Color Color { get; set; }
         public int Radius { get; set; }
         public Location GeoLocation { get; set; } //TODO: Change when Cords oder Position Data are avalible
 

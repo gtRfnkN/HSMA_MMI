@@ -18,15 +18,49 @@ namespace SurfaceApplication1
     public partial class SurfaceWindow1
     {
         private readonly List<Ellipse> _filterCircles;
+        private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins" };
+        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
+        private const String BingMapKey = "AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q";
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         public SurfaceWindow1()
         {
-            InitializeComponent();
-            _filterCircles = new List<Ellipse>();
+            try
+            {
+                InitializeComponent();
+                _filterCircles = new List<Ellipse>();
 
+                AddTouchAndMouseEventsForDebbugConsole();
+
+                AddPushPins();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message + "\n" + e.StackTrace,
+                    "Error during Initialization",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        #region Init Methods
+        private void AddPushPins()
+        {
+            var mockData = new InitMockData();
+            mockData.Init();
+
+            Map.Children.Add(this._pushPinsMapLayer);
+            foreach (var attraction in mockData.Attractions)
+            {
+                attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
+                this._pushPinsMapLayer.AddChild(attraction, attraction.Location);
+            }
+        }
+
+        private void AddTouchAndMouseEventsForDebbugConsole()
+        {
             //***************** Test Mous Events ***********************//
             // Fires every animated frame from one location to another.
             Map.ViewChangeOnFrame +=
@@ -59,43 +93,16 @@ namespace SurfaceApplication1
             Map.TouchDown += MapTouchDownEvent;
             Map.TouchMove += MapTouchMoveEvent;
             Map.TouchUp += MapTouchUpEvent;
-
-            var mockData = new InitMockData();
-            mockData.Init();
-
-            foreach (var attraction in mockData.Attractions)
-            {
-                Map.Children.Add(attraction);
-                MapLayer.SetPosition(attraction, attraction.Location);
-            }
         }
+        #endregion
 
-
-        #region Event Capture
+        #region Mouse and Touch Event Debug Console Methods
         // A collection of key/value pairs containing the event name 
         // and the text block to display the event to.
         readonly Dictionary<string, TextBlock> _eventBlocks = new Dictionary<string, TextBlock>();
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
         readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
-
-        private Location GetLocationByEvent(MouseEventArgs e)
-        {
-            //Get the mouse click coordinates
-            Point mousePosition = e.GetPosition(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location location = Map.ViewportPointToLocation(mousePosition);
-            return location;
-        }
-
-        private Location GetLocationByEvent(TouchEventArgs e)
-        {
-            //Get the mouse click coordinates
-            TouchPoint touchPosition = e.GetTouchPoint(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location location = Map.ViewportPointToLocation(touchPosition.Position);
-            return location;
-        }
 
         void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
@@ -214,10 +221,30 @@ namespace SurfaceApplication1
 
         #endregion
 
+        #region Location Helper Methods
+        private Location GetLocationByEvent(MouseEventArgs e)
+        {
+            //Get the mouse click coordinates
+            Point mousePosition = e.GetPosition(this);
+            //Convert the mouse coordinates to a locatoin on the map
+            Location location = Map.ViewportPointToLocation(mousePosition);
+            return location;
+        }
+
+        private Location GetLocationByEvent(TouchEventArgs e)
+        {
+            //Get the mouse click coordinates
+            TouchPoint touchPosition = e.GetTouchPoint(this);
+            //Convert the mouse coordinates to a locatoin on the map
+            Location location = Map.ViewportPointToLocation(touchPosition.Position);
+            return location;
+        }
+        #endregion
         private void TagDown(object sender, TouchEventArgs e)
         {
-            if (e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            if (e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 5)
             {
+                e.Handled = false;
                 // Create a red Ellipse.
                 var filterCircle = new Ellipse();
 
@@ -254,7 +281,8 @@ namespace SurfaceApplication1
         private void TagMove(object sender, TouchEventArgs e)
         {
             Ellipse filterCircle = GetCircleByTag(e.TouchDevice.Id);
-            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            e.Handled = false;
+            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 5)
             {
                 // update position
                 var canvas = (Canvas)sender;
@@ -267,7 +295,8 @@ namespace SurfaceApplication1
         private void TagGone(object sender, TouchEventArgs e)
         {
             Ellipse filterCircle = GetCircleByTag(e.TouchDevice.Id);
-            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 0xA5)
+            e.Handled = false;
+            if (filterCircle != null && e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 5)
             {
                 // remove from scene
                 Wrapper.Children.Remove(filterCircle);

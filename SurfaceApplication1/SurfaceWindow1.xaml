@@ -5,7 +5,7 @@
     xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
     Width="900"
     Height="400"
-    Title="SurfaceApplication1"
+    Title="Tourismus App"
     >
     <Grid>
         <Canvas
@@ -15,7 +15,7 @@
             Background="Transparent"
             IsManipulationEnabled="True"
         />
-        <m:Map
+       <m:Map
            x:Name="Map"  Mode="AerialWithLabels"
            CredentialsProvider="AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q"
            Padding="5"
@@ -24,11 +24,10 @@
            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
            Grid.ColumnSpan="3"
            Culture="de-DE"
-           
         />
         <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
             <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" Canvas.Left="0" Canvas.Top="0"/>
         </Border>
-
+        
     </Grid>
 </s:SurfaceWindow>
