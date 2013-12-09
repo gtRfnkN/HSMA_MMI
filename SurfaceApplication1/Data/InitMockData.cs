@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using Microsoft.Maps.MapControl.WPF;
+using SurfaceApplication1.Extensions;
 
 namespace SurfaceApplication1.Data
 {

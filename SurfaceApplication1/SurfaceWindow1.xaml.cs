@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Xml;
 using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Surface.Presentation.Input;
 using SurfaceApplication1.Data;
+
 
 namespace SurfaceApplication1
 {
@@ -20,7 +24,6 @@ namespace SurfaceApplication1
         private readonly List<Ellipse> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins" };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
-        private const String BingMapKey = "AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q";
 
         /// <summary>
         /// Default constructor.
@@ -57,7 +60,7 @@ namespace SurfaceApplication1
                 attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
                 this._pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
-        }
+         }
 
         private void AddTouchAndMouseEventsForDebbugConsole()
         {
@@ -240,6 +243,7 @@ namespace SurfaceApplication1
             return location;
         }
         #endregion
+
         private void TagDown(object sender, TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized() && e.TouchDevice.GetTagData().Value == 5)

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Media;
 using Microsoft.Maps.MapControl.WPF;
+using SurfaceApplication1.Extensions;
 
 
 namespace SurfaceApplication1.Data
@@ -13,7 +15,8 @@ namespace SurfaceApplication1.Data
         
         public Color Color { get; set; }
         public int Radius { get; set; }
-        public Location GeoLocation { get; set; } //TODO: Change when Cords oder Position Data are avalible
+        public Location LocationCenter { get; set; }
+        public Location LocationHandel { get; set; }
 
         private List<Attraction> _attractions = new List<Attraction>();
         public List<Attraction> Attractions
@@ -58,6 +61,14 @@ namespace SurfaceApplication1.Data
 
         private List<Attraction> GetAttractionsInRange(List<Attraction> attractions)
         {
+           
+            Location diff = LocationCenter.Subtract(LocationHandel);
+
+            Location topLocation = LocationHandel;
+            Location bottomLocation = LocationCenter.Subtract(diff);
+            Location rightLocation = LocationCenter.Subtract(new Location{Longitude = LocationCenter.Longitude, Latitude = diff.Latitude});
+            Location leftLocation = LocationCenter.Subtract(new Location { Longitude = diff.Longitude, Latitude = LocationCenter.Latitude });
+
             //TODO When Position Data are avalible, filter the attractions
             return attractions;
         }
