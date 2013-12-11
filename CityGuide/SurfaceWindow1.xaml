@@ -1,0 +1,27 @@
+﻿<s:SurfaceWindow x:Class="SurfaceApplication1.SurfaceWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+    Width="900"
+    Height="400"
+    Title="SurfaceApplication1"
+    x:Name="surfaceApplicationWrapper"
+    >
+    <s:SurfaceWindow.Background>
+        <ImageBrush Stretch="UniformToFill" TileMode="None" ImageSource="/CityGuide;component/Resources/map.png">
+
+        </ImageBrush>
+    </s:SurfaceWindow.Background>
+    <Grid>
+        <Canvas
+            x:Name="cnv_Draw"
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+            Background="Transparent" />
+        <Canvas
+            x:Name="cnv_Interact"
+            TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+            Background="Transparent"
+            IsManipulationEnabled="True" />
+    </Grid>
+</s:SurfaceWindow>
