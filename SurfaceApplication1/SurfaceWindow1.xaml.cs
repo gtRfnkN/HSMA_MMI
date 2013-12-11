@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace SurfaceApplication1
     {
         private readonly List<Ellipse> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins" };
+        private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos" };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
 
         /// <summary>
@@ -34,6 +36,10 @@ namespace SurfaceApplication1
             {
                 InitializeComponent();
                 _filterCircles = new List<Ellipse>();
+
+                Map.Children.Add(this._pushPinsMapLayer);
+                Map.Children.Add(this._pushPinsInfosMapLayer);
+                Map.Children.Add(this._routeMapLayer);
 
                 AddTouchAndMouseEventsForDebbugConsole();
 
@@ -49,18 +55,93 @@ namespace SurfaceApplication1
         }
 
         #region Init Methods
+
+        #region PushPin
         private void AddPushPins()
         {
             var mockData = new InitMockData();
             mockData.Init();
 
-            Map.Children.Add(this._pushPinsMapLayer);
             foreach (var attraction in mockData.Attractions)
             {
+                attraction.TouchDown += TouchDownEventAttraction;
+                attraction.MouseDown += MouseDownEventAttraction;
                 attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
                 this._pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
-         }
+        }
+
+        private void TouchDownEventAttraction(object sender, TouchEventArgs e)
+        {
+            Point positionPoint = e.GetTouchPoint(this).Position;
+            AddAttractionInfobox(sender, positionPoint);
+        }
+
+        private void MouseDownEventAttraction(object sender, MouseButtonEventArgs e)
+        {
+            Point positionPoint = e.GetPosition(this);
+            AddAttractionInfobox(sender, positionPoint);
+        }
+
+        private void AddAttractionInfobox(object sender, Point positionPoint)
+        {
+            var attraction = sender as Attraction;
+            if (attraction != null)
+            {
+                var infoBox = new TextBox { Width = 200, Height = 200 };
+
+                Canvas.SetLeft(infoBox, positionPoint.X - 100);
+                Canvas.SetTop(infoBox, positionPoint.Y - 100);
+
+                infoBox.Uid = attraction.Titel.Replace(' ', '_') + "InfoBox";
+                infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
+
+                int index = 0;
+                if (!ContainsUIElement(infoBox, _pushPinsInfosMapLayer.Children, out index))
+                {
+                    _pushPinsInfosMapLayer.AddChild(infoBox, GetLocationByEvent(positionPoint));
+                }
+                else
+                {
+                    _pushPinsInfosMapLayer.Children.RemoveAt(index);
+                }
+
+            }
+        }
+
+        private bool ContainsUIElement(UIElement element, UIElementCollection collection)
+        {
+            bool found = false;
+
+            for (int counter = 0; counter < collection.Count; counter++)
+            {
+                if (collection[counter].Uid.Equals(element.Uid))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+
+        private bool ContainsUIElement(UIElement element, UIElementCollection collection, out int index)
+        {
+            bool found = false;
+            index = -1;
+
+            for (int counter = 0; counter < collection.Count; counter++)
+            {
+                if (collection[counter].Uid.Equals(element.Uid))
+                {
+                    found = true;
+                    index = counter;
+                    break;
+                }
+            }
+            return found;
+        }
+        
+        #endregion
 
         private void AddTouchAndMouseEventsForDebbugConsole()
         {
@@ -156,6 +237,7 @@ namespace SurfaceApplication1
             // during an animation from one location to another.
             ShowEvent("ViewChangeOnFrame", location, 0x1869f);
         }
+
         void MapWithEvents_TargetViewChanged(object sender, MapEventArgs e)
         {
             var location = new Location();
@@ -229,6 +311,13 @@ namespace SurfaceApplication1
         {
             //Get the mouse click coordinates
             Point mousePosition = e.GetPosition(this);
+            //Convert the mouse coordinates to a locatoin on the map
+            Location location = Map.ViewportPointToLocation(mousePosition);
+            return location;
+        }
+
+        private Location GetLocationByEvent(Point mousePosition)
+        {
             //Convert the mouse coordinates to a locatoin on the map
             Location location = Map.ViewportPointToLocation(mousePosition);
             return location;
