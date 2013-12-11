@@ -13,14 +13,9 @@
     </s:SurfaceWindow.Background>
     <Grid>
         <Canvas
-            x:Name="cnv_Draw"
-            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Background="Transparent" />
-        <Canvas
-            x:Name="cnv_Interact"
+            x:Name="wrapper"
             TouchDown="tagDown" TouchMove="tagMove" TouchUp="tagGone"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Background="Transparent"
             IsManipulationEnabled="True" />
     </Grid>
 </s:SurfaceWindow>
