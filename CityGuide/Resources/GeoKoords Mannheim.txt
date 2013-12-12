@@ -1,0 +1,19 @@
+Wasserturm 			49.484076,8.475525
+Fernsehturm 		49.486991,8.491993
+Tech Museum 		49.476465,8.496863
+Planetarium 		49.477330,8.492872
+Carl-Benz Stadion 	49.479456,8.502636
+Star				49.486585,8.465822
+Vapiano				49.485106,8.475653
+Burger King			49.485037,8.473592
+Starbucks			49.484034,8.473700
+Mannheimer Schloss	49.483582,8.462260
+Rheinterassen		49.479254,8.461713
+Hauptbahnhof		49.479886,8.469992
+Eisstadion Mannheim	49.485462,8.457977
+Alter Meﬂplatz		49.496267,8.472735
+Natzional Theather	49.488370,8.477753
+SAP Arena			49.464134,8.517818
+Galeria Kaufhof		49.487844,8.466678
+Cineplex			49.483477,8.471519
+Subway				49.486639,8.465338

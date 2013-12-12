@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Maps.MapControl.WPF">
+      <HintPath>Resources\BingMaps\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,7 +59,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TagCircle.cs" />
+    <Compile Include="Data\Attraction.cs" />
+    <Compile Include="Data\Categorie.cs" />
+    <Compile Include="Data\Event.cs" />
+    <Compile Include="Data\EventAttraction.cs" />
+    <Compile Include="Data\EventTransport.cs" />
+    <Compile Include="Data\Filter.cs" />
+    <Compile Include="Data\InitMockData.cs" />
+    <Compile Include="Data\TimeTable.cs" />
+    <Compile Include="Extensions\LocationExtensions.cs" />
+    <Compile Include="Data\TagCircle.cs" />
     <Page Include="SurfaceWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
