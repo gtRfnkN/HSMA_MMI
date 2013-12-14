@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\Attraction.cs" />
     <Compile Include="Data\Categorie.cs" />
+    <Compile Include="Data\CoolDownTimer.cs" />
     <Compile Include="Data\Event.cs" />
     <Compile Include="Data\EventAttraction.cs" />
     <Compile Include="Data\EventTransport.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="Extensions\LocationExtensions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
     <Compile Include="ViewElements\TagCircle.cs" />
+    <Compile Include="ViewElements\TimeTableEvent.xaml.cs">
+      <DependentUpon>TimeTableEvent.xaml</DependentUpon>
+    </Compile>
     <Page Include="CityGuide.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,6 +86,10 @@
       <DependentUpon>CityGuide.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewElements\TimeTableEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -109,13 +117,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\EventRezise.png" />
+    <Resource Include="Resources\GeoKoords Mannheim.txt" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CityGuide.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

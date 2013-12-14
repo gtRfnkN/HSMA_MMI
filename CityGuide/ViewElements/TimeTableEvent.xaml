@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="CityGuide.ViewElements.TimeTableEvent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="73" d:DesignWidth="307">
+    <UserControl.Foreground>
+        <ImageBrush />
+    </UserControl.Foreground>
+    <Grid Height="69" Width="302">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="63*" />
+            <RowDefinition Height="35*" />
+        </Grid.RowDefinitions>
+       <Label Content="Label" HorizontalAlignment="Stretch" Name="AttrationNameLabel" VerticalAlignment="Stretch" Width="299" FontStretch="Normal" />
+        <Button Content="Lock" Height="23" HorizontalAlignment="Left" Margin="251,5,0,0" Name="LockButton" VerticalAlignment="Top" Width="39" />
+        <Canvas Height="24" HorizontalAlignment="Stretch" Name="ResizeCanvas" VerticalAlignment="Top" Grid.Row="1">
+            <Canvas.Background>
+                <ImageBrush ImageSource="/CityGuide;component/Resources/EventRezise.png" Stretch="Fill" TileMode="FlipXY" Viewport="0,0,21.3306662044397,11.9984997399973" ViewportUnits="Absolute" />
+            </Canvas.Background>
+        </Canvas>
+    </Grid>
+</UserControl>

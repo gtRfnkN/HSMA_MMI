@@ -15,8 +15,9 @@ namespace CityGuide.ViewElements
         #region Fields
         public Filter Filter { get; set; }
         public long TagID{ get; set; }
+        public bool IsDrawn { get; private set; }
         // canvas of the application to draw non-interactive elements
-        public Canvas DrawCanvas{ get; set; }
+        public Canvas DrawCanvas { get; set; }
 
         // canvas to draw interactive elements + interactions
         public Canvas InteractCanvas{ get; set; }
@@ -43,6 +44,7 @@ namespace CityGuide.ViewElements
         #region constructors
         public TagCircle(Filter filter)
         {
+            this.IsDrawn = false;
             this.Filter = filter;
             // Create an ellipse
             _circle = new Ellipse
@@ -137,6 +139,7 @@ namespace CityGuide.ViewElements
                 DrawCanvas.Children.Add(_drawContainer);
                 InteractCanvas.Children.Add(_interactContainer);
                 _firstDraw = false;
+                this.IsDrawn = true;
             }
             else
             {
@@ -148,12 +151,14 @@ namespace CityGuide.ViewElements
         {
             DrawCanvas.Children.Remove(_drawContainer);
             InteractCanvas.Children.Remove(_interactContainer);
+            this.IsDrawn = false;
         }
 
         public void Redraw()
         {
             DrawCanvas.Children.Remove(_drawContainer);
             DrawCanvas.Children.Add(_drawContainer);
+            this.IsDrawn = true;
         }
 
         // update the position and rotation

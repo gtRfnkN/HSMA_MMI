@@ -9,7 +9,7 @@
     x:Name="surfaceApplicationWrapper"
     >
     <s:SurfaceWindow.Background>
-        <ImageBrush Stretch="UniformToFill" TileMode="None" ImageSource="/CityGuide;component/Resources/map.png">
+        <ImageBrush Stretch="UniformToFill" TileMode="None">
 
         </ImageBrush>
     </s:SurfaceWindow.Background>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -160,7 +161,7 @@ namespace CityGuide
         {
             var location = new Location();
             // Updates the count of single mouse clicks.
-            ShowEvent("MapWithEvents_MouseLeftButtonUp", location.GetLocationByEvent(e, Map ,this), 0x1869f);
+            ShowEvent("MapWithEvents_MouseLeftButtonUp", location.GetLocationByEvent(e, Map, this), 0x1869f);
         }
 
         private void MapWithEvents_MouseWheel(object sender, MouseEventArgs e)
@@ -182,6 +183,7 @@ namespace CityGuide
             var location = new Location();
             // Updates the count of mouse double clicks.
             ShowEvent("MapWithEvents_MouseDoubleClick", location.GetLocationByEvent(e, Map, this), 0x1869f);
+            e.Handled = true;
         }
 
         private void MapWithEvents_ViewChangeEnd(object sender, MapEventArgs e)
@@ -354,6 +356,16 @@ namespace CityGuide
                 filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(e, Map, this);
                 // remove from scene
                 filterCircle.Clear();
+
+                var coolDownTimer = new CoolDownTimer(0, 0, 10);
+                coolDownTimer.OnTimerFinished += delegate
+                {
+                    if (!filterCircle.IsDrawn)
+                    {
+                        filterCircle.Filter.Radius = 200;
+                    }
+                };
+                coolDownTimer.PlayPause();
 
                 return true;
             }
