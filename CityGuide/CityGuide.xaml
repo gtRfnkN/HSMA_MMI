@@ -8,11 +8,6 @@
     Title="SurfaceApplication1"
     x:Name="surfaceApplicationWrapper"
     >
-    <s:SurfaceWindow.Background>
-        <ImageBrush Stretch="UniformToFill" TileMode="None">
-
-        </ImageBrush>
-    </s:SurfaceWindow.Background>
     <Grid>
         <m:Map
            x:Name="Map"  Mode="AerialWithLabels"
