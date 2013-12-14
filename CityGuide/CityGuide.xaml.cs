@@ -1,33 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Surface;
-using Microsoft.Surface.Presentation;
+using CityGuide.Data;
+using CityGuide.ViewElements;
+using CityGuide.Extensions;
+using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
-using Microsoft.Maps.MapControl.WPF;
-using SurfaceApplication1.Data;
 
-namespace SurfaceApplication1
+namespace CityGuide
 {
     /// <summary>
-    /// Interaction logic for SurfaceWindow1.xaml
+    /// Interaction logic for CityGuideWindow.xaml
     /// </summary>
-    public partial class SurfaceWindow1 : SurfaceWindow
+    public partial class CityGuideWindow : SurfaceWindow
     {
-        private List<TagCircle> filterCircles;
-        private Dictionary<long, Color> filterColors;
-
+        private Dictionary<long, TagCircle> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins" };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos" };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
@@ -35,19 +26,11 @@ namespace SurfaceApplication1
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public SurfaceWindow1()
+        public CityGuideWindow()
         {
             try
             {
                 InitializeComponent();
-                filterCircles = new List<TagCircle>();
-
-                filterColors = new Dictionary<long, Color>();
-                filterColors.Add(0x00, Color.FromArgb(90, 16, 143, 151));
-                filterColors.Add(0x01, Color.FromArgb(90, 255, 139, 107));
-                filterColors.Add(0x02, Color.FromArgb(90, 255, 227, 159));
-                filterColors.Add(0x03, Color.FromArgb(90, 22, 134, 109));
-                filterColors.Add(0x64, Color.FromArgb(90, 16, 54, 54));
 
                 Map.Children.Add(this._pushPinsMapLayer);
                 Map.Children.Add(this._pushPinsInfosMapLayer);
@@ -71,7 +54,8 @@ namespace SurfaceApplication1
         private void AddPushPins()
         {
             var mockData = new InitMockData();
-            mockData.Init();
+            mockData.Init(cnv_Draw, cnv_Interact);
+            _filterCircles = mockData.TagViewItems;
 
             foreach (var attraction in mockData.Attractions)
             {
@@ -110,50 +94,21 @@ namespace SurfaceApplication1
                 infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
 
                 int index = 0;
-                if (!ContainsUIElement(infoBox, _pushPinsInfosMapLayer.Children, out index))
+                if (_pushPinsInfosMapLayer.Children != null)
                 {
-                    _pushPinsInfosMapLayer.AddChild(infoBox, GetLocationByEvent(positionPoint));
-                }
-                else
-                {
-                    _pushPinsInfosMapLayer.Children.RemoveAt(index);
-                }
 
-            }
-        }
-
-        private bool ContainsUIElement(UIElement element, UIElementCollection collection)
-        {
-            bool found = false;
-
-            for (int counter = 0; counter < collection.Count; counter++)
-            {
-                if (collection[counter].Uid.Equals(element.Uid))
-                {
-                    found = true;
-                    break;
+                    if (!_pushPinsInfosMapLayer.Children.Contains(infoBox, out index))
+                    {
+                        var location = new Location();
+                        _pushPinsInfosMapLayer.AddChild(infoBox, location.GetLocationByEvent(positionPoint, Map));
+                    }
+                    else
+                    {
+                        _pushPinsInfosMapLayer.Children.RemoveAt(index);
+                    }
                 }
             }
-            return found;
         }
-
-        private bool ContainsUIElement(UIElement element, UIElementCollection collection, out int index)
-        {
-            bool found = false;
-            index = -1;
-
-            for (int counter = 0; counter < collection.Count; counter++)
-            {
-                if (collection[counter].Uid.Equals(element.Uid))
-                {
-                    found = true;
-                    index = counter;
-                    break;
-                }
-            }
-            return found;
-        }
-
         #endregion
 
         private void AddTouchAndMouseEventsForDebbugConsole()
@@ -196,54 +151,54 @@ namespace SurfaceApplication1
         #region Mouse and Touch Event Debug Console Methods
         // A collection of key/value pairs containing the event name 
         // and the text block to display the event to.
-        readonly Dictionary<string, TextBlock> _eventBlocks = new Dictionary<string, TextBlock>();
+        private readonly Dictionary<string, TextBlock> _eventBlocks = new Dictionary<string, TextBlock>();
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
-        readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
 
-        void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
+        private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
             // Updates the count of single mouse clicks.
-            ShowEvent("MapWithEvents_MouseLeftButtonUp", location, 0x1869f);
+            ShowEvent("MapWithEvents_MouseLeftButtonUp", location.GetLocationByEvent(e, Map ,this), 0x1869f);
         }
 
-        void MapWithEvents_MouseWheel(object sender, MouseEventArgs e)
+        private void MapWithEvents_MouseWheel(object sender, MouseEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
             // Updates the count of mouse drag boxes created.
-            ShowEvent("MapWithEvents_MouseWheel", location, 0x1869f);
+            ShowEvent("MapWithEvents_MouseWheel", location.GetLocationByEvent(e, Map, this), 0x1869f);
         }
 
-        void MapWithEvents_MouseLeftButtonDown(object sender, MouseEventArgs e)
+        private void MapWithEvents_MouseLeftButtonDown(object sender, MouseEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
             // Updates the count of mouse pans.
-            ShowEvent("MapWithEvents_MouseLeftButtonDown", location, 0x1869f);
+            ShowEvent("MapWithEvents_MouseLeftButtonDown", location.GetLocationByEvent(e, Map, this), 0x1869f);
         }
 
-        void MapWithEvents_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void MapWithEvents_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
             // Updates the count of mouse double clicks.
-            ShowEvent("MapWithEvents_MouseDoubleClick", location, 0x1869f);
+            ShowEvent("MapWithEvents_MouseDoubleClick", location.GetLocationByEvent(e, Map, this), 0x1869f);
         }
 
-        void MapWithEvents_ViewChangeEnd(object sender, MapEventArgs e)
+        private void MapWithEvents_ViewChangeEnd(object sender, MapEventArgs e)
         {
             var location = new Location();
             //Updates the number of times the map view has changed.
             ShowEvent("ViewChangeEnd", location, 0x1869f);
         }
 
-        void MapWithEvents_ViewChangeStart(object sender, MapEventArgs e)
+        private void MapWithEvents_ViewChangeStart(object sender, MapEventArgs e)
         {
             var location = new Location();
             //Updates the number of times the map view started changing.
             ShowEvent("ViewChangeStart", location, 0x1869f);
         }
 
-        void MapWithEvents_ViewChangeOnFrame(object sender, MapEventArgs e)
+        private void MapWithEvents_ViewChangeOnFrame(object sender, MapEventArgs e)
         {
             var location = new Location();
             // Updates the number of times a map view has changed 
@@ -251,7 +206,7 @@ namespace SurfaceApplication1
             ShowEvent("ViewChangeOnFrame", location, 0x1869f);
         }
 
-        void MapWithEvents_TargetViewChanged(object sender, MapEventArgs e)
+        private void MapWithEvents_TargetViewChanged(object sender, MapEventArgs e)
         {
             var location = new Location();
             // Updates the number of map view changes that occured during
@@ -259,7 +214,7 @@ namespace SurfaceApplication1
             ShowEvent("TargetViewChange", location, 0x1869f);
         }
 
-        void MapWithEvents_ModeChanged(object sender, MapEventArgs e)
+        private void MapWithEvents_ModeChanged(object sender, MapEventArgs e)
         {
             var location = new Location();
             // Updates the number of times the map mode changed.
@@ -268,12 +223,12 @@ namespace SurfaceApplication1
 
         private void MapTouchUpEvent(object sender, TouchEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
 
-            ShowEvent("TapGesture", location,
+            ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (tagGone(sender, e))
+            if (TagGone(sender, e))
             {
                 e.Handled = true;
             }
@@ -281,11 +236,11 @@ namespace SurfaceApplication1
 
         private void MapTouchMoveEvent(object sender, TouchEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
-            ShowEvent("HoldGesture", location,
+            var location = new Location();
+            ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (tagMove(sender, e))
+            if (TagMove(sender, e))
             {
                 e.Handled = true;
             }
@@ -293,19 +248,19 @@ namespace SurfaceApplication1
 
         private void MapTouchDownEvent(object sender, TouchEventArgs e)
         {
-            Location location = GetLocationByEvent(e);
+            var location = new Location();
 
-            ShowEvent("TapGesture", location,
+            ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (tagDown(sender, e))
+            if (TagDown(sender, e))
             {
                 e.Handled = true;
             }
         }
 
 
-        void ShowEvent(string eventName, Location location, long tagValue)
+        private void ShowEvent(string eventName, Location location, long tagValue)
         {
             // Updates the display box showing the number of times 
             // the wired events occured.
@@ -331,79 +286,80 @@ namespace SurfaceApplication1
 
         #endregion
 
-        #region Location Helper Methods
-        private Location GetLocationByEvent(MouseEventArgs e)
-        {
-            //Get the mouse click coordinates
-            Point mousePosition = e.GetPosition(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location location = Map.ViewportPointToLocation(mousePosition);
-            return location;
-        }
+        //#region Location Helper Methods
+        //private Location GetLocationByEvent(MouseEventArgs e)
+        //{
+        //    //Get the mouse click coordinates
+        //    Point mousePosition = e.GetPosition(this);
+        //    //Convert the mouse coordinates to a locatoin on the map
+        //    Location location = Map.ViewportPointToLocation(mousePosition);
+        //    return location;
+        //}
 
-        private Location GetLocationByEvent(Point mousePosition)
-        {
-            //Convert the mouse coordinates to a locatoin on the map
-            Location location = Map.ViewportPointToLocation(mousePosition);
-            return location;
-        }
+        //private Location GetLocationByEvent(Point mousePosition)
+        //{
+        //    //Convert the mouse coordinates to a locatoin on the map
+        //    Location location = Map.ViewportPointToLocation(mousePosition);
+        //    return location;
+        //}
 
-        private Location GetLocationByEvent(TouchEventArgs e)
-        {
-            //Get the mouse click coordinates
-            TouchPoint touchPosition = e.GetTouchPoint(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location location = Map.ViewportPointToLocation(touchPosition.Position);
-            return location;
-        }
-        #endregion
+        //private Location GetLocationByEvent(TouchEventArgs e)
+        //{
+        //    //Get the mouse click coordinates
+        //    TouchPoint touchPosition = e.GetTouchPoint(this);
+        //    //Convert the mouse coordinates to a locatoin on the map
+        //    Location location = Map.ViewportPointToLocation(touchPosition.Position);
+        //    return location;
+        //}
+        //#endregion
 
-        private bool tagDown(object sender, TouchEventArgs e)
+        #region Tag Related Metheods
+        private bool TagDown(object sender, TouchEventArgs e)
         {
-            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
+            if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 Point tp = e.GetTouchPoint(cnv_Interact).Position;
-                TagCircle circle = new TagCircle(tp.X, tp.Y, cnv_Draw, cnv_Interact, e.TouchDevice.Id, e.TouchDevice.GetOrientation(cnv_Draw), filterColors[e.TouchDevice.GetTagData().Value]);
-                filterCircles.Add(circle);
+                TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
+
+                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
+
+                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
+                filterCircle.UpdateSize();
+                filterCircle.Draw();
                 return true;
             }
             return false;
         }
 
-        private bool tagMove(object sender, TouchEventArgs e)
+        private bool TagMove(object sender, TouchEventArgs e)
         {
-            TagCircle filterCircle = getCircleByTag(e.TouchDevice.Id);
-            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
+            if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
+                TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
                 // update position
                 Point tp = e.GetTouchPoint(cnv_Draw).Position;
-                filterCircle.updateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
+                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
+                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
+                filterCircle.UpdateSize();
                 return true;
             }
             return false;
         }
 
-        private bool tagGone(object sender, TouchEventArgs e)
+        private bool TagGone(object sender, TouchEventArgs e)
         {
-            TagCircle filterCircle = getCircleByTag(e.TouchDevice.Id);
-            if (e.TouchDevice.GetIsTagRecognized() && filterColors.ContainsKey(e.TouchDevice.GetTagData().Value))
+            if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
+                TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
+                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(e, Map, this);
                 // remove from scene
-                filterCircle.clear();
+                filterCircle.Clear();
 
-                // remove from list
-                filterCircles.Remove(filterCircle);
                 return true;
             }
             return false;
         }
 
-        private TagCircle getCircleByTag(int tag)
-        {
-            foreach (TagCircle circle in filterCircles)
-                if (circle.getTag() == tag)
-                    return circle;
-            return null;
-        }
+        #endregion
     }
 }

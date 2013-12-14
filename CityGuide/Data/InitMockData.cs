@@ -1,31 +1,57 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Media;
+using CityGuide.ViewElements;
 using Microsoft.Maps.MapControl.WPF;
-using SurfaceApplication1.Extensions;
 
-namespace SurfaceApplication1.Data
+namespace CityGuide.Data
 {
     public class InitMockData
     {
         public List<Filter> Filters { get; set; }
         public List<Categorie> Categories { get; set; }
         public List<Attraction> Attractions { get; set; }
+        public Dictionary<long, TagCircle> TagViewItems { get; set; }
 
-        private readonly String[] _filterNames = { "Shoppen", "Restaurants", "Nightlife", "Sehenswürdigkeiten" };
-        private readonly Color[] _filterColors = { Colors.Yellow, Colors.Green, Colors.Blue, Colors.Red };
+        private readonly String[] _filterNames =
+        {
+            "Shoppen", 
+            "Restaurants",
+            "Nightlife", 
+            "Sehenswürdigkeiten"
+        };
+
+        private readonly Dictionary<long, Color> _filterColors = new Dictionary<long, Color>
+                {
+                    {0x00,  Color.FromArgb(90, 255, 227, 159)},
+                    {0x01, Color.FromArgb(90, 22, 134, 109)},
+                    {0x02,  Color.FromArgb(90, 16, 143, 151)},
+                    {0x03,Color.FromArgb(90, 255, 139, 107)}
+                };
 
         private readonly String[] _shoppingCategorieNames = { "Kleidung", "Schmuck", "Schuhe", "Soveniers" };
         private readonly String[] _restaurantCategorieNames = { "Italienisch", "Französisch", "Griechisch", "Asiatisch", "Bürgerlich" };
         private readonly String[] _nightlifeCategorieNames = { "Bars", "Clubs", "Diskos", "Andere" };
         private readonly String[] _sehenswuerdigkeitenCategorieNames = { "Musen", "Wahrzeichen", "Parks", "Andere" };
 
-        private void InitFilter()
+        private void InitFilter(Canvas drawCanvas, Canvas interactCanvas)
         {
-            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter] }).ToList();
+            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter], Radius = 200, TagID = _filterColors.Keys.ToArray()[counter]}).ToList();
+
+            this.TagViewItems = new Dictionary<long, TagCircle>();
+            foreach (var filter in Filters)
+            {
+                var tagViewItem = new TagCircle(filter)
+                {
+                    TagID = filter.TagID,
+                    DrawCanvas = drawCanvas,
+                    InteractCanvas = interactCanvas
+                };
+
+                this.TagViewItems.Add(filter.TagID, tagViewItem);
+            }
         }
 
         private void InitCategories(List<Filter> filters)
@@ -280,9 +306,9 @@ namespace SurfaceApplication1.Data
             //TODO: Init Mock data
         }
 
-        public void Init()
+        public void Init(Canvas drawCanvas, Canvas interactCanvas)
         {
-            InitFilter();
+            InitFilter( drawCanvas, interactCanvas);
             InitCategories(this.Filters);
             InitAttractions();
         }

@@ -14,3 +14,5 @@ C:\Users\gtRfnkN\Documents\Visual Studio 2010\Projects\SurfaceApplication1\Surfa
 C:\Users\gtRfnkN\Documents\Visual Studio 2010\Projects\SurfaceApplication1\SurfaceApplication1\obj\Debug\SurfaceApplication1.csproj.GenerateResource.Cache
 C:\Users\gtRfnkN\Documents\Visual Studio 2010\Projects\SurfaceApplication1\SurfaceApplication1\obj\Debug\SurfaceApplication1.exe
 C:\Users\gtRfnkN\Documents\Visual Studio 2010\Projects\SurfaceApplication1\SurfaceApplication1\obj\Debug\SurfaceApplication1.pdb
+C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.exe
+C:\Users\BT\Documents\GitHub\HSMA_MMI\SurfaceApplication1\obj\Debug\SurfaceApplication1.pdb

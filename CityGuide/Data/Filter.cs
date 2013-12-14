@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Media;
+using CityGuide.Extensions;
 using Microsoft.Maps.MapControl.WPF;
-using SurfaceApplication1.Extensions;
 
-
-namespace SurfaceApplication1.Data
+namespace CityGuide.Data
 {
     public class Filter
     {
         #region Fields
-        public String Name;
+        public String Name { get; set; }
+        public long TagID { get; set; }
         
         public Color Color { get; set; }
         public int Radius { get; set; }
@@ -63,12 +62,7 @@ namespace SurfaceApplication1.Data
         {
            
             Location diff = LocationCenter.Subtract(LocationHandel);
-
-            Location topLocation = LocationHandel;
-            Location bottomLocation = LocationCenter.Subtract(diff);
-            Location rightLocation = LocationCenter.Subtract(new Location{Longitude = LocationCenter.Longitude, Latitude = diff.Latitude});
-            Location leftLocation = LocationCenter.Subtract(new Location { Longitude = diff.Longitude, Latitude = LocationCenter.Latitude });
-
+            
             //TODO When Position Data are avalible, filter the attractions
             return attractions;
         }

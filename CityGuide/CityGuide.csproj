@@ -68,8 +68,9 @@
     <Compile Include="Data\InitMockData.cs" />
     <Compile Include="Data\TimeTable.cs" />
     <Compile Include="Extensions\LocationExtensions.cs" />
-    <Compile Include="Data\TagCircle.cs" />
-    <Page Include="SurfaceWindow1.xaml">
+    <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
+    <Compile Include="ViewElements\TagCircle.cs" />
+    <Page Include="CityGuide.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -77,8 +78,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SurfaceWindow1.xaml.cs">
-      <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
+    <Compile Include="CityGuide.xaml.cs">
+      <DependentUpon>CityGuide.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -100,6 +101,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="Extensions\UIElementExtentions.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
