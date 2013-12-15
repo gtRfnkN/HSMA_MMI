@@ -37,8 +37,12 @@
     <Reference Include="Microsoft.Maps.MapControl.WPF">
       <HintPath>Resources\BingMaps\Microsoft.Maps.MapControl.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Resources\JsonConverter\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BingMapRestHelper.cs" />
     <Compile Include="Data\Attraction.cs" />
     <Compile Include="Data\Categorie.cs" />
     <Compile Include="Data\CoolDownTimer.cs" />
@@ -67,6 +72,8 @@
     <Compile Include="Data\EventTransport.cs" />
     <Compile Include="Data\Filter.cs" />
     <Compile Include="Data\InitMockData.cs" />
+    <Compile Include="Data\Route\Route.cs" />
+    <Compile Include="Data\Route\RouteInstruction.cs" />
     <Compile Include="Data\TimeTable.cs" />
     <Compile Include="Extensions\LocationExtensions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
@@ -119,6 +126,11 @@
     <None Include="Resources\BingMaps\BingMapsWPFControlSDK.chw" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\JsonConverter\Driving.xml" />
+    <Resource Include="Resources\JsonConverter\JsonRestSample.txt" />
+    <Content Include="Resources\JsonConverter\Newtonsoft.Json.dll" />
+    <Resource Include="Resources\JsonConverter\Rest XML GeoCode.xml" />
+    <Resource Include="Resources\JsonConverter\XmlToJsonRestSample.txt" />
     <Resource Include="Resources\EventRezise.png" />
     <Resource Include="Resources\GeoKoords Mannheim.txt" />
     <Content Include="Resources\BingMaps\Microsoft.Maps.MapControl.WPF.dll" />
@@ -130,6 +142,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

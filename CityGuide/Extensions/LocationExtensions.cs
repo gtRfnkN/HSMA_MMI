@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Surface.Presentation.Controls;
@@ -70,6 +72,14 @@ namespace CityGuide.Extensions
             //Convert the mouse coordinates to a locatoin on the map
             Location location = map.ViewportPointToLocation(touchPosition.Position);
             return location;
+        }
+        #endregion
+
+        #region Location String Extentions
+
+        public static String GetLocationStringWithDotsAndCommaSeperated(this Location location)
+        {
+           return location.Latitude.ToString(CultureInfo.InvariantCulture).Replace(',', '.') + "," + location.Longitude.ToString(CultureInfo.InvariantCulture).Replace(',', '.');
         }
         #endregion
     }

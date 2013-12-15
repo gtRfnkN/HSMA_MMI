@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using CityGuide.Data;
+using CityGuide.Data.Route;
 using CityGuide.ViewElements;
 using CityGuide.Extensions;
 using Microsoft.Maps.MapControl.WPF;
@@ -18,7 +19,7 @@ namespace CityGuide
     public partial class CityGuideWindow
     {
         private Dictionary<long, TagCircle> _filterCircles;
-        private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache()};
+        private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
 
@@ -30,14 +31,20 @@ namespace CityGuide
             try
             {
                 InitializeComponent();
-                
+
+                Map.Children.Add(_routeMapLayer);
                 Map.Children.Add(_pushPinsMapLayer);
                 Map.Children.Add(_pushPinsInfosMapLayer);
-                Map.Children.Add(_routeMapLayer);
-                Map.CacheMode =  new BitmapCache();
+                Map.CacheMode = new BitmapCache();
                 AddTouchAndMouseEventsForDebbugConsole();
 
                 AddPushPins();
+
+                //Test Route
+                var skylinLoc = new Location(49.486991, 8.491993, 0.0);
+                var techMuseumLoc = new Location(49.476465, 8.496863, 0.0);
+                Route route = BingMapRestHelper.Route(skylinLoc, techMuseumLoc, false, RouteModes.Driving);
+                DrawRoute(route.CreateMapPolylines(Colors.DarkOrange));
 
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
@@ -49,18 +56,6 @@ namespace CityGuide
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-        }
-
-        private void CurrentLocationButtonMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Map.Center = new Location(49.479886, 8.469992, 0.0);
-            Map.ZoomLevel = 15.00;
-        }
-
-        private void CurrentLocationButtonTouchDown(object sender, TouchEventArgs e)
-        {
-            Map.Center = new Location(49.479886, 8.469992, 0.0);
-            Map.ZoomLevel = 15.00;
         }
 
         #region Init Methods
@@ -300,7 +295,7 @@ namespace CityGuide
         }
         #endregion
 
-       #region Tag Related Metheods
+        #region Tag Related Metheods
         private bool TagDown(TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
@@ -356,19 +351,28 @@ namespace CityGuide
             }
             return false;
         }
-
         #endregion
 
-        private void DrawLine(Location start, Location finish)
+        #region Map Related Mathods
+        private void CurrentLocationButtonMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var coll = new LocationCollection {start, finish};
-            var line = new MapPolyline
-            {
-                Stroke = new SolidColorBrush(Colors.Orange),
-                StrokeThickness = 3.0,
-                Locations = coll
-            };
-            _routeMapLayer.Children.Add(line);
+            Map.Center = new Location(49.479886, 8.469992, 0.0);
+            Map.ZoomLevel = 15.00;
         }
+
+        private void CurrentLocationButtonTouchDown(object sender, TouchEventArgs e)
+        {
+            Map.Center = new Location(49.479886, 8.469992, 0.0);
+            Map.ZoomLevel = 15.00;
+        }
+
+        private void DrawRoute(IEnumerable<MapPolyline> routePolylines)
+        {
+            foreach (var routePolyline in routePolylines)
+            {
+                _routeMapLayer.Children.Add(routePolyline);
+            }
+        }
+        #endregion
     }
 }

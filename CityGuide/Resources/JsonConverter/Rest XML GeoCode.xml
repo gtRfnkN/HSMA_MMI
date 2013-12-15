@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?><Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/search/local/ws/rest/v1"><Copyright>Copyright © 2013 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.</Copyright>
+<BrandLogoUri>http://dev.virtualearth.net/Branding/logo_powered_by.png</BrandLogoUri>
+<StatusCode>200</StatusCode>
+<StatusDescription>OK</StatusDescription>
+<AuthenticationResultCode>ValidCredentials</AuthenticationResultCode>
+<TraceId>a1cc2c1f5fd3413caf5dd96476c8dd48|AMSM000040|02.00.183.2300|AMSMSNVM002404, AMSIPEVM000062, AMSIPEVM000059, AMSMSNVM001323, AMSMSNVM002155, AMSMSNVM002421, AMSMSNVM001853</TraceId>
+<ResourceSets>
+	<ResourceSet>
+		<EstimatedTotal>4</EstimatedTotal>
+		<Resources>
+			<Location>
+				<Name>Willy-Brandt-Platz, 68161 Mannheim</Name>
+				<Point>
+					<Latitude>49.480752</Latitude>
+					<Longitude>8.47083</Longitude>
+				</Point>
+				<BoundingBox>
+					<SouthLatitude>49.476889282429326</SouthLatitude>
+					<WestLongitude>8.4629034855533156</WestLongitude>
+					<NorthLatitude>49.484614717570679</NorthLatitude>
+					<EastLongitude>8.4787565144466832</EastLongitude>
+				</BoundingBox>
+				<EntityType>RoadBlock</EntityType>
+				<Address>
+					<AddressLine>Willy-Brandt-Platz</AddressLine>
+					<AdminDistrict>BW</AdminDistrict>
+					<AdminDistrict2>Mannheim</AdminDistrict2>
+					<CountryRegion>Germany</CountryRegion>
+					<FormattedAddress>Willy-Brandt-Platz, 68161 Mannheim</FormattedAddress>
+					<Locality>Mannheim</Locality>
+					<PostalCode>68161</PostalCode>
+				</Address>
+				<Confidence>Medium</Confidence>
+				<MatchCode>Ambiguous</MatchCode>
+				<MatchCode>Good</MatchCode>
+				<GeocodePoint>
+					<Latitude>49.480752</Latitude>
+					<Longitude>8.47083</Longitude>
+					<CalculationMethod>Interpolation</CalculationMethod>
+					<UsageType>Display</UsageType>
+					<UsageType>Route</UsageType>
+				</GeocodePoint>
+			</Location>
+			<Location>
+			<Name>Bahnhofsplatz, 68161 Mannheim</Name>
+			<Point>
+				<Latitude>49.479661</Latitude>
+				<Longitude>8.470902</Longitude>
+			</Point>
+			<BoundingBox>
+				<SouthLatitude>49.475798282429324</SouthLatitude>
+				<WestLongitude>8.4629756621235828</WestLongitude>
+				<NorthLatitude>49.483523717570677</NorthLatitude>
+				<EastLongitude>8.4788283378764184</EastLongitude>
+			</BoundingBox>
+			<EntityType>RoadBlock</EntityType>
+			<Address>
+				<AddressLine>Bahnhofsplatz</AddressLine>
+				<AdminDistrict>BW</AdminDistrict>
+				<AdminDistrict2>Mannheim</AdminDistrict2>
+				<CountryRegion>Germany</CountryRegion>
+				<FormattedAddress>Bahnhofsplatz, 68161 Mannheim</FormattedAddress>
+				<Locality>Mannheim</Locality>
+				<PostalCode>68161</PostalCode>
+			</Address>
+			<Confidence>Medium</Confidence>
+			<MatchCode>Ambiguous</MatchCode>
+			<MatchCode>Good</MatchCode>
+			<GeocodePoint>
+				<Latitude>49.479661</Latitude>
+				<Longitude>8.470902</Longitude>
+				<CalculationMethod>Interpolation</CalculationMethod>
+				<UsageType>Display</UsageType>
+				<UsageType>Route</UsageType>
+				</GeocodePoint>
+			</Location>
+			<Location>
+				<Name>L15, 68161 Mannheim</Name>
+				<Point>
+					<Latitude>49.480273</Latitude>
+					<Longitude>8.470196</Longitude>
+				</Point>
+				<BoundingBox>
+					<SouthLatitude>49.47641028242932</SouthLatitude>
+					<WestLongitude>8.4622695630772391</WestLongitude>
+					<NorthLatitude>49.484135717570673</NorthLatitude>
+					<EastLongitude>8.47812243692276</EastLongitude>
+				</BoundingBox>
+				<EntityType>RoadBlock</EntityType>
+				<Address>
+					<AddressLine>L15</AddressLine>
+					<AdminDistrict>BW</AdminDistrict>
+					<AdminDistrict2>Mannheim</AdminDistrict2>
+					<CountryRegion>Germany</CountryRegion>
+					<FormattedAddress>L15, 68161 Mannheim</FormattedAddress>
+					<Locality>Mannheim</Locality>
+					<PostalCode>68161</PostalCode>
+				</Address>
+				<Confidence>Medium</Confidence>
+				<MatchCode>Ambiguous</MatchCode>
+				<MatchCode>Good</MatchCode>
+				<GeocodePoint>
+					<Latitude>49.480273</Latitude>
+					<Longitude>8.470196</Longitude>
+					<CalculationMethod>Interpolation</CalculationMethod>
+					<UsageType>Display</UsageType>
+					<UsageType>Route</UsageType>
+				</GeocodePoint>
+			</Location>
+			<Location>
+				<Name>Kaiserring, 68161 Mannheim</Name>
+				<Point>
+					<Latitude>49.480909</Latitude>
+					<Longitude>8.471124</Longitude>
+				</Point>
+				<BoundingBox>
+					<SouthLatitude>49.47704628242932</SouthLatitude>
+					<WestLongitude>8.4631974601431459</WestLongitude>
+					<NorthLatitude>49.484771717570673</NorthLatitude>
+					<EastLongitude>8.4790505398568534</EastLongitude>
+				</BoundingBox>
+				<EntityType>RoadBlock</EntityType>
+				<Address>
+					<AddressLine>Kaiserring</AddressLine>
+					<AdminDistrict>BW</AdminDistrict>
+					<AdminDistrict2>Mannheim</AdminDistrict2>
+					<CountryRegion>Germany</CountryRegion>
+					<FormattedAddress>Kaiserring, 68161 Mannheim</FormattedAddress>
+					<Locality>Mannheim</Locality>
+					<PostalCode>68161</PostalCode>
+				</Address>
+				<Confidence>Medium</Confidence>
+				<MatchCode>Ambiguous</MatchCode>
+				<MatchCode>Good</MatchCode>
+				<GeocodePoint>
+					<Latitude>49.480909</Latitude>
+					<Longitude>8.471124</Longitude>
+					<CalculationMethod>Interpolation</CalculationMethod>
+					<UsageType>Display</UsageType>
+					<UsageType>Route</UsageType>
+				</GeocodePoint>
+			</Location>
+		</Resources>
+	</ResourceSet>
+</ResourceSets>
+</Response>
