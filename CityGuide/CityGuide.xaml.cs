@@ -20,9 +20,9 @@ namespace CityGuide
     public partial class CityGuideWindow : SurfaceWindow
     {
         private Dictionary<long, TagCircle> _filterCircles;
-        private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins" };
-        private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos" };
-        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
+        private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache()};
+        private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
+        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
 
         /// <summary>
         /// Default constructor.
@@ -32,14 +32,17 @@ namespace CityGuide
             try
             {
                 InitializeComponent();
-
+                
                 Map.Children.Add(this._pushPinsMapLayer);
                 Map.Children.Add(this._pushPinsInfosMapLayer);
                 Map.Children.Add(this._routeMapLayer);
-
+                Map.CacheMode =  new BitmapCache();
                 AddTouchAndMouseEventsForDebbugConsole();
 
                 AddPushPins();
+
+                CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
+                CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
             }
             catch (Exception e)
             {
@@ -49,13 +52,26 @@ namespace CityGuide
                     MessageBoxImage.Error);
             }
         }
+
+        private void CurrentLocationButtonMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Map.Center = new Location(49.479886, 8.469992, 0.0);
+            Map.ZoomLevel = 15.00;
+        }
+
+        private void CurrentLocationButtonTouchDown(object sender, TouchEventArgs e)
+        {
+            Map.Center = new Location(49.479886, 8.469992, 0.0);
+            Map.ZoomLevel = 15.00;
+        }
+
         #region Init Methods
 
         #region PushPin
         private void AddPushPins()
         {
             var mockData = new InitMockData();
-            mockData.Init(cnv_Draw, cnv_Interact);
+            mockData.Init(CnvDraw, CnvInteract);
             _filterCircles = mockData.TagViewItems;
 
             foreach (var attraction in mockData.Attractions)
@@ -320,12 +336,12 @@ namespace CityGuide
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
-                Point tp = e.GetTouchPoint(cnv_Interact).Position;
+                Point tp = e.GetTouchPoint(CnvInteract).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
 
                 filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
 
-                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
+                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
                 filterCircle.UpdateSize();
                 filterCircle.Draw();
                 return true;
@@ -339,9 +355,9 @@ namespace CityGuide
             {
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
                 // update position
-                Point tp = e.GetTouchPoint(cnv_Draw).Position;
+                Point tp = e.GetTouchPoint(CnvDraw).Position;
                 filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
-                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(cnv_Draw));
+                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
                 filterCircle.UpdateSize();
                 return true;
             }
@@ -373,5 +389,17 @@ namespace CityGuide
         }
 
         #endregion
+
+        private void DrawLine(Location start, Location finish)
+        {
+            var coll = new LocationCollection {start, finish};
+            var line = new MapPolyline
+            {
+                Stroke = new SolidColorBrush(Colors.Orange),
+                StrokeThickness = 3.0,
+                Locations = coll
+            };
+            _routeMapLayer.Children.Add(line);
+        }
     }
 }

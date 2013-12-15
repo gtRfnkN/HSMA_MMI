@@ -115,10 +115,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\BingMaps\BingMapsWPFControlSDK.chm" />
+    <None Include="Resources\BingMaps\BingMapsWPFControlSDK.chw" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\EventRezise.png" />
     <Resource Include="Resources\GeoKoords Mannheim.txt" />
+    <Content Include="Resources\BingMaps\Microsoft.Maps.MapControl.WPF.dll" />
+    <Resource Include="Resources\BingMaps\Microsoft.Maps.MapControl.WPF.xml" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
