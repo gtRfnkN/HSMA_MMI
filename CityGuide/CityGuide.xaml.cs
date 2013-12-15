@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,7 +8,6 @@ using CityGuide.Data;
 using CityGuide.ViewElements;
 using CityGuide.Extensions;
 using Microsoft.Maps.MapControl.WPF;
-using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 
 namespace CityGuide
@@ -17,7 +15,7 @@ namespace CityGuide
     /// <summary>
     /// Interaction logic for CityGuideWindow.xaml
     /// </summary>
-    public partial class CityGuideWindow : SurfaceWindow
+    public partial class CityGuideWindow
     {
         private Dictionary<long, TagCircle> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache()};
@@ -33,9 +31,9 @@ namespace CityGuide
             {
                 InitializeComponent();
                 
-                Map.Children.Add(this._pushPinsMapLayer);
-                Map.Children.Add(this._pushPinsInfosMapLayer);
-                Map.Children.Add(this._routeMapLayer);
+                Map.Children.Add(_pushPinsMapLayer);
+                Map.Children.Add(_pushPinsInfosMapLayer);
+                Map.Children.Add(_routeMapLayer);
                 Map.CacheMode =  new BitmapCache();
                 AddTouchAndMouseEventsForDebbugConsole();
 
@@ -79,7 +77,7 @@ namespace CityGuide
                 attraction.TouchDown += TouchDownEventAttraction;
                 attraction.MouseDown += MouseDownEventAttraction;
                 attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
-                this._pushPinsMapLayer.AddChild(attraction, attraction.Location);
+                _pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
         }
 
@@ -110,7 +108,7 @@ namespace CityGuide
                 infoBox.Uid = attraction.Titel.Replace(' ', '_') + "InfoBox";
                 infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
 
-                int index = 0;
+                int index;
                 if (_pushPinsInfosMapLayer.Children != null)
                 {
 
@@ -246,7 +244,7 @@ namespace CityGuide
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (TagGone(sender, e))
+            if (TagGone(e))
             {
                 e.Handled = true;
             }
@@ -258,7 +256,7 @@ namespace CityGuide
             ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (TagMove(sender, e))
+            if (TagMove(e))
             {
                 e.Handled = true;
             }
@@ -271,7 +269,7 @@ namespace CityGuide
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
-            if (TagDown(sender, e))
+            if (TagDown(e))
             {
                 e.Handled = true;
             }
@@ -300,39 +298,10 @@ namespace CityGuide
                 "{0}: [{1} times] {2} (HH:mm:ss:ffff) {3}, Tag Value: {4}",
                 eventName, _eventCount[eventName], DateTime.Now, location.Latitude + "," + location.Longitude, tagValue);
         }
-
-
         #endregion
 
-        //#region Location Helper Methods
-        //private Location GetLocationByEvent(MouseEventArgs e)
-        //{
-        //    //Get the mouse click coordinates
-        //    Point mousePosition = e.GetPosition(this);
-        //    //Convert the mouse coordinates to a locatoin on the map
-        //    Location location = Map.ViewportPointToLocation(mousePosition);
-        //    return location;
-        //}
-
-        //private Location GetLocationByEvent(Point mousePosition)
-        //{
-        //    //Convert the mouse coordinates to a locatoin on the map
-        //    Location location = Map.ViewportPointToLocation(mousePosition);
-        //    return location;
-        //}
-
-        //private Location GetLocationByEvent(TouchEventArgs e)
-        //{
-        //    //Get the mouse click coordinates
-        //    TouchPoint touchPosition = e.GetTouchPoint(this);
-        //    //Convert the mouse coordinates to a locatoin on the map
-        //    Location location = Map.ViewportPointToLocation(touchPosition.Position);
-        //    return location;
-        //}
-        //#endregion
-
-        #region Tag Related Metheods
-        private bool TagDown(object sender, TouchEventArgs e)
+       #region Tag Related Metheods
+        private bool TagDown(TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
@@ -349,7 +318,7 @@ namespace CityGuide
             return false;
         }
 
-        private bool TagMove(object sender, TouchEventArgs e)
+        private bool TagMove(TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
@@ -364,7 +333,7 @@ namespace CityGuide
             return false;
         }
 
-        private bool TagGone(object sender, TouchEventArgs e)
+        private bool TagGone(TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
