@@ -177,6 +177,7 @@ namespace CityGuide.ViewElements
             if (!e.TouchDevice.GetIsTagRecognized())
             {
                 Redraw();
+                e.Handled = true;
             }
             else
             {
@@ -194,6 +195,7 @@ namespace CityGuide.ViewElements
 
                 // update the element size
                 UpdateSize();
+                e.Handled = true;
             }
             else
             {
