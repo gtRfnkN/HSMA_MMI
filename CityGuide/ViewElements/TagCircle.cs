@@ -14,13 +14,16 @@ namespace CityGuide.ViewElements
     {
         #region Fields
         public Filter Filter { get; set; }
-        public long TagID{ get; set; }
+
+        public long TagID { get; set; }
         public bool IsDrawn { get; private set; }
         // canvas of the application to draw non-interactive elements
         public Canvas DrawCanvas { get; set; }
 
         // canvas to draw interactive elements + interactions
-        public Canvas InteractCanvas{ get; set; }
+        public Canvas InteractCanvas { get; set; }
+
+        private CoolDownTimer _coolDownTimer;
 
         private readonly Ellipse _circle; // circle
         private readonly Rectangle _rect; // TextBlock wrapper
@@ -28,7 +31,7 @@ namespace CityGuide.ViewElements
         private readonly Rectangle _dragger;
 
         private bool _firstDraw = true;
-        
+
         // canvas to group non-interactive elements
         private readonly Canvas _drawContainer = new Canvas();
 
@@ -40,12 +43,12 @@ namespace CityGuide.ViewElements
         private const int TEXTBOX_HEIGHT = 24;
         private const int TEXTBLOCK_HEIGHT = 20;
         #endregion
-        
+
         #region constructors
         public TagCircle(Filter filter)
         {
-            this.IsDrawn = false;
-            this.Filter = filter;
+            IsDrawn = false;
+            Filter = filter;
             // Create an ellipse
             _circle = new Ellipse
             {
@@ -104,6 +107,15 @@ namespace CityGuide.ViewElements
             _dragger.TouchMove += RectMove;
             _dragger.TouchDown += RectClicked;
             _dragger.IsManipulationEnabled = true;
+
+            _coolDownTimer = new CoolDownTimer(0, 0, 10) { Name = "CoolDownTimer " + TagID };
+            _coolDownTimer.OnTimerFinished += delegate
+            {
+                if (!IsDrawn)
+                {
+                    Filter.Radius = 200;
+                }
+            };
         }
 
 
@@ -112,7 +124,7 @@ namespace CityGuide.ViewElements
             : this(filter)
         {
             // SAVE THE CANVAS AND THE TAG
-            this.TagID = newTag;
+            TagID = newTag;
 
             UpdateSize();
             Draw();
@@ -139,7 +151,7 @@ namespace CityGuide.ViewElements
                 DrawCanvas.Children.Add(_drawContainer);
                 InteractCanvas.Children.Add(_interactContainer);
                 _firstDraw = false;
-                this.IsDrawn = true;
+                IsDrawn = true;
             }
             else
             {
@@ -151,14 +163,19 @@ namespace CityGuide.ViewElements
         {
             DrawCanvas.Children.Remove(_drawContainer);
             InteractCanvas.Children.Remove(_interactContainer);
-            this.IsDrawn = false;
+            IsDrawn = false;
+
+            _coolDownTimer.StartWithReset();
         }
 
         public void Redraw()
         {
             DrawCanvas.Children.Remove(_drawContainer);
             DrawCanvas.Children.Add(_drawContainer);
-            this.IsDrawn = true;
+            IsDrawn = true;
+
+            _coolDownTimer.Stop();
+
         }
 
         // update the position and rotation

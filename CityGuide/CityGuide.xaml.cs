@@ -337,16 +337,6 @@ namespace CityGuide
                 // remove from scene
                 filterCircle.Clear();
 
-                var coolDownTimer = new CoolDownTimer(0, 0, 10);
-                coolDownTimer.OnTimerFinished += delegate
-                {
-                    if (!filterCircle.IsDrawn)
-                    {
-                        filterCircle.Filter.Radius = 200;
-                    }
-                };
-                coolDownTimer.PlayPause();
-
                 return true;
             }
             return false;

@@ -5,6 +5,7 @@ namespace CityGuide.Data
 {
     public class CoolDownTimer
     {
+        public String Name { get; set; }
         private int _hoursInit;
         public int Hours
         {
@@ -35,6 +36,7 @@ namespace CityGuide.Data
         private readonly Timer _internelTimer = new Timer();
         private DateTime _start = DateTime.UtcNow;
         private DateTime _endTime = DateTime.UtcNow;
+        private TimeSpan remainingTime;
 
         public CoolDownTimer(int hours = 0, int minutes = 0, int secounds = 0)
         {
@@ -45,16 +47,16 @@ namespace CityGuide.Data
             _secondsInit = secounds;
             _hoursInit = hours;
 
-            _endTime = _start.AddHours(_minutesInit).AddMinutes(_secondsInit).AddSeconds(_hoursInit);
+            _endTime = _start.AddHours(_hoursInit).AddMinutes(_minutesInit).AddSeconds(_secondsInit);
         }
 
         private void T_Tick(object sender, EventArgs e)
         {
-            TimeSpan remainingTime = _endTime - DateTime.UtcNow;
+            remainingTime = _endTime - DateTime.UtcNow;
+            Console.WriteLine(Name + ':' + remainingTime);
             if (remainingTime < TimeSpan.Zero)
             {
                 _internelTimer.Stop();
-
                 if (OnTimerFinished != null)
                 {
                     OnTimerFinished();
@@ -81,10 +83,27 @@ namespace CityGuide.Data
             }
         }
 
+        /// <summary>
+        /// First reset the timer to the init values and then start it. This method doesn't check if the timer is already running.
+        /// </summary>
+        public void StartWithReset()
+        {
+            Reset();
+            _internelTimer.Start();
+        }
+
+        public void Stop()
+        {
+            if (_internelTimer.Enabled)
+            {
+                _internelTimer.Stop();
+            }
+        }
+
         public void Reset()
         {
             _start = DateTime.UtcNow;
-            _endTime = _start.AddHours(_minutesInit).AddMinutes(_secondsInit).AddSeconds(_hoursInit);
+            _endTime = _start.AddHours(_hoursInit).AddMinutes(_minutesInit).AddSeconds(_secondsInit);
         }
 
         public bool Enabled
