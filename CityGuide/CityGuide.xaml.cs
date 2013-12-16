@@ -78,16 +78,19 @@ namespace CityGuide
 
         private void TouchDownEventAttraction(object sender, TouchEventArgs e)
         {
-            Point positionPoint = e.GetTouchPoint(this).Position;
-            AddAttractionInfobox(sender, positionPoint);
-            e.Handled = false;
+            if (!e.TouchDevice.GetIsTagRecognized())
+            {
+                Point positionPoint = e.GetTouchPoint(this).Position;
+                AddAttractionInfobox(sender, positionPoint);
+                e.Handled = false; 
+            }
         }
 
         private void MouseDownEventAttraction(object sender, MouseButtonEventArgs e)
         {
-            Point positionPoint = e.GetPosition(this);
-            AddAttractionInfobox(sender, positionPoint);
-            e.Handled = false;
+                Point positionPoint = e.GetPosition(this);
+                AddAttractionInfobox(sender, positionPoint);
+                e.Handled = false;
         }
 
         private void AddAttractionInfobox(object sender, Point positionPoint)
