@@ -22,6 +22,7 @@ namespace CityGuide
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
+        private readonly  CoolDownTimer _coolDownTimer = new CoolDownTimer(0,0,1){Name = "DoubleTouchCoolDownTimer"};
 
         /// <summary>
         /// Default constructor.
@@ -264,6 +265,14 @@ namespace CityGuide
         {
             var location = new Location();
 
+            //Doubel Touch disabler
+            if (_coolDownTimer.Enabled)
+            {
+                e.Handled = true;
+                _coolDownTimer.Stop();
+            }
+            _coolDownTimer.StartWithReset();
+            
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
