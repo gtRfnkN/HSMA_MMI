@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CityGuide.Data;
 
 namespace CityGuide.ViewElements
@@ -49,7 +40,7 @@ namespace CityGuide.ViewElements
 
         private void LockEvent(Button button)
         {
-            bool state = !this.Event.IsLocked;
+            bool state = !Event.IsLocked;
             if (state)
             {
                 if (button != null) button.Content = "Unlock";
@@ -58,11 +49,11 @@ namespace CityGuide.ViewElements
             {
                 if (button != null) button.Content = "Lock";
             }
-            this.Event.IsLocked = state;
+            Event.IsLocked = state;
         } 
         #endregion
 
-        private void TouchMoveResizeButton(Object sender, TouchEventArgs e)
+        private static void TouchMoveResizeButton(Object sender, TouchEventArgs e)
         {
             //TODO: Add rezise and recoginition off time
         }
@@ -73,6 +64,11 @@ namespace CityGuide.ViewElements
                 var eventAttraction = Event as EventAttraction;
                 //TODO: Open Information for Event
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

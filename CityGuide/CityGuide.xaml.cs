@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,8 +24,8 @@ namespace CityGuide
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
         private readonly CoolDownTimer _coolDownTimer = new CoolDownTimer(0, 0, 1) { Name = "DoubleTouchCoolDownTimer" };
+        private readonly Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
         private Point _lastTapPosition;
-        private Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
 
         /// <summary>
         /// Default constructor.
@@ -77,6 +78,21 @@ namespace CityGuide
                 attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
                 _pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
+
+ 	    //TODO: test Attraktion Data
+            _testAttraction = mockData.Attractions.FirstOrDefault(a => a.Titel == "Skyline");
+            var testEvent = new EventAttraction
+            {
+                Attraction = _testAttraction,
+                StarTime = new DateTime(1, 1, 1, 11, 0, 0)
+            };
+            if (_testAttraction != null)
+                testEvent.StopTime = testEvent.StarTime.AddMinutes(_testAttraction.DefaultDurationInMinutes);
+            TimeTableEvent.Event = testEvent;
+            TimeTableEvent.TouchDown += LabelTouchDown;
+            TimeTableEvent.TouchMove += LableTouchMove;
+            TimeTableEvent.MouseDown += LabelMouseDown;
+            TimeTableEvent.MouseMove += LableMouseMove;
         }
 
         private void TouchDownEventAttraction(object sender, TouchEventArgs e)
@@ -161,7 +177,6 @@ namespace CityGuide
             Map.TouchDown += MapTouchDownEvent;
             Map.TouchMove += MapTouchMoveEvent;
             Map.TouchUp += MapTouchUpEvent;
-            //Map.ViewChangeOnFrame += MapViewChangeOnFrame;
         }
         #endregion
 
@@ -172,6 +187,9 @@ namespace CityGuide
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
+
+	private Point _startPoint;
+        private Attraction _testAttraction;
 
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
@@ -443,5 +461,53 @@ namespace CityGuide
             return deg * (Math.PI / 180);
         }
         #endregion
+
+	#region DragDrop Methods
+        private void LabelTouchDown(object sender, TouchEventArgs e)
+        {
+            // Store the mouse position
+            _startPoint = e.TouchDevice.GetTouchPoint(this).Position;
+        }
+
+        private void LableTouchMove(object sender, TouchEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.TouchDevice.GetTouchPoint(this).Position;
+            Vector diff = _startPoint - mousePos;
+            //TODO: change to Infobox Object
+
+            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                //TODO: get Attraction from Infobox
+                // Initialize the drag & drop operation
+                var dragData = new DataObject("Attraction", _testAttraction);
+                DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
+            }
+        }
+
+        private void LabelMouseDown(object sender, MouseEventArgs e)
+        {
+            // Store the mouse position
+            _startPoint = e.GetPosition(this);
+        }
+
+        private void LableMouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(this);
+            Vector diff = _startPoint - mousePos;
+            //TODO: change to Infobox Object
+
+            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                //TODO: get Attraction from Infobox
+                // Initialize the drag & drop operation
+                var dragData = new DataObject("Attraction", _testAttraction);
+                DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
+            }
+        }
+       #endregion
     }
 }

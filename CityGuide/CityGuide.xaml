@@ -1,11 +1,12 @@
 ﻿<s:SurfaceWindow x:Class="CityGuide.CityGuideWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:my="clr-namespace:CityGuide.ViewElements"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
     xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
     Width="900"
     Height="400"
-    Title="SurfaceApplication1"
+    Title="City Guide Mannheim"
     x:Name="SurfaceApplicationWrapper"
     >
     <Grid>
@@ -30,6 +31,9 @@
                 <Button Canvas.Right="175" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
             </Canvas>
         </m:Map>
+
+	<my:TimeTable x:Name="TimeTable" Height="520" Width="240" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150"/>
 
         <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
             <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />

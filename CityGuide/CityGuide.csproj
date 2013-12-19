@@ -79,6 +79,9 @@
     <Compile Include="Extensions\PointExtentions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
     <Compile Include="ViewElements\TagCircle.cs" />
+    <Compile Include="ViewElements\TimeTable.xaml.cs">
+      <DependentUpon>TimeTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewElements\TimeTableEvent.xaml.cs">
       <DependentUpon>TimeTableEvent.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
       <DependentUpon>CityGuide.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewElements\TimeTable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewElements\TimeTableEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,8 +132,10 @@
     <AppDesigner Include="Properties\" />
     <None Include="Resources\BingMaps\BingMapsWPFControlSDK.chm" />
     <None Include="Resources\BingMaps\BingMapsWPFControlSDK.chw" />
+    <None Include="Resources\TimeTable\TimeTableFake.psd" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\TimeTable\TimeTableFake.png" />
     <Resource Include="Resources\JsonConverter\Driving.xml" />
     <Resource Include="Resources\JsonConverter\JsonRestSample.txt" />
     <Content Include="Resources\JsonConverter\Newtonsoft.Json.dll" />
