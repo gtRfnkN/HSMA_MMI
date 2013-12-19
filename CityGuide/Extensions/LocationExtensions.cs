@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Surface.Presentation.Controls;
+using CityGuide.Data.Route;
 
 namespace CityGuide.Extensions
 {
@@ -72,6 +73,27 @@ namespace CityGuide.Extensions
             //Convert the mouse coordinates to a locatoin on the map
             Location location = map.ViewportPointToLocation(touchPosition.Position);
             return location;
+        }
+
+        public static Route Route(this Location fromLocation, Location toLocation, bool xml, RouteModes routeMode)
+        {
+            Route result = BingMapRestHelper.Route(fromLocation, toLocation, xml, routeMode);
+            return result;
+        }
+
+        public static Route Route(this Location fromLocation, Location toLocation, RouteModes routeMode)
+        {
+            Route result = BingMapRestHelper.Route(fromLocation, toLocation, false, routeMode);
+            return result;
+        }
+
+        public static Route Route(String fromLocation, String toLocation, RouteModes routeMode)
+        {
+            Location fromLocationLoc = BingMapRestHelper.Location(fromLocation);
+            Location toLocationLoc = BingMapRestHelper.Location(fromLocation);
+
+            Route result = BingMapRestHelper.Route(fromLocationLoc, toLocationLoc, false, routeMode);
+            return result;
         }
         #endregion
 

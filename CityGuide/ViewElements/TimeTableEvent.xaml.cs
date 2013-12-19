@@ -25,14 +25,30 @@ namespace CityGuide.ViewElements
         public TimeTableEvent()
         {
             InitializeComponent();
+                        
+            //Lock button Events
             LockButton.TouchDown += TouchLockButton;
+            LockButton.MouseUp += MouseClickLockButton;
+
             AttrationNameLabel.TouchDown += TouchEventLabel;
             ResizeCanvas.TouchMove += TouchMoveResizeButton;
         }
 
+        #region Lock Button Events & Methods
         private void TouchLockButton(Object sender, TouchEventArgs e)
         {
             var button = sender as Button;
+            LockEvent(button);
+        }
+
+        private void MouseClickLockButton(Object sender, MouseButtonEventArgs e)
+        {
+            var button = sender as Button;
+            LockEvent(button);
+        }
+
+        private void LockEvent(Button button)
+        {
             bool state = !this.Event.IsLocked;
             if (state)
             {
@@ -43,7 +59,8 @@ namespace CityGuide.ViewElements
                 if (button != null) button.Content = "Lock";
             }
             this.Event.IsLocked = state;
-        }
+        } 
+        #endregion
 
         private void TouchMoveResizeButton(Object sender, TouchEventArgs e)
         {
@@ -52,7 +69,10 @@ namespace CityGuide.ViewElements
 
         private void TouchEventLabel(Object sender, TouchEventArgs e)
         {
-            //TODO: Open Information for Event
+            if(Event.GetType() == typeof(EventAttraction)){
+                var eventAttraction = Event as EventAttraction;
+                //TODO: Open Information for Event
+            }
         }
     }
 }
