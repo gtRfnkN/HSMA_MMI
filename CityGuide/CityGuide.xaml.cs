@@ -22,7 +22,9 @@ namespace CityGuide
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
-        private readonly  CoolDownTimer _coolDownTimer = new CoolDownTimer(0,0,1){Name = "DoubleTouchCoolDownTimer"};
+        private readonly CoolDownTimer _coolDownTimer = new CoolDownTimer(0, 0, 1) { Name = "DoubleTouchCoolDownTimer" };
+        private Point _lastTapPosition;
+        private Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
 
         /// <summary>
         /// Default constructor.
@@ -83,15 +85,15 @@ namespace CityGuide
             {
                 Point positionPoint = e.GetTouchPoint(this).Position;
                 AddAttractionInfobox(sender, positionPoint);
-                e.Handled = false; 
+                e.Handled = false;
             }
         }
 
         private void MouseDownEventAttraction(object sender, MouseButtonEventArgs e)
         {
-                Point positionPoint = e.GetPosition(this);
-                AddAttractionInfobox(sender, positionPoint);
-                e.Handled = false;
+            Point positionPoint = e.GetPosition(this);
+            AddAttractionInfobox(sender, positionPoint);
+            e.Handled = false;
         }
 
         private void AddAttractionInfobox(object sender, Point positionPoint)
@@ -159,6 +161,7 @@ namespace CityGuide
             Map.TouchDown += MapTouchDownEvent;
             Map.TouchMove += MapTouchMoveEvent;
             Map.TouchUp += MapTouchUpEvent;
+            //Map.ViewChangeOnFrame += MapViewChangeOnFrame;
         }
         #endregion
 
@@ -169,7 +172,7 @@ namespace CityGuide
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
-
+        
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
             var location = new Location();
@@ -251,6 +254,8 @@ namespace CityGuide
 
         private void MapTouchMoveEvent(object sender, TouchEventArgs e)
         {
+            //_coolDownTimer.Stop();
+
             var location = new Location();
             ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
@@ -263,16 +268,21 @@ namespace CityGuide
 
         private void MapTouchDownEvent(object sender, TouchEventArgs e)
         {
-            var location = new Location();
-
             //Doubel Touch disabler
-            if (_coolDownTimer.Enabled)
+            var currentPosition = e.TouchDevice.GetTouchPoint(this).Position;
+            var diffResult = currentPosition.IsInTolleranz(_lastTapPosition, _diffPoint);
+            if (diffResult && _coolDownTimer.Enabled)
             {
                 e.Handled = true;
                 _coolDownTimer.Stop();
             }
-            _coolDownTimer.StartWithReset();
-            
+            else
+            {
+                _coolDownTimer.StartWithReset();
+                _lastTapPosition = currentPosition;
+            }
+
+            var location = new Location();
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);

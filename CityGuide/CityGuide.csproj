@@ -76,6 +76,7 @@
     <Compile Include="Data\Route\RouteInstruction.cs" />
     <Compile Include="Data\TimeTable.cs" />
     <Compile Include="Extensions\LocationExtensions.cs" />
+    <Compile Include="Extensions\PointExtentions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
     <Compile Include="ViewElements\TagCircle.cs" />
     <Compile Include="ViewElements\TimeTableEvent.xaml.cs">
