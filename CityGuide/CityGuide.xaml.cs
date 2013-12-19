@@ -315,12 +315,15 @@ namespace CityGuide
                 Point tp = e.GetTouchPoint(CnvInteract).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
 
-                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
+                if (!filterCircle.IsDrawn)
+                {
+                    filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
 
-                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
-                filterCircle.UpdateSize();
-                filterCircle.Draw();
-                return true;
+                    filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
+                    filterCircle.UpdateSize();
+                    filterCircle.Draw();
+                    return true;
+                }
             }
             return false;
         }
@@ -329,13 +332,17 @@ namespace CityGuide
         {
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
+                Point tp = e.GetTouchPoint(CnvDraw).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
                 // update position
-                Point tp = e.GetTouchPoint(CnvDraw).Position;
-                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
-                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
-                filterCircle.UpdateSize();
-                return true;
+
+                if (!filterCircle.IsDrawn)
+                {
+                    filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
+                    filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
+                    filterCircle.UpdateSize();
+                    return true;
+                }
             }
             return false;
         }

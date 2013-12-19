@@ -100,7 +100,7 @@ namespace CityGuide.ViewElements
 
                 // set width and height
                 Width = TEXTBOX_WIDTH * 1.5,
-                Height = TEXTBOX_HEIGHT * 1.5
+                Height = TEXTBOX_HEIGHT * 2
             };
 
             // touch handlers
@@ -146,17 +146,15 @@ namespace CityGuide.ViewElements
                 _drawContainer.Children.Add(_text);
 
                 _interactContainer.Children.Add(_dragger);
+            }
 
-                // add grid to canvas
-                DrawCanvas.Children.Add(_drawContainer);
-                InteractCanvas.Children.Add(_interactContainer);
-                _firstDraw = false;
-                IsDrawn = true;
-            }
-            else
-            {
-                Redraw();
-            }
+            // add grid to canvas
+            DrawCanvas.Children.Add(_drawContainer);
+            InteractCanvas.Children.Add(_interactContainer);
+            _firstDraw = false;
+            IsDrawn = true;
+
+            _coolDownTimer.Stop();
         }
 
         public void Clear()
@@ -172,10 +170,6 @@ namespace CityGuide.ViewElements
         {
             DrawCanvas.Children.Remove(_drawContainer);
             DrawCanvas.Children.Add(_drawContainer);
-            IsDrawn = true;
-
-            _coolDownTimer.Stop();
-
         }
 
         // update the position and rotation
@@ -247,7 +241,7 @@ namespace CityGuide.ViewElements
 
             // set position of the dragger
             Canvas.SetLeft(_dragger, -(_dragger.Width / 2));
-            Canvas.SetTop(_dragger, -(Filter.Radius / 2) - (_dragger.Height / 3));
+            Canvas.SetTop(_dragger, -(Filter.Radius / 2) - (_dragger.Height / 2));
 
             // set text output
             _text.Text = Math.Round((Filter.Radius / 1000.0), 2) + " km";
