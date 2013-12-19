@@ -172,7 +172,7 @@ namespace CityGuide
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
-        
+
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
             var location = new Location();
@@ -325,11 +325,16 @@ namespace CityGuide
                 Point tp = e.GetTouchPoint(CnvInteract).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
 
+                // update filter opacity
+                Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
+                FilterPins(filterCircle.Filter, touchLocation, filterCircle.Filter.Radius);
+
                 if (!filterCircle.IsDrawn)
                 {
                     filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
 
                     filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
+
                     filterCircle.UpdateSize();
                     filterCircle.Draw();
                     return true;
@@ -344,15 +349,17 @@ namespace CityGuide
             {
                 Point tp = e.GetTouchPoint(CnvDraw).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
-                // update position
 
-                if (!filterCircle.IsDrawn)
-                {
-                    filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
-                    filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
-                    filterCircle.UpdateSize();
-                    return true;
-                }
+                // update position
+                filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
+                filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
+                filterCircle.UpdateSize();
+
+                // update filter opacity
+                Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
+                FilterPins(filterCircle.Filter, touchLocation, filterCircle.Filter.Radius);
+
+                return true;
             }
             return false;
         }
@@ -363,8 +370,13 @@ namespace CityGuide
             {
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
                 filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(e, Map, this);
+
                 // remove from scene
                 filterCircle.Clear();
+
+                // remove filter opacity
+                Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
+                FilterPins(filterCircle.Filter, touchLocation, -1);
 
                 return true;
             }
@@ -372,7 +384,7 @@ namespace CityGuide
         }
         #endregion
 
-        #region Map Related Mathods
+        #region Map Related Methods
         private void CurrentLocationButtonMouseDown(object sender, MouseButtonEventArgs e)
         {
             Map.Center = new Location(49.479886, 8.469992, 0.0);
@@ -391,6 +403,44 @@ namespace CityGuide
             {
                 _routeMapLayer.Children.Add(routePolyline);
             }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void FilterPins(Filter filter, Location location, int radius)
+        {
+            foreach (Attraction a in _pushPinsMapLayer.Children)
+            {
+                if (a.Filter == filter)
+                {
+                    // if reset or pin in filter range: full opacity
+                    if (radius == -1 || GetDistance(location, a.Location) < (radius / 1000.0))
+                    {
+                        a.Opacity = 1;
+                    }
+                    else // else fade
+                    {
+                        a.Opacity = 0.5;
+                    }
+                }
+            }
+        }
+
+        private double GetDistance(Location l1, Location l2)
+        {
+            int R = 6371; // Radius of the earth in km
+            double dLat = Deg2Rad(l1.Latitude - l2.Latitude);
+            double dLon = Deg2Rad(l1.Longitude - l2.Longitude);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) + Math.Cos(Deg2Rad(l1.Latitude)) * Math.Cos(Deg2Rad(l2.Latitude)) * Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return R * c;
+        }
+
+        private double Deg2Rad(double deg)
+        {
+            return deg * (Math.PI / 180);
         }
         #endregion
     }
