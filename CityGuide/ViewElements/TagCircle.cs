@@ -42,6 +42,9 @@ namespace CityGuide.ViewElements
         private const int TEXTBOX_WIDTH = 56;
         private const int TEXTBOX_HEIGHT = 24;
         private const int TEXTBLOCK_HEIGHT = 20;
+
+        // resolution calculated by current pin position and zoom
+        private double resolution;
         #endregion
 
         #region constructors
@@ -87,7 +90,7 @@ namespace CityGuide.ViewElements
                 Height = TEXTBLOCK_HEIGHT,
 
                 // set text output
-                Text = Math.Round((Filter.Radius / 1000.0), 2) + " km",
+                Text = Math.Round((Filter.Radius * resolution / 1000.0), 2) + " km",
                 FontSize = 14,
                 TextAlignment = TextAlignment.Center,
                 Foreground = Brushes.Black
@@ -202,7 +205,7 @@ namespace CityGuide.ViewElements
             {
                 // get the position of the finger relative to the center
                 Point tp = e.GetTouchPoint(_interactContainer).Position;
-                Filter.Radius = (int)Math.Sqrt((tp.X) * (tp.X) + (tp.Y) * (tp.Y)) * 2;
+                Filter.Radius = (int)Math.Sqrt((tp.X) * (tp.X) + (tp.Y) * (tp.Y));
 
                 // update the element size
                 UpdateSize();
@@ -212,6 +215,16 @@ namespace CityGuide.ViewElements
             {
                 e.Handled = false;
             }
+        }
+
+        public void UpdateResolution(double res)
+        {
+            resolution = res;
+        }
+
+        public double GetRadius()
+        {
+            return resolution * Filter.Radius;
         }
 
         // update the size of the elements by its radius
@@ -224,27 +237,27 @@ namespace CityGuide.ViewElements
                 return;*/
 
             // set width and height
-            _circle.Width = Filter.Radius;
-            _circle.Height = Filter.Radius;
+            _circle.Width = Filter.Radius*2;
+            _circle.Height = Filter.Radius*2;
 
             // set position of the circle
-            Canvas.SetLeft(_circle, -(Filter.Radius / 2));
-            Canvas.SetTop(_circle, -(Filter.Radius / 2));
+            Canvas.SetLeft(_circle, -Filter.Radius);
+            Canvas.SetTop(_circle, -Filter.Radius);
 
             // set position of the rect
             Canvas.SetLeft(_rect, -(_rect.Width / 2));
-            Canvas.SetTop(_rect, -(Filter.Radius / 2) - (_rect.Height / 3));
+            Canvas.SetTop(_rect, -Filter.Radius - (_rect.Height / 3));
 
             // set position of the text
             Canvas.SetLeft(_text, -(_text.Width / 2));
-            Canvas.SetTop(_text, -(Filter.Radius / 2) - (_text.Height / 3));
+            Canvas.SetTop(_text, -Filter.Radius - (_text.Height / 3));
 
             // set position of the dragger
             Canvas.SetLeft(_dragger, -(_dragger.Width / 2));
-            Canvas.SetTop(_dragger, -(Filter.Radius / 2) - (_dragger.Height / 2));
+            Canvas.SetTop(_dragger, -Filter.Radius - (_dragger.Height / 2));
 
             // set text output
-            _text.Text = Math.Round((Filter.Radius / 1000.0), 2) + " km";
+            _text.Text = Math.Round((Filter.Radius * resolution / 1000.0), 2) + " km";
         }
         #endregion
     }

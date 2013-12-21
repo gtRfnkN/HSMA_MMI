@@ -343,9 +343,15 @@ namespace CityGuide
                 Point tp = e.GetTouchPoint(CnvInteract).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
 
-                // update filter opacity
+                // get the touch location of the tag
                 Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
-                FilterPins(filterCircle.Filter, touchLocation, filterCircle.Filter.Radius);
+
+                // update resolution
+                double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
+                filterCircle.UpdateResolution(resolution);
+
+                // update filter opacity
+                FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());
 
                 if (!filterCircle.IsDrawn)
                 {
@@ -368,14 +374,20 @@ namespace CityGuide
                 Point tp = e.GetTouchPoint(CnvDraw).Position;
                 TagCircle filterCircle = _filterCircles[e.TouchDevice.GetTagData().Value];
 
+                // get the touch location of the tag
+                Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
+
+                // update resolution
+                double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
+                filterCircle.UpdateResolution(resolution);
+
+                // update filter opacity
+                FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());
+
                 // update position
                 filterCircle.Filter.LocationCenter = filterCircle.Filter.LocationCenter.GetLocationByEvent(tp, Map);
                 filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
                 filterCircle.UpdateSize();
-
-                // update filter opacity
-                Location touchLocation = Map.ViewportPointToLocation(e.GetTouchPoint(Map).Position);
-                FilterPins(filterCircle.Filter, touchLocation, filterCircle.Filter.Radius);
 
                 return true;
             }
@@ -425,14 +437,14 @@ namespace CityGuide
         #endregion
 
         #region Helper Methods
-        private void FilterPins(Filter filter, Location location, int radius)
+        private void FilterPins(Filter filter, Location location, double radius)
         {
             foreach (Attraction a in _pushPinsMapLayer.Children)
             {
                 if (a.Filter == filter)
                 {
                     // if reset or pin in filter range: full opacity
-                    if (radius == -1 || GetDistance(location, a.Location) < (radius / 1000.0))
+                    if (radius == -1 || GetDistance(location, a.Location) < (radius/1000.0))
                     {
                         a.Opacity = 1;
                     }
