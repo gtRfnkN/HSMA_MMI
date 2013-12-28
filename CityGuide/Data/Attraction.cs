@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Maps.MapControl.WPF;
 
-namespace SurfaceApplication1.Data
+namespace CityGuide.Data
 {
     public class Attraction : Pushpin {
         #region Fields

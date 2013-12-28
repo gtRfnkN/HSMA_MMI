@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SurfaceApplication1.Data
+namespace CityGuide.Data
 {
     public class TimeTable
     {

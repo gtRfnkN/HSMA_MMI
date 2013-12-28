@@ -1,0 +1,512 @@
+{
+  "?xml": {
+    "@version": "1.0",
+    "@encoding": "utf-8"
+  },
+  "Response": {
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+    "@xmlns": "http://schemas.microsoft.com/search/local/ws/rest/v1",
+    "Copyright": "Copyright © 2013 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+    "BrandLogoUri": "http://dev.virtualearth.net/Branding/logo_powered_by.png",
+    "StatusCode": "200",
+    "StatusDescription": "OK",
+    "AuthenticationResultCode": "ValidCredentials",
+    "TraceId": "ae287ee267e64041bc80c8de19527c4d|AMSM002206|02.00.94.2100|AMSM000002, DB30012105",
+    "ResourceSets": {
+      "ResourceSet": {
+        "EstimatedTotal": "1",
+        "Resources": {
+          "Route": {
+            "Id": "v64,h3,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t4,wnhpmBHI9wQA1~A1rHcjvh6m4cAADgAeb_fz8B0~SGFucy1SZXNjaGtlLVVmZXI1~~~,wTN1lBNFZwQA1~A1rHcjvRDnIcAADgAdk6uj4C0~QjM3IC8gV2lsaGVsbS1WYXJuaG9sdC1BbGxlZQ2~~~,k1",
+            "BoundingBox": {
+              "SouthLatitude": "49.474702",
+              "WestLongitude": "8.487421",
+              "NorthLatitude": "49.48791",
+              "EastLongitude": "8.502109"
+            },
+            "DistanceUnit": "Kilometer",
+            "DurationUnit": "Second",
+            "TravelDistance": "2.858",
+            "TravelDuration": "428",
+            "TravelDurationTraffic": "428",
+            "RouteLeg": {
+              "TravelDistance": "2.858",
+              "TravelDuration": "428",
+              "Cost": "0",
+              "ActualStart": {
+                "Latitude": "49.487148",
+                "Longitude": "8.492169"
+              },
+              "ActualEnd": {
+                "Latitude": "49.476021",
+                "Longitude": "8.49669"
+              },
+              "ItineraryItem": [
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.203",
+                  "TravelDuration": "23",
+                  "ManeuverPoint": {
+                    "Latitude": "49.487148",
+                    "Longitude": "8.492169"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "DepartStart",
+                    "#text": "Depart Hans-Reschke-Ufer toward Ludwig-Ratzel-Straﬂe"
+                  },
+                  "CompassDirection": "north",
+                  "Detail": {
+                    "ManeuverType": "DepartStart",
+                    "StartPathIndex": "0",
+                    "EndPathIndex": "3",
+                    "Name": "Hans-Reschke-Ufer",
+                    "CompassDegrees": "0",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "Street"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "TowardsRoadName": "Ludwig-Ratzel-Straﬂe",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.385",
+                  "TravelDuration": "45",
+                  "ManeuverPoint": {
+                    "Latitude": "49.48791",
+                    "Longitude": "8.48961"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnLeft",
+                    "#text": "Turn left onto Ludwig-Ratzel-Straﬂe"
+                  },
+                  "CompassDirection": "southwest",
+                  "Detail": {
+                    "ManeuverType": "TurnLeft",
+                    "StartPathIndex": "3",
+                    "EndPathIndex": "5",
+                    "Name": "Ludwig-Ratzel-Straﬂe",
+                    "CompassDegrees": "213",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "Arterial"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.732",
+                  "TravelDuration": "107",
+                  "ManeuverPoint": {
+                    "Latitude": "49.484782",
+                    "Longitude": "8.487421"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnLeft",
+                    "#text": "Turn left onto Am Oberen Luisenpark"
+                  },
+                  "CompassDirection": "southeast",
+                  "Detail": {
+                    "ManeuverType": "TurnLeft",
+                    "StartPathIndex": "5",
+                    "EndPathIndex": "13",
+                    "Name": "Am Oberen Luisenpark",
+                    "CompassDegrees": "132",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "Arterial"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.689",
+                  "TravelDuration": "121",
+                  "ManeuverPoint": {
+                    "Latitude": "49.479949",
+                    "Longitude": "8.493639"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnRightThenTurnLeft",
+                    "#text": "Turn right, and then immediately turn left onto Schubertstraﬂe / L637"
+                  },
+                  "CompassDirection": "east",
+                  "Detail": [
+                    {
+                      "ManeuverType": "TurnRight",
+                      "StartPathIndex": "13",
+                      "EndPathIndex": "14",
+                      "CompassDegrees": "225",
+                      "Mode": "Driving",
+                      "PreviousEntityId": "0",
+                      "NextEntityId": "0",
+                      "RoadType": "Arterial"
+                    },
+                    {
+                      "ManeuverType": "TurnLeft",
+                      "StartPathIndex": "14",
+                      "EndPathIndex": "21",
+                      "Name": "Schubertstraﬂe",
+                      "CompassDegrees": "90",
+                      "Mode": "Driving",
+                      "PreviousEntityId": "0",
+                      "NextEntityId": "0",
+                      "RoadType": "Arterial"
+                    }
+                  ],
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.595",
+                  "TravelDuration": "71",
+                  "ManeuverPoint": {
+                    "Latitude": "49.477808",
+                    "Longitude": "8.50168"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnRight",
+                    "#text": "Turn right onto Museumsstraﬂe"
+                  },
+                  "CompassDirection": "south",
+                  "Detail": {
+                    "ManeuverType": "TurnRight",
+                    "StartPathIndex": "21",
+                    "EndPathIndex": "33",
+                    "Name": "Museumsstraﬂe",
+                    "CompassDegrees": "194",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "Street"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.033",
+                  "TravelDuration": "23",
+                  "ManeuverPoint": {
+                    "Latitude": "49.47525",
+                    "Longitude": "8.499518"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnToStayLeft",
+                    "#text": "Turn left to stay on Museumsstraﬂe"
+                  },
+                  "CompassDirection": "southwest",
+                  "Detail": {
+                    "ManeuverType": "TurnToStayLeft",
+                    "StartPathIndex": "33",
+                    "EndPathIndex": "34",
+                    "Name": "Museumsstraﬂe",
+                    "CompassDegrees": "223",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "Street"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0.221",
+                  "TravelDuration": "33",
+                  "ManeuverPoint": {
+                    "Latitude": "49.475008",
+                    "Longitude": "8.499293"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "TurnRight",
+                    "#text": "Turn right onto B37 / Wilhelm-Varnholt-Allee"
+                  },
+                  "CompassDirection": "west",
+                  "Detail": {
+                    "ManeuverType": "TurnRight",
+                    "StartPathIndex": "34",
+                    "EndPathIndex": "37",
+                    "Name": "Wilhelm-Varnholt-Allee",
+                    "CompassDegrees": "291",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "MajorRoad",
+                    "RoadShieldRequestParameters": {
+                      "Bucket": "51255",
+                      "Shield": {
+                        "RoadShieldType": "3",
+                        "Label": "B37"
+                      }
+                    },
+                    "LocationCode": "D01-30803"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Unknown"
+                },
+                {
+                  "TravelMode": "Driving",
+                  "TravelDistance": "0",
+                  "TravelDuration": "0",
+                  "ManeuverPoint": {
+                    "Latitude": "49.476021",
+                    "Longitude": "8.49669"
+                  },
+                  "Instruction": {
+                    "@maneuverType": "ArriveFinish",
+                    "#text": "Arrive at B37 / Wilhelm-Varnholt-Allee on the right"
+                  },
+                  "CompassDirection": "west",
+                  "Hint": [
+                    "The last intersection is Museumsstraﬂe",
+                    "If you reach Schubertstraﬂe, you've gone too far"
+                  ],
+                  "Detail": {
+                    "ManeuverType": "ArriveFinish",
+                    "StartPathIndex": "37",
+                    "EndPathIndex": "37",
+                    "Name": "Wilhelm-Varnholt-Allee",
+                    "CompassDegrees": "291",
+                    "Mode": "Driving",
+                    "PreviousEntityId": "0",
+                    "NextEntityId": "0",
+                    "RoadType": "MajorRoad",
+                    "RoadShieldRequestParameters": {
+                      "Bucket": "51255",
+                      "Shield": {
+                        "RoadShieldType": "3",
+                        "Label": "B37"
+                      }
+                    },
+                    "LocationCode": "D01-30803"
+                  },
+                  "Exit": null,
+                  "TollZone": null,
+                  "TransitTerminus": null,
+                  "TripId": "0",
+                  "IconType": "Auto",
+                  "Time": "0001-01-01T00:00:00",
+                  "TransitStopId": "0",
+                  "SideOfStreet": "Right"
+                }
+              ],
+              "StartTime": "0001-01-01T00:00:00",
+              "EndTime": "0001-01-01T00:00:00",
+              "Description": "Am Oberen Luisenpark,Museumsstraﬂe",
+              "RouteRegion": "EU"
+            },
+            "RoutePath": {
+              "Line": {
+                "Point": [
+                  {
+                    "Latitude": "49.487147",
+                    "Longitude": "8.492168"
+                  },
+                  {
+                    "Latitude": "49.487421",
+                    "Longitude": "8.491262"
+                  },
+                  {
+                    "Latitude": "49.487839",
+                    "Longitude": "8.48984"
+                  },
+                  {
+                    "Latitude": "49.487909",
+                    "Longitude": "8.489609"
+                  },
+                  {
+                    "Latitude": "49.48748",
+                    "Longitude": "8.489331"
+                  },
+                  {
+                    "Latitude": "49.484782",
+                    "Longitude": "8.487421"
+                  },
+                  {
+                    "Latitude": "49.484669",
+                    "Longitude": "8.487571"
+                  },
+                  {
+                    "Latitude": "49.483789",
+                    "Longitude": "8.488939"
+                  },
+                  {
+                    "Latitude": "49.482808",
+                    "Longitude": "8.491331"
+                  },
+                  {
+                    "Latitude": "49.482362",
+                    "Longitude": "8.492007"
+                  },
+                  {
+                    "Latitude": "49.48196",
+                    "Longitude": "8.49242"
+                  },
+                  {
+                    "Latitude": "49.480372",
+                    "Longitude": "8.493558"
+                  },
+                  {
+                    "Latitude": "49.48012",
+                    "Longitude": "8.493692"
+                  },
+                  {
+                    "Latitude": "49.479948",
+                    "Longitude": "8.493638"
+                  },
+                  {
+                    "Latitude": "49.4799",
+                    "Longitude": "8.49359"
+                  },
+                  {
+                    "Latitude": "49.47982",
+                    "Longitude": "8.493558"
+                  },
+                  {
+                    "Latitude": "49.479637",
+                    "Longitude": "8.493558"
+                  },
+                  {
+                    "Latitude": "49.479449",
+                    "Longitude": "8.493729"
+                  },
+                  {
+                    "Latitude": "49.479369",
+                    "Longitude": "8.494362"
+                  },
+                  {
+                    "Latitude": "49.478141",
+                    "Longitude": "8.497592"
+                  },
+                  {
+                    "Latitude": "49.477958",
+                    "Longitude": "8.498788"
+                  },
+                  {
+                    "Latitude": "49.477808",
+                    "Longitude": "8.501679"
+                  },
+                  {
+                    "Latitude": "49.477728",
+                    "Longitude": "8.501658"
+                  },
+                  {
+                    "Latitude": "49.477599",
+                    "Longitude": "8.501572"
+                  },
+                  {
+                    "Latitude": "49.477352",
+                    "Longitude": "8.5011"
+                  },
+                  {
+                    "Latitude": "49.476821",
+                    "Longitude": "8.500617"
+                  },
+                  {
+                    "Latitude": "49.476558",
+                    "Longitude": "8.500542"
+                  },
+                  {
+                    "Latitude": "49.476381",
+                    "Longitude": "8.500692"
+                  },
+                  {
+                    "Latitude": "49.475839",
+                    "Longitude": "8.502012"
+                  },
+                  {
+                    "Latitude": "49.47555",
+                    "Longitude": "8.502092"
+                  },
+                  {
+                    "Latitude": "49.474841",
+                    "Longitude": "8.501449"
+                  },
+                  {
+                    "Latitude": "49.474707",
+                    "Longitude": "8.501229"
+                  },
+                  {
+                    "Latitude": "49.474718",
+                    "Longitude": "8.500891"
+                  },
+                  {
+                    "Latitude": "49.475249",
+                    "Longitude": "8.499518"
+                  },
+                  {
+                    "Latitude": "49.475008",
+                    "Longitude": "8.499292"
+                  },
+                  {
+                    "Latitude": "49.475432",
+                    "Longitude": "8.498198"
+                  },
+                  {
+                    "Latitude": "49.47578",
+                    "Longitude": "8.497307"
+                  },
+                  {
+                    "Latitude": "49.476021",
+                    "Longitude": "8.49669"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

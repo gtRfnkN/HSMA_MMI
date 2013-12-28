@@ -1,12 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Net;
-using System.Windows;
-using System.Windows.Media;
-using Microsoft.Maps.MapControl.WPF;
 using System.Xml;
+using CityGuide.Data.Route;
+using CityGuide.Extensions;
+using Microsoft.Maps.MapControl.WPF;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-
-namespace SurfaceApplication1
+namespace CityGuide
 {
     public class BingMapRestHelper
     {
@@ -29,6 +31,29 @@ namespace SurfaceApplication1
                     if (response != null) { xmlDoc.Load(response.GetResponseStream()); }
                 }
             return xmlDoc;
+        }
+
+        private static JObject GetJaonResponse(string requestUrl)
+        {
+            var jsonObject = new JObject();
+            System.Diagnostics.Trace.WriteLine("Request URL (XML): " + requestUrl);
+            var request = WebRequest.Create(requestUrl) as HttpWebRequest;
+            if (request != null)
+                using (var response = request.GetResponse() as HttpWebResponse)
+                {
+                    if (response != null && response.StatusCode != HttpStatusCode.OK)
+                        throw new Exception(String.Format("Server error (HTTP {0}: {1}).",
+                            response.StatusCode,
+                            response.StatusDescription));
+
+                    if (response != null && response.GetResponseStream() != null)
+                    {
+                        var reader = new StreamReader(response.GetResponseStream());
+                        jsonObject = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
+
+                    }
+                }
+            return jsonObject;
         }
 
         // Geocode an address and return a latitude and longitude
@@ -58,31 +83,47 @@ namespace SurfaceApplication1
             return location;
         }
 
-        public static void Route(String from, String to)
+        public static Route Route(String from, String to, bool xml, RouteModes routeMode)
         {
-            from = "Willy-Brandt-Platz, 68161 Mannheim";
-            to = "Am Goetheplatz, 68161 Mannheim";
             Location fromLocation = Location(from);
             Location toLocation = Location(to);
 
-            Route(fromLocation, toLocation);
-
+            return Route(fromLocation, toLocation, xml, routeMode);
         }
 
-        public static void Route(Location fromLocation, Location toLocation)
+        public static Route Route(Location fromLocation, Location toLocation, bool xml, RouteModes routeMode)
         {
-            String from = fromLocation.Latitude + "," + fromLocation.Longitude;
-            String to = toLocation.Latitude + "," + toLocation.Longitude;
+            String from = fromLocation.GetLocationStringWithDotsAndCommaSeperated();
+            String to = toLocation.GetLocationStringWithDotsAndCommaSeperated();
 
             //Create the Request URL for the routing service
-            String restRequest =
-                string.Format(
-                    "http://dev.virtualearth.net/REST/V1/Routes/Driving?waypoint.0={0}&waypoint.1={1}&rpo=Points&key={2}",
-                    from, to, BingMapKey);
+            String restRequest;
+            JObject jObject;
+            Route route;
+            if (xml)
+            {
+                restRequest = string.Format(
+                    "http://dev.virtualearth.net/REST/V1/Routes/{3}?waypoint.0={0}&waypoint.1={1}&rpo=Points&o=xml&key={2}"
+                    , from, to, BingMapKey, routeMode);
 
-            //Make the request and get the response
-            XmlDocument routeXmlDocument = GetXmlResponse(restRequest);
+                //Make the request and get the response
+                XmlDocument routeXmlDocument = GetXmlResponse(restRequest);
+
+                string json = JsonConvert.SerializeXmlNode(routeXmlDocument);
+                jObject = JObject.Parse(json);
+                route = new Route(jObject, fromLocation, toLocation, routeMode, true);
+            }
+            else
+            {
+                restRequest = string.Format(
+                "http://dev.virtualearth.net/REST/V1/Routes/{3}?waypoint.0={0}&waypoint.1={1}&rpo=Points&key={2}"
+                , from, to, BingMapKey, routeMode);
+
+                jObject = GetJaonResponse(restRequest);
+                route = new Route(jObject, fromLocation, toLocation, routeMode);
+            }
+
+            return route;
         }
-
     }
 }
