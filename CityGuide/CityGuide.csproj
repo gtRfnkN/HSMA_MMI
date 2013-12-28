@@ -51,12 +51,24 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="Microsoft.Surface" />
-    <Reference Include="Microsoft.Surface.Presentation" />
-    <Reference Include="Microsoft.Surface.Presentation.Generic" />
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Surface">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Surface.Presentation">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Surface.Presentation.Generic">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -78,6 +90,7 @@
     <Compile Include="Extensions\LocationExtensions.cs" />
     <Compile Include="Extensions\PointExtentions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
+    <Compile Include="ViewElements\InfoBox.cs" />
     <Compile Include="ViewElements\TagCircle.cs" />
     <Compile Include="ViewElements\TimeTable.xaml.cs">
       <DependentUpon>TimeTable.xaml</DependentUpon>

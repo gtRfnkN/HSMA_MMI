@@ -52,6 +52,10 @@ namespace CityGuide
 
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
+                InfoBox test = new InfoBox();
+                Map.Children.Add(test);
+                Canvas.SetTop(test, 300);
+                Canvas.SetLeft(test, 500);
             }
             catch (Exception e)
             {
@@ -79,7 +83,7 @@ namespace CityGuide
                 _pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
 
- 	    //TODO: test Attraktion Data
+            //TODO: test Attraktion Data
             _testAttraction = mockData.Attractions.FirstOrDefault(a => a.Titel == "Skyline");
             var testEvent = new EventAttraction
             {
@@ -117,13 +121,13 @@ namespace CityGuide
             var attraction = sender as Attraction;
             if (attraction != null)
             {
-                var infoBox = new TextBox { Width = 200, Height = 200 };
+                //var infoBox = new TextBox { Width = 200, Height = 200 };
+                var infoBox = new Canvas { Width = 200, Height = 200, Background = new SolidColorBrush(Colors.Green) };
 
-                Canvas.SetLeft(infoBox, positionPoint.X - 100);
-                Canvas.SetTop(infoBox, positionPoint.Y - 100);
-
+                Canvas.SetLeft(infoBox, positionPoint.X - infoBox.Width / 2);
+                Canvas.SetTop(infoBox, positionPoint.Y - infoBox.Width / 2);
                 infoBox.Uid = attraction.Titel.Replace(' ', '_') + "InfoBox";
-                infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
+                //infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
 
                 int index;
                 if (_pushPinsInfosMapLayer.Children != null)
@@ -188,7 +192,7 @@ namespace CityGuide
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
 
-	private Point _startPoint;
+        private Point _startPoint;
         private Attraction _testAttraction;
 
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
@@ -444,7 +448,7 @@ namespace CityGuide
                 if (a.Filter == filter)
                 {
                     // if reset or pin in filter range: full opacity
-                    if (radius == -1 || GetDistance(location, a.Location) < (radius/1000.0))
+                    if (radius == -1 || GetDistance(location, a.Location) < (radius / 1000.0))
                     {
                         a.Opacity = 1;
                     }
@@ -474,7 +478,7 @@ namespace CityGuide
         }
         #endregion
 
-	#region DragDrop Methods
+        #region DragDrop Methods
         private void LabelTouchDown(object sender, TouchEventArgs e)
         {
             // Store the mouse position
@@ -520,6 +524,6 @@ namespace CityGuide
                 DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
             }
         }
-       #endregion
+        #endregion
     }
 }
