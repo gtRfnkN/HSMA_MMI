@@ -22,62 +22,68 @@ namespace CityGuide.ViewElements
         /// <summary>
         /// SortedDictionary<Tuple<Uid, row, rowSpan, colum, columSpan>, Grid UIElement>
         /// </summary>
-        private readonly SortedDictionary<Tuple<String, int, int, int, int>, UIElement> _gridInformationDictionary;
+        private readonly Dictionary<Tuple<String, int, int, int, int>, UIElement> _gridInformationDictionary;
 
         /// <summary>
         /// SortedDictionary<GridRow, EventAttraction> 
         /// </summary>
-        public SortedDictionary<int, EventAttraction> EventAttractions { get; private set; }
+        public Dictionary<int, EventAttraction> EventAttractions { get; private set; }
         /// <summary>
         /// SortedDictionary<GridRow, EventTransport> 
         /// </summary>
-        public SortedDictionary<int, EventTransport> EventTransports { get; private set; }
+        public Dictionary<int, EventTransport> EventTransports { get; private set; }
         /// <summary>
         /// SortedDictionary<Tuple<FromGridRow,ToGridRow,RouteModes which is used to request the Route>, Route which containts the information of the route from Attraction to Attraction>
         /// </summary>
-        public SortedDictionary<Tuple<int, int, RouteModes>, Route> Routes { get; private set; }
+        public Dictionary<Tuple<int, int, RouteModes>, Route> Routes { get; private set; }
 
-        private readonly SolidColorBrush _normalColorBrush = new SolidColorBrush(Colors.Orange);
-        private readonly SolidColorBrush _hoverSolidColorBrush = new SolidColorBrush(Colors.RoyalBlue);
+        private readonly SolidColorBrush _normalColorBrush = new SolidColorBrush(Colors.Transparent);
+        private readonly SolidColorBrush _hoverSolidColorBrush = new SolidColorBrush(Color.FromArgb(100,254,204,92));
         private readonly Color _routeColorBrush = Colors.Orange;
 
         public TimeTable()
         {
             InitializeComponent();
 
-            _gridInformationDictionary = new SortedDictionary<Tuple<string, int, int, int, int>, UIElement>();
+            _gridInformationDictionary = new Dictionary<Tuple<string, int, int, int, int>, UIElement>();
             int rowcounter = 0;
             for (int counter = 8; counter < 24; counter++)
             {
-                String nameUID = (counter < 10) ? "DropTarget0" + counter + "15" : "DropTarget" + counter + "15";
-
-                var rec = new Rectangle
-                {
-                    Name = nameUID,
-                    Uid = nameUID,
-                    AllowDrop = true,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    VerticalAlignment = VerticalAlignment.Stretch,
-                    Fill = _normalColorBrush
-                };
-
-                rec.Drop += TimeTableDrop;
-                rec.DragOver += TimeTableDragOver;
-                rec.DragEnter += TimeTableDragEnter;
-                rec.DragLeave += TimeTableDragLeave;
-
-                Grid.SetRow(rec, rowcounter);
-                Grid.SetColumn(rec, 3);
-                Grid.SetRowSpan(rec, 3);
-                TimeTableGrid.Children.Add(rec);
-                _gridInformationDictionary.Add(new Tuple<string, int, int, int, int>(rec.Uid, rowcounter, 3, 3, 1), rec);
-
+                CreateDropTargetRectangle(counter, rowcounter, "15");
+                CreateDropTargetRectangle(counter, rowcounter+1, "30");
+                CreateDropTargetRectangle(counter, rowcounter+2, "45");
                 rowcounter += 3;
             }
 
-            EventAttractions = new SortedDictionary<int, EventAttraction>();
-            EventTransports = new SortedDictionary<int, EventTransport>();
-            Routes = new SortedDictionary<Tuple<int, int, RouteModes>, Route>();
+            EventAttractions = new Dictionary<int, EventAttraction>();
+            EventTransports = new Dictionary<int, EventTransport>();
+            Routes = new Dictionary<Tuple<int, int, RouteModes>, Route>();
+        }
+
+        private void CreateDropTargetRectangle(int counter, int rowcounter, String minutes)
+        {
+            String nameUID = (counter < 10) ? "DropTarget0" + counter + minutes : "DropTarget" + counter + minutes;
+
+            var rec = new Rectangle
+            {
+                Name = nameUID,
+                Uid = nameUID,
+                AllowDrop = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Fill = _normalColorBrush
+            };
+
+            rec.Drop += TimeTableDrop;
+            rec.DragOver += TimeTableDragOver;
+            rec.DragEnter += TimeTableDragEnter;
+            rec.DragLeave += TimeTableDragLeave;
+
+            Grid.SetRow(rec, rowcounter);
+            Grid.SetColumn(rec, 3);
+            Grid.SetRowSpan(rec, 1);
+            TimeTableGrid.Children.Add(rec);
+            _gridInformationDictionary.Add(new Tuple<string, int, int, int, int>(rec.Uid, rowcounter, 1, 3, 1), rec);
         }
 
         private void TimeTableDragLeave(object sender, DragEventArgs e)
