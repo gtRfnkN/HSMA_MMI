@@ -19,13 +19,15 @@ namespace CityGuide
     /// </summary>
     public partial class CityGuideWindow
     {
+        #region Fields
         private Dictionary<long, TagCircle> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
-        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes", CacheMode = new BitmapCache() };
+        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes"};
         private readonly CoolDownTimer _coolDownTimer = new CoolDownTimer(0, 0, 1) { Name = "DoubleTouchCoolDownTimer" };
         private readonly Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
-        private Point _lastTapPosition;
+        private Point _lastTapPosition; 
+        #endregion
 
         /// <summary>
         /// Default constructor.
@@ -39,7 +41,6 @@ namespace CityGuide
                 Map.Children.Add(_routeMapLayer);
                 Map.Children.Add(_pushPinsMapLayer);
                 Map.Children.Add(_pushPinsInfosMapLayer);
-                Map.CacheMode = new BitmapCache();
                 AddTouchAndMouseEventsForDebbugConsole();
 
                 AddPushPins();
@@ -52,6 +53,8 @@ namespace CityGuide
 
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
+
+                TimeTable.RoutMapLayer = _routeMapLayer;
             }
             catch (Exception e)
             {
@@ -62,13 +65,13 @@ namespace CityGuide
             }
         }
 
+        #region Methods
         #region Init Methods
 
         #region PushPin
         private void AddPushPins()
         {
-            var mockData = new InitMockData();
-            mockData.Init(CnvDraw, CnvInteract);
+            var mockData = InitMockData.Init(CnvDraw, CnvInteract);
             _filterCircles = mockData.TagViewItems;
 
             foreach (var attraction in mockData.Attractions)
@@ -79,7 +82,7 @@ namespace CityGuide
                 _pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
 
- 	    //TODO: test Attraktion Data
+            //TODO: test Attraktion Data
             _testAttraction = mockData.Attractions.FirstOrDefault(a => a.Titel == "Skyline");
             var testEvent = new EventAttraction
             {
@@ -125,10 +128,9 @@ namespace CityGuide
                 infoBox.Uid = attraction.Titel.Replace(' ', '_') + "InfoBox";
                 infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
 
-                int index;
                 if (_pushPinsInfosMapLayer.Children != null)
                 {
-
+                    int index;
                     if (!_pushPinsInfosMapLayer.Children.Contains(infoBox, out index))
                     {
                         var location = new Location();
@@ -188,7 +190,7 @@ namespace CityGuide
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
 
-	private Point _startPoint;
+        private Point _startPoint;
         private Attraction _testAttraction;
 
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
@@ -444,7 +446,7 @@ namespace CityGuide
                 if (a.Filter == filter)
                 {
                     // if reset or pin in filter range: full opacity
-                    if (radius == -1 || GetDistance(location, a.Location) < (radius/1000.0))
+                    if (radius == -1 || GetDistance(location, a.Location) < (radius / 1000.0))
                     {
                         a.Opacity = 1;
                     }
@@ -474,7 +476,7 @@ namespace CityGuide
         }
         #endregion
 
-	#region DragDrop Methods
+        #region DragDrop Methods
         private void LabelTouchDown(object sender, TouchEventArgs e)
         {
             // Store the mouse position
@@ -520,6 +522,7 @@ namespace CityGuide
                 DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
             }
         }
-       #endregion
+        #endregion 
+        #endregion
     }
 }

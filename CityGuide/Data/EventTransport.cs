@@ -1,9 +1,11 @@
 ﻿using System;
+using CityGuide.Data.Route;
 
 namespace CityGuide.Data
 {
     public class EventTransport : Event
     {
-        public String TransportTyp { get; set; }
+        public RouteModes TransportTyp { get; set; }
+        public Route.Route Route { get; set; }
     }
 }

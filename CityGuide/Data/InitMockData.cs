@@ -10,6 +10,31 @@ namespace CityGuide.Data
 {
     public class InitMockData
     {
+        #region Singelten
+        private static InitMockData _initMockData { get; set; }
+
+        public static InitMockData Init(Canvas drawCanvas, Canvas interactCanvas)
+        {
+            if (_initMockData == null)
+            {
+                var data = new InitMockData();
+                data.InitFilter(drawCanvas, interactCanvas);
+                data.InitCategories(data.Filters);
+                data.InitAttractions();
+                _initMockData = data;
+            }
+            return _initMockData;
+        }
+
+        public static InitMockData Init()
+        {
+            return _initMockData;
+        }
+
+        private InitMockData() { }
+        #endregion
+
+        #region Fields
         public List<Filter> Filters { get; set; }
         public List<Categorie> Categories { get; set; }
         public List<Attraction> Attractions { get; set; }
@@ -35,10 +60,12 @@ namespace CityGuide.Data
         private readonly String[] _restaurantCategorieNames = { "Italienisch", "Französisch", "Griechisch", "Asiatisch", "Bürgerlich" };
         private readonly String[] _nightlifeCategorieNames = { "Bars", "Clubs", "Diskos", "Andere" };
         private readonly String[] _sehenswuerdigkeitenCategorieNames = { "Musen", "Wahrzeichen", "Parks", "Andere" };
+        #endregion
 
+        #region Init Methods
         private void InitFilter(Canvas drawCanvas, Canvas interactCanvas)
         {
-            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter], Radius = 200, TagID = _filterColors.Keys.ToArray()[counter]}).ToList();
+            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter], Radius = 200, TagID = _filterColors.Keys.ToArray()[counter] }).ToList();
 
             this.TagViewItems = new Dictionary<long, TagCircle>();
             foreach (var filter in Filters)
@@ -112,6 +139,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Skyline",
+                    DefaultDurationInMinutes = 90,
                     Location = new Location(49.486991, 8.491993, 0.0),
                     Filter = restaurantFilter,
                     Background = new SolidColorBrush(restaurantFilter.Color),
@@ -127,6 +155,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Technoseum",
+                    DefaultDurationInMinutes = 120,
                     Location = new Location(49.476465, 8.496863, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -139,6 +168,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Planetarium",
+                    DefaultDurationInMinutes = 90,
                     Location = new Location(49.477330, 8.492872, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -152,6 +182,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Stars",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.486585, 8.465822, 0.0),
                     Filter = nightlifeFilter,
                     Background = new SolidColorBrush(nightlifeFilter.Color),
@@ -167,6 +198,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Vapiano",
+                    DefaultDurationInMinutes = 90,
                     Location = new Location(49.485106, 8.475653, 0.0),
                     Filter = restaurantFilter,
                     Background = new SolidColorBrush(restaurantFilter.Color),
@@ -180,6 +212,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Barockschloss Mannheim",
+                    DefaultDurationInMinutes = 120,
                     Location = new Location(49.483582, 8.462260, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -193,6 +226,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Hauptbahnhof",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.479886, 8.469992, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -204,6 +238,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Nationaltheater",
+                    DefaultDurationInMinutes = 150,
                     Location = new Location(49.488370, 8.477753, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -216,6 +251,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "SAP Arena",
+                    DefaultDurationInMinutes = 120,
                     Location = new Location(49.464134, 8.517818, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -228,6 +264,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Wasserturm",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.484076, 8.475525, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -241,6 +278,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Burger King",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.485037, 8.473592, 0.0),
                     Filter = restaurantFilter,
                     Background = new SolidColorBrush(restaurantFilter.Color)
@@ -248,6 +286,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Starbucks",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.484034, 8.473700, 0.0),
                     Filter = restaurantFilter,
                         Background = new SolidColorBrush(restaurantFilter.Color)
@@ -262,6 +301,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Eisstadion Mannheim",
+                    DefaultDurationInMinutes = 60,
                     Location = new Location(49.485462, 8.457977, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -269,6 +309,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Alter Meßplatz",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.496267, 8.472735, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -276,6 +317,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Galeria Kaufhof",
+                    DefaultDurationInMinutes = 50,
                     Location = new Location(49.487844, 8.466678, 0.0),
                     Filter = shoppingFilter,
                     Background = new SolidColorBrush(shoppingFilter.Color)
@@ -283,6 +325,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Cineplex",
+                    DefaultDurationInMinutes = 150,
                     Location = new Location(49.483477, 8.471519, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -290,6 +333,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Subway",
+                    DefaultDurationInMinutes = 45,
                     Location = new Location(49.486639, 8.465338, 0.0),
                     Filter = restaurantFilter,
                     Background = new SolidColorBrush(restaurantFilter.Color)
@@ -297,6 +341,7 @@ namespace CityGuide.Data
                 new Attraction
                 {
                     Titel = "Carl-Benz Stadion",
+                    DefaultDurationInMinutes = 75,
                     Location = new Location(49.479456, 8.502636, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
@@ -305,13 +350,6 @@ namespace CityGuide.Data
 
             //TODO: Init Mock data
         }
-
-        public void Init(Canvas drawCanvas, Canvas interactCanvas)
-        {
-            InitFilter( drawCanvas, interactCanvas);
-            InitCategories(this.Filters);
-            InitAttractions();
-        }
-
+        #endregion
     }
 }

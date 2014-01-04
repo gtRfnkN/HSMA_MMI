@@ -1,0 +1,5 @@
+﻿<UserControl x:Class="CityGuide.ViewElements.TimeTableEventTransportation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Padding="0" VerticalAlignment="Top">
+       <Label Content="Label" HorizontalAlignment="Stretch" Name="TransportNameLabel" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontStretch="Normal" Padding="7,0"/>
+</UserControl>

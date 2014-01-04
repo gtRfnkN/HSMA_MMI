@@ -78,12 +78,15 @@
     <Compile Include="Extensions\LocationExtensions.cs" />
     <Compile Include="Extensions\PointExtentions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
+    <Compile Include="ViewElements\TimeTableEventTransportation.xaml.cs">
+      <DependentUpon>TimeTableEventTransportation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewElements\TagCircle.cs" />
     <Compile Include="ViewElements\TimeTable.xaml.cs">
       <DependentUpon>TimeTable.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewElements\TimeTableEvent.xaml.cs">
-      <DependentUpon>TimeTableEvent.xaml</DependentUpon>
+    <Compile Include="ViewElements\TimeTableEventAttraction.xaml.cs">
+      <DependentUpon>TimeTableEventAttraction.xaml</DependentUpon>
     </Compile>
     <Page Include="CityGuide.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -97,11 +100,15 @@
       <DependentUpon>CityGuide.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewElements\TimeTableEventTransportation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewElements\TimeTable.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewElements\TimeTableEvent.xaml">
+    <Page Include="ViewElements\TimeTableEventAttraction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
