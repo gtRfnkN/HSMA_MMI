@@ -7,8 +7,7 @@
     Width="900"
     Height="400"
     Title="City Guide Mannheim"
-    x:Name="SurfaceApplicationWrapper"
-    >
+    x:Name="SurfaceApplicationWrapper">
     <Grid>
         <m:Map
            x:Name="Map"  Mode="AerialWithLabels"
@@ -29,12 +28,11 @@
             Background="Transparent"
             IsManipulationEnabled="True" >
                 <Button Canvas.Right="175" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
+                <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150" Canvas.Left="390" Canvas.Top="143" />
             </Canvas>
         </m:Map>
-
+        <s:ScatterView Canvas.Left="0" Canvas.Top="0" Height="1080" Name="InfoBoxContainer" Width="1920"/>
         <my:TimeTable x:Name="TimeTable" Height="520" Width="240" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-        <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150"/>
-
         <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
             <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />
         </Border>

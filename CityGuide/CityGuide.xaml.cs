@@ -52,10 +52,12 @@ namespace CityGuide
 
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
-                InfoBox test = new InfoBox();
-                Map.Children.Add(test);
-                Canvas.SetTop(test, 300);
-                Canvas.SetLeft(test, 500);
+                InfoBox testBox = new InfoBox();
+                testBox.Orientation = 0;
+                InfoBoxContainer.Items.Add(testBox);
+                //Map.Children.Add(textBox);
+                Canvas.SetTop(testBox, 300);
+                Canvas.SetLeft(testBox, 500);
             }
             catch (Exception e)
             {

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using CityGuide.Data;
 using System.Windows.Media;
 using Microsoft.Surface.Presentation.Controls;
+using System.Windows.Shapes;
 
 namespace CityGuide.ViewElements
 {
@@ -18,7 +19,7 @@ namespace CityGuide.ViewElements
 
         public InfoBox()
         {
-            this.Width = 250;
+            this.Width = 450;
             this.Height = 350;
             this.CanScale = false;
             this.Background = new SolidColorBrush(Colors.White);
@@ -30,22 +31,29 @@ namespace CityGuide.ViewElements
         private void InitUiElements()
         {
             this.Padding = new System.Windows.Thickness(0);
+            //Format label
             _titleLabel = new Label();
             _titleLabel.Width = this.Width;
-            _titleLabel.Height = 20;
+            _titleLabel.Height = 40;
             _titleLabel.Content = "toller titel";
             _titleLabel.Background = new SolidColorBrush(Colors.Black);
             Canvas.SetLeft(_titleLabel, 0);
             Canvas.SetTop(_titleLabel, 0);
+            //Format CloseButton
+            var triangle = new Polygon();
+            triangle.Points.Add(new System.Windows.Point(0,0));
+            triangle.Points.Add(new System.Windows.Point(40,40));
+            triangle.Points.Add(new System.Windows.Point(40,0));
             _closeButton = new SurfaceButton();
-            _closeButton.Content = "X";
+            _closeButton.Content = triangle;
             _closeButton.MinHeight = 10;
             _closeButton.MinWidth = 10;
-            _closeButton.Width = 10;
-            _closeButton.Height = 10;
-            _closeButton.Background = new SolidColorBrush(Colors.Green);
-            Canvas.SetLeft(_closeButton, this.Width - 11);
+            _closeButton.Width = 40;
+            _closeButton.Height = 40;
+            //_closeButton.Background = new SolidColorBrush(Colors.Green);
+            Canvas.SetLeft(_closeButton, this.Width - _closeButton.Width - 1);
             Canvas.SetTop(_closeButton, -1);
+            //Add elements to Canvas
             UiElements.Children.Add(_titleLabel);
             UiElements.Children.Add(_closeButton);
         }
