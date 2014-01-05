@@ -72,6 +72,7 @@ namespace CityGuide.ViewElements
             _descriptionTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             _descriptionTextBox.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             _descriptionTextBox.Text = "Lustiger Beschreibungstext!";
+            _descriptionTextBox.IsReadOnly = true;
             Canvas.SetLeft(_descriptionTextBox, 0);
             Canvas.SetTop(_descriptionTextBox, 190);
             //Add elements to Canvas
