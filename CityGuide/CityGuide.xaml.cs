@@ -56,6 +56,7 @@ namespace CityGuide
                 testBox.Orientation = 0;
                 testBox.Center = new Point(500, 500);
                 InfoBoxContainer.Items.Add(testBox);
+
                 //Map.Children.Add(textBox);
                 Canvas.SetTop(testBox, 300);
                 Canvas.SetLeft(testBox, 500);

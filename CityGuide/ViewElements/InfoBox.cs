@@ -53,14 +53,25 @@ namespace CityGuide.ViewElements
             _closeButton.Height = 40;
             _closeButton.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
             _closeButton.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
+            _closeButton.Click += new System.Windows.RoutedEventHandler(_closeButton_Click);
             _closeButton.Background = new SolidColorBrush(Colors.Blue);
             Canvas.SetLeft(_closeButton, this.Width - _closeButton.Width - 1);
             Canvas.SetTop(_closeButton, -1);
             //TODO Init imageBox
+            _attractionImage = new Image();
+            _attractionImage.Height = 150;
+            _attractionImage.Width = this.Width;
+            Canvas.SetLeft(_attractionImage, 0);
+            Canvas.SetTop(_attractionImage, 40);
             //TODO Init TextBox
             //Add elements to Canvas
             _uiElements.Children.Add(_titleLabel);
             _uiElements.Children.Add(_closeButton);
+        }
+
+        void _closeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            closeInfoBox();
         }
 
         void _closeButton_TouchUp(object sender, System.Windows.Input.TouchEventArgs e)
