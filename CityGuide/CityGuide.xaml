@@ -31,7 +31,7 @@
                 <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150" Canvas.Left="390" Canvas.Top="143" />
             </Canvas>
         </m:Map>
-        <s:ScatterView Canvas.Left="0" Canvas.Top="0" Height="1080" Name="InfoBoxContainer" Width="1920"/>
+        <s:ScatterView Canvas.Left="0" Canvas.Top="0" Height="1080" Name="InfoBoxContainer" Width="1920" Background="Transparent"/>
         <my:TimeTable x:Name="TimeTable" Height="520" Width="240" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
             <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />

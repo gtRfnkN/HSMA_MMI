@@ -12,10 +12,11 @@ namespace CityGuide.ViewElements
 {
     class InfoBox : ScatterViewItem
     {
-        //private Label _titleLabel;
         private SurfaceButton _closeButton;
         private Label _titleLabel;
-        private Canvas UiElements;
+        private Canvas _uiElements;
+        private Image _attractionImage;
+        private TextBox _descriptionTextBox;
 
         public InfoBox()
         {
@@ -23,15 +24,15 @@ namespace CityGuide.ViewElements
             this.Height = 350;
             this.CanScale = false;
             this.Background = new SolidColorBrush(Colors.White);
-            UiElements = new Canvas();
+            _uiElements = new Canvas();
             InitUiElements();
-            this.AddChild(UiElements);
+            this.AddChild(_uiElements);
         }
 
         private void InitUiElements()
         {
             this.Padding = new System.Windows.Thickness(0);
-            //Format label
+            //Init titleLabel
             _titleLabel = new Label();
             _titleLabel.Width = this.Width;
             _titleLabel.Height = 40;
@@ -39,23 +40,42 @@ namespace CityGuide.ViewElements
             _titleLabel.Background = new SolidColorBrush(Colors.Black);
             Canvas.SetLeft(_titleLabel, 0);
             Canvas.SetTop(_titleLabel, 0);
-            //Format CloseButton
+            //Init closeButton
             var triangle = new Polygon();
-            triangle.Points.Add(new System.Windows.Point(0,0));
-            triangle.Points.Add(new System.Windows.Point(40,40));
-            triangle.Points.Add(new System.Windows.Point(40,0));
+            triangle.Points.Add(new System.Windows.Point(0, 0));
+            triangle.Points.Add(new System.Windows.Point(40, 40));
+            triangle.Points.Add(new System.Windows.Point(40, 0));
             _closeButton = new SurfaceButton();
             _closeButton.Content = triangle;
             _closeButton.MinHeight = 10;
             _closeButton.MinWidth = 10;
             _closeButton.Width = 40;
             _closeButton.Height = 40;
-            //_closeButton.Background = new SolidColorBrush(Colors.Green);
+            _closeButton.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
+            _closeButton.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
+            _closeButton.Background = new SolidColorBrush(Colors.Blue);
             Canvas.SetLeft(_closeButton, this.Width - _closeButton.Width - 1);
             Canvas.SetTop(_closeButton, -1);
+            //TODO Init imageBox
+            //TODO Init TextBox
             //Add elements to Canvas
-            UiElements.Children.Add(_titleLabel);
-            UiElements.Children.Add(_closeButton);
+            _uiElements.Children.Add(_titleLabel);
+            _uiElements.Children.Add(_closeButton);
+        }
+
+        void _closeButton_TouchUp(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            closeInfoBox();
+        }
+
+        void _closeButton_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            closeInfoBox();
+        }
+
+        private void closeInfoBox()
+        {
+            ((ScatterView)this.Parent).Items.Remove(this);
         }
 
         public InfoBox(Attraction attraction)
