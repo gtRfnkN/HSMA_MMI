@@ -351,6 +351,7 @@ namespace CityGuide
                 // update resolution
                 double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
                 filterCircle.UpdateResolution(resolution);
+                filterCircle.cLocation = touchLocation;
 
                 // update filter opacity
                 FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());
@@ -362,7 +363,7 @@ namespace CityGuide
                     filterCircle.UpdateTransform(tp.X, tp.Y, e.TouchDevice.GetOrientation(CnvDraw));
 
                     filterCircle.UpdateSize();
-                    filterCircle.Draw();
+                    filterCircle.Draw(this);
                     return true;
                 }
             }
@@ -382,6 +383,7 @@ namespace CityGuide
                 // update resolution
                 double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
                 filterCircle.UpdateResolution(resolution);
+                filterCircle.cLocation = touchLocation;
 
                 // update filter opacity
                 FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());
@@ -439,7 +441,7 @@ namespace CityGuide
         #endregion
 
         #region Helper Methods
-        private void FilterPins(Filter filter, Location location, double radius)
+        public void FilterPins(Filter filter, Location location, double radius)
         {
             foreach (Attraction a in _pushPinsMapLayer.Children)
             {

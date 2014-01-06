@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using CityGuide.Data;
 using Microsoft.Surface.Presentation.Input;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace CityGuide.ViewElements
 {
@@ -45,6 +46,11 @@ namespace CityGuide.ViewElements
 
         // resolution calculated by current pin position and zoom
         private double resolution;
+
+        // used to redraw points on resize
+        private CityGuideWindow cgWindow;
+
+        public Location cLocation;
         #endregion
 
         #region constructors
@@ -130,7 +136,7 @@ namespace CityGuide.ViewElements
             TagID = newTag;
 
             UpdateSize();
-            Draw();
+            Draw(null);
 
             // update the transformation
             UpdateTransform(posX, posY, angle);
@@ -139,8 +145,10 @@ namespace CityGuide.ViewElements
 
         #region Methods
 
-        public void Draw()
+        public void Draw(CityGuideWindow feedback)
         {
+            cgWindow = feedback;
+
             if (_firstDraw)
             {
                 // add the circle to the draw container
@@ -165,6 +173,7 @@ namespace CityGuide.ViewElements
             DrawCanvas.Children.Remove(_drawContainer);
             InteractCanvas.Children.Remove(_interactContainer);
             IsDrawn = false;
+            cgWindow = null;
 
             _coolDownTimer.StartWithReset();
         }
@@ -258,6 +267,11 @@ namespace CityGuide.ViewElements
 
             // set text output
             _text.Text = Math.Round((Filter.Radius * resolution / 1000.0), 2) + " km";
+
+            if (cgWindow != null)
+            {
+                cgWindow.FilterPins(Filter, cLocation, GetRadius());
+            }
         }
         #endregion
     }
