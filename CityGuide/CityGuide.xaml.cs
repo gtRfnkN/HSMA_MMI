@@ -350,7 +350,6 @@ namespace CityGuide
         #region Tag Related Metheods
         private bool TagDown(TouchEventArgs e)
         {
-            Console.WriteLine("Tag Down");
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 Point tp = e.GetTouchPoint(CnvInteract).Position;
@@ -496,6 +495,7 @@ namespace CityGuide
         {
             // Store the mouse position
             _startPoint = e.TouchDevice.GetTouchPoint(this).Position;
+            e.Handled = true;
         }
 
         private void LableTouchMove(object sender, TouchEventArgs e)
@@ -513,12 +513,14 @@ namespace CityGuide
                 var dragData = new DataObject("Attraction", _testAttraction);
                 DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
             }
+            e.Handled = true;
         }
 
         private void LabelMouseDown(object sender, MouseEventArgs e)
         {
             // Store the mouse position
             _startPoint = e.GetPosition(this);
+            e.Handled = true;
         }
 
         private void LableMouseMove(object sender, MouseEventArgs e)
@@ -536,6 +538,7 @@ namespace CityGuide
                 var dragData = new DataObject("Attraction", _testAttraction);
                 DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
             }
+            e.Handled = true;
         }
         #endregion 
 

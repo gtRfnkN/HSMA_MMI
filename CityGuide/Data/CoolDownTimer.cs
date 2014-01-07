@@ -53,7 +53,6 @@ namespace CityGuide.Data
         private void T_Tick(object sender, EventArgs e)
         {
             remainingTime = _endTime - DateTime.UtcNow;
-            Console.WriteLine(Name + ':' + remainingTime);
             if (remainingTime < TimeSpan.Zero)
             {
                 _internelTimer.Stop();
