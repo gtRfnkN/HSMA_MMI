@@ -7,7 +7,7 @@
             <RowDefinition Height="15" />
         </Grid.RowDefinitions>
        <Label Content="Label" HorizontalAlignment="Stretch" Name="AttrationNameLabel" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" FontStretch="Normal" />
-        <Button Grid.Row="0" Content="Lock" Height="23"  Name="LockButton" VerticalAlignment="Top" Width="45" Margin="100,3,2,0" />
+        <Button Grid.Row="0" Content="Lock" Height="23"  Name="LockButton" VerticalAlignment="Top" Width="45" HorizontalAlignment="Right" Margin="0,2,3,0"/>
         <Canvas Height="15" HorizontalAlignment="Stretch" Name="ResizeCanvas" VerticalAlignment="Top" Grid.Row="1">
             <Canvas.Background>
                 <ImageBrush ImageSource="/CityGuide;component/Resources/EventRezise.png" Stretch="Fill" TileMode="FlipXY"/>

@@ -45,14 +45,8 @@ namespace CityGuide
 
                 AddPushPins();
 
-                //Test Route
-                var skylinLoc = new Location(49.486991, 8.491993, 0.0);
-                var techMuseumLoc = new Location(49.476465, 8.496863, 0.0);
-                Route route = BingMapRestHelper.Route(skylinLoc, techMuseumLoc, false, RouteModes.Driving);
-                DrawRoute(route.CreateMapPolylines(Colors.DarkOrange));
-
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
-                CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
+                CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
 
                 TimeTable.RoutMapLayer = _routeMapLayer;
             }
@@ -274,8 +268,6 @@ namespace CityGuide
 
         private void MapTouchMoveEvent(object sender, TouchEventArgs e)
         {
-            //_coolDownTimer.Stop();
-
             var location = new Location();
             ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
@@ -358,6 +350,7 @@ namespace CityGuide
         #region Tag Related Metheods
         private bool TagDown(TouchEventArgs e)
         {
+            Console.WriteLine("Tag Down");
             if (e.TouchDevice.GetIsTagRecognized() && _filterCircles.ContainsKey(e.TouchDevice.GetTagData().Value))
             {
                 Point tp = e.GetTouchPoint(CnvInteract).Position;
@@ -439,7 +432,7 @@ namespace CityGuide
         #endregion
 
         #region Map Related Methods
-        private void CurrentLocationButtonMouseDown(object sender, MouseButtonEventArgs e)
+        private void CurrentLocationButtonMouseDown(object sender, RoutedEventArgs e)
         {
             Map.Center = new Location(49.479886, 8.469992, 0.0);
             Map.ZoomLevel = 15.00;
@@ -545,6 +538,11 @@ namespace CityGuide
             }
         }
         #endregion 
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            TimeTable.Reset();
+        }
         #endregion
     }
 }

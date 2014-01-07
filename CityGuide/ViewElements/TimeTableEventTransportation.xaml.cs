@@ -26,12 +26,11 @@ namespace CityGuide.ViewElements
                     TransportNameLabel.Content = "Auto " + eventTransport.DurationTime();
                     TransportNameLabel.Background = new SolidColorBrush(Colors.Orange);
 
-                    if ((_event.Route.Duration /60/15) <= 1)
+                    if ((_event.Route.Duration / 60 / 15) <= 1)
                     {
-                        TransportNameLabel.FontSize = 8.0;
-                        TransportNameLabel.FontWeight = FontWeights.Bold;
+                        TransportNameLabel.FontSize = 12.0;
                     }
-                    
+
                     String nameUID = "TimeTableEventTransporation" + eventTransport.TransportTyp + eventTransport.Order;
                     Uid = nameUID;
                     Name = nameUID;
@@ -49,7 +48,7 @@ namespace CityGuide.ViewElements
 
         private void TouchEventLabel(Object sender, TouchEventArgs e)
         {
-           //TODO: Open Information for Event
+            //TODO: Open Information for Event
         }
     }
 }
