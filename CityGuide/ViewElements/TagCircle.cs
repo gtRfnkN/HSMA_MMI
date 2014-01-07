@@ -230,6 +230,9 @@ namespace CityGuide.ViewElements
         public void UpdateResolution(double res)
         {
             resolution = res;
+
+            // set text output
+            _text.Text = Math.Round((Filter.Radius * resolution / 1000.0), 2) + " km";
         }
 
         public double GetRadius()
