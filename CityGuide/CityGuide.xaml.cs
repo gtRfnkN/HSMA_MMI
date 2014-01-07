@@ -284,6 +284,24 @@ namespace CityGuide
             {
                 e.Handled = true;
             }
+
+            foreach (TagCircle t in _filterCircles.Values)
+            {
+                if (t.cLocation != null)
+                {
+                    // get the touch location of the tag
+                    Location touchLocation = Map.ViewportPointToLocation(t.cPosition);
+
+                    // update resolution
+                    double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
+                    t.UpdateResolution(resolution);
+                    t.cLocation = touchLocation;
+
+                    // update position
+                    t.Filter.LocationCenter = t.Filter.LocationCenter.GetLocationByEvent(t.cPosition, Map);
+                    FilterPins(t.Filter, t.cLocation, t.GetRadius());
+                }
+            }
         }
 
         private void MapTouchDownEvent(object sender, TouchEventArgs e)
@@ -352,6 +370,7 @@ namespace CityGuide
                 double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
                 filterCircle.UpdateResolution(resolution);
                 filterCircle.cLocation = touchLocation;
+                filterCircle.cPosition = e.GetTouchPoint(Map).Position;
 
                 // update filter opacity
                 FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());
@@ -384,6 +403,7 @@ namespace CityGuide
                 double resolution = 156543.04 * Math.Cos(Deg2Rad(touchLocation.Latitude)) / (Math.Pow(2, Map.ZoomLevel));
                 filterCircle.UpdateResolution(resolution);
                 filterCircle.cLocation = touchLocation;
+                filterCircle.cPosition = e.GetTouchPoint(Map).Position;
 
                 // update filter opacity
                 FilterPins(filterCircle.Filter, touchLocation, filterCircle.GetRadius());

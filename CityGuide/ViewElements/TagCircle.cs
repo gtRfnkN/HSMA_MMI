@@ -51,6 +51,7 @@ namespace CityGuide.ViewElements
         private CityGuideWindow cgWindow;
 
         public Location cLocation;
+        public Point cPosition;
         #endregion
 
         #region constructors
