@@ -24,6 +24,8 @@ namespace CityGuide.Data
         public Boolean IsSpezialSunrise { get; set; }
         public Boolean IsSpezialSunset { get; set; }
         public int[] SpezialTimes { get; set; }
+
+        public int Interest { get; set; }
         #endregion
     }
 }

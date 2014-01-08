@@ -26,7 +26,8 @@ namespace CityGuide
         private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes"};
         private readonly CoolDownTimer _coolDownTimer = new CoolDownTimer(0, 0, 1) { Name = "DoubleTouchCoolDownTimer" };
         private readonly Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
-        private Point _lastTapPosition; 
+        private Point _lastTapPosition;
+        private int FILTER_INTEREST = 5;
         #endregion
 
         /// <summary>
@@ -49,6 +50,14 @@ namespace CityGuide
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
 
                 TimeTable.RoutMapLayer = _routeMapLayer;
+
+                foreach (Attraction a in _pushPinsMapLayer.Children)
+                {
+                    if (a.Interest <= FILTER_INTEREST)
+                    {
+                        a.Opacity = 0.5;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -460,7 +469,7 @@ namespace CityGuide
                 if (a.Filter == filter)
                 {
                     // if reset or pin in filter range: full opacity
-                    if (radius == -1 || GetDistance(location, a.Location) < (radius / 1000.0))
+                    if ((radius == -1 && a.Interest > FILTER_INTEREST)  || GetDistance(location, a.Location) < (radius / 1000.0))
                     {
                         a.Opacity = 1;
                     }

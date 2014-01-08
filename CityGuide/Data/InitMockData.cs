@@ -145,6 +145,7 @@ namespace CityGuide.Data
                     Background = new SolidColorBrush(restaurantFilter.Color),
                     IsSpezialSunrise = true,
                     IsSpezialSunset = true,
+                    Interest = 6,
                     Address = "Hans-Reschke-Ufer 2, 68165 Mannheim",
                     OpeningHours = "10.00 bis 24.00 Uhr\nKüchenzeiten: 11.30 - 14.00 und 18.00 - 22.00 Uhr",
                     Information =
@@ -159,6 +160,7 @@ namespace CityGuide.Data
                     Location = new Location(49.476465, 8.496863, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 8,
                     Address = "Museumsstraße 1,68165 Mannheim",
                     OpeningHours = "täglich 9.00 - 17.00 Uhr, (am 24. und 31. Dezember geschlossen)",
                     Information = "Tel.: +49 621 42989 Fax: +49 621 4298754 E-Mail: info@technoseum.de",
@@ -172,6 +174,7 @@ namespace CityGuide.Data
                     Location = new Location(49.477330, 8.492872, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 8,
                     Address = "Wilhelm-Varnholt-Allee 1 (Europaplatz), 68165 Mannheim",
                     OpeningHours =
                         "Tageskasse öffnet jeweils eine Stunde vor Beginn der jeweiligen Vorstellung.\nTelefonische Kartenreserviereung:\nDi / Mi / Do / Fr 8.30 - 12.30 und 14.00 - 16.00 Uhr\nMi zusätzlich 17.00 - 19.00 Uhr\nSa / So / Feiertage 12.30 - 16.30 Uhr",
@@ -188,6 +191,7 @@ namespace CityGuide.Data
                     Background = new SolidColorBrush(nightlifeFilter.Color),
                     IsSpezialSunrise = true,
                     IsSpezialSunset = true,
+                    Interest = 4,
                     OpeningHours =
                         "Sonntag bis Donnerstag: 14:00 bis 1:00 Uhr\nFreitag & Samstag: 14:00 bis 3:00 Uhr\nvor Feiertagen: 14:00 bis 3:00 Uhr",
                     Address = "Stadthaus N1, 68161 Mannheim",
@@ -202,6 +206,7 @@ namespace CityGuide.Data
                     Location = new Location(49.485106, 8.475653, 0.0),
                     Filter = restaurantFilter,
                     Background = new SolidColorBrush(restaurantFilter.Color),
+                    Interest = 4,
                     Address = "Friedrichsplatz 1, 68165 Mannheim",
                     OpeningHours = "Mo - So 10.00 - 1.00 Küche 11.00 - 24.00",
                     Information =
@@ -216,6 +221,7 @@ namespace CityGuide.Data
                     Location = new Location(49.483582, 8.462260, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 10,
                     OpeningHours = "Dienstag bis Sonntag und an Feiertagen 10.00 – 17.00 Uhr letzter Einlass 16.30 Uhr",
                     Teaser =
                         "Als Kurfürst Carl Philipp im Jahr 1720 von Heidelberg nach Mannheim zog wurde die Stadt zur Residenz und zum strahlenden Mittelpunkt für Wissenschaften, Kunst und Kultur. Im selben Jahr legte er den Grundstein zum Neubau dieser imponierenden Schlossanlage. 450 Meter lang ist die Stadtfront, etwa sechs Hektar Fläche sind hier umbaut, und einst gab es ca. 1.000 Räume und Säle. Schloss Mannheim gehört zu den größten Barockanlagen Deutschlands.\nDas Mannheimer Schloss öffnet sich zur Stadt hin mit dem Ehrenhof. An den mittig gelegenen Haupttrakt schließen sich der Ost- und der Westflügel an. Hinter den Gebäuden liegt zum Rhein hin der weitläufige Schlossgarten. Im Ostflügel richtete Carl Theodor eine Bibliothek ein, die zu den bedeutendsten ihrer Zeit zählte. Seine Hofkapelle wurde zum Wegbereiter der europäischen Klassik und ging als „Mannheimer Schule“ in die Musikgeschichte ein. Heute ist das Schloss teilweise Sitz der Universität, die somit als eine der schönsten Deutschlands gelten darf.",
@@ -229,6 +235,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 45,
                     Location = new Location(49.479886, 8.469992, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                     Address = "Willy-Brandt-Platz, 68161 Mannheim",
                     Information = "Internet: http://www.bahn.de",
@@ -242,6 +249,7 @@ namespace CityGuide.Data
                     Location = new Location(49.488370, 8.477753, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 8,
                     Address = "Am Goetheplatz, 68161 Mannheim",
                     OpeningHours = "Abendverkauf an allen Vorstellungstagen von 18.00 - 20.00 Uhr",
                     Information = "Tel.: +49 621 1680310 Internet: http://www.nationaltheater-mannheim.de",
@@ -255,6 +263,7 @@ namespace CityGuide.Data
                     Location = new Location(49.464134, 8.517818, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 7,
                     Address = "Xaver-Fuhr-Str.150, 68163 Mannheim",
                     Information = "Tel.: +49 621 18190333 Internet: http://www.saparena.de",
                     Teaser =
@@ -270,6 +279,7 @@ namespace CityGuide.Data
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                     IsSpezialSunrise = true,
                     IsSpezialSunset = true,
+                    Interest = 10,
                     OpeningHours = "Immer, Im Winter sind die Brunnen ohne Wasser.",
                     Address = "Friedrichsplatz, 68161 Mannheim",
                     Teaser =
@@ -281,6 +291,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 45,
                     Location = new Location(49.485037, 8.473592, 0.0),
                     Filter = restaurantFilter,
+                    Interest = 2,
                     Background = new SolidColorBrush(restaurantFilter.Color)
                 },
                 new Attraction
@@ -289,13 +300,15 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 45,
                     Location = new Location(49.484034, 8.473700, 0.0),
                     Filter = restaurantFilter,
-                        Background = new SolidColorBrush(restaurantFilter.Color)
+                    Interest = 2,
+                    Background = new SolidColorBrush(restaurantFilter.Color)
                 },
                 new Attraction
                 {
                     Titel = "Rheinterassen",
                     Location = new Location(49.479254, 8.461713, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 6,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -304,6 +317,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 60,
                     Location = new Location(49.485462, 8.457977, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -312,6 +326,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 45,
                     Location = new Location(49.496267, 8.472735, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -320,6 +335,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 50,
                     Location = new Location(49.487844, 8.466678, 0.0),
                     Filter = shoppingFilter,
+                    Interest = 4,
                     Background = new SolidColorBrush(shoppingFilter.Color)
                 },
                 new Attraction
@@ -328,6 +344,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 150,
                     Location = new Location(49.483477, 8.471519, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 4,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -336,6 +353,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 45,
                     Location = new Location(49.486639, 8.465338, 0.0),
                     Filter = restaurantFilter,
+                    Interest = 2,
                     Background = new SolidColorBrush(restaurantFilter.Color)
                 },
                 new Attraction
@@ -344,6 +362,7 @@ namespace CityGuide.Data
                     DefaultDurationInMinutes = 75,
                     Location = new Location(49.479456, 8.502636, 0.0),
                     Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 }
             };
