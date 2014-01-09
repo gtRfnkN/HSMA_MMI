@@ -123,10 +123,10 @@ namespace CityGuide.Data
         {
             String[] attrationNames =
             {
-                "Wasserturm", "Skyline", "Technoseum", "Planetarium",
+                "Wasserturm", "Luisenpark", "Skyline", "Technoseum", "Planetarium",
                 "Carl-Benz Stadion","Stars", "Vapiano", "Burger King", "Starbucks", "Barockschloss Mannheim", "Rheinterassen",
-                "Hauptbahnhof", "Eisstadion Mannheim", "Alter Meßplatz", "Nationaltheater", "SAP Arena",
-                "Galeria Kaufhof", "Cineplex", "Subway"
+                "Hauptbahnhof", "Eisstadion Mannheim", "Alter Meßplatz", "Nationaltheater", "Reiss-Engelhorn-Museum", "SAP Arena",
+                "Galeria Kaufhof", "Cineplex", "Subway", "Schillerplatz","Marktplatz","Citybeach", 
             };
 
             var shoppingFilter = this.Filters.First(f => f.Name.Equals(_filterNames[0]));
@@ -258,6 +258,20 @@ namespace CityGuide.Data
                 },
                 new Attraction
                 {
+                    Titel = "Reiss-Engelhorn-Museum",
+                    DefaultDurationInMinutes = 150,
+                    Location = new Location(49.488772, 8.461928, 0.0),
+                    Filter = sehenswürdigkeitenFilter,
+                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    Interest = 8,
+                    Address = "D 5, 68159 Mannheim",
+                    OpeningHours = "11:00 - 18:00",
+                    Information = "Tel.: +49 621 293 3150 Internet: http://www.rem-mannheim.de",
+                    Teaser =
+                        "Die Reiss-Engelhorn-Museen Mannheim (rem genannt) haben sich in den letzten Jahren zu einem international agierenden Museumskomplex entwickelt. Mit der Verbindung von vier Ausstellungshäusern und zahlreichen Forschungsstellen und Instituten sind sie an der Nahtstelle von Natur- und Geisteswissenschaften, Technik und Vermittlung tätig."
+                },
+                new Attraction
+                {
                     Titel = "SAP Arena",
                     DefaultDurationInMinutes = 120,
                     Location = new Location(49.464134, 8.517818, 0.0),
@@ -284,6 +298,21 @@ namespace CityGuide.Data
                     Address = "Friedrichsplatz, 68161 Mannheim",
                     Teaser =
                         "Der Wasserturm ist das Wahrzeichen Mannheims. Erbaut 1889 von dem Stuttgarter Architekten Gustav Halmhuber, der auch am Bau des Berliner Reichstags mitwirkte. Als Herzstück der zentralen Trinkwasserversorgung war er bis zum Jahr 2000 in Betrieb. Der Wasserturm ist 60 Meter hoch, hat einen Durchmesser von 19 Metern und fasst 2000 Kubikmeter Wasser. Das Dach des Turmes bekrönt eine Statue der Amphitrite, der Gattin des Meeresgottes Poseidon. Auch der weitere Bildschmuck und die Figuren am kleinen und am großen Becken nehmen diese Thematik auf: Wasser ist Leben und – speziell für Mannheim – die Grundlage für Schifffahrt und Handel.\nDer Wasserturm erhebt sich an der höchsten Stelle des Friedrichsplatzes. Mit seinem Ensemble aus Turm, Garten, Wasserbecken und der angrenzenden Festhalle sowie der Kunsthalle gilt der Friedrichsplatz als eine der schönsten Jugendstilanlagen Deutschlands. Bei Anbruch der Dunkelheit sorgen die hell erleuchteten Wasserspiele für eine ganz besondere Atmosphäre."
+                },
+                new Attraction
+                {
+                    Titel = "Luisenpark",
+                    DefaultDurationInMinutes = 120,
+                    Location = new Location(49.478816, 8.496567, 0.0),
+                    Filter = sehenswürdigkeitenFilter,
+                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    IsSpezialSunrise = true,
+                    IsSpezialSunset = true,
+                    Interest = 10,
+                    OpeningHours = "Immer von 09:00. Kassenschlus 21:00",
+                    Address = "Theodor-Heuss-Anlage 2, 68165 Mannheim",
+                    Teaser =
+                        "Sehen, Hören, Riechen, Fühlen – die Farben der Natur, das Singen der Vögel, den Duft der Blumen oder die Rinde uralter Bäume: Ein Besuch im Luisenpark aktiviert die Sinne, ist Erholungs- und Frischekur für Körper, Geist und Seele zugleich, ein Ort purer Entspannung und Entschleunigung. An 365 Tagen im Jahr genießen 1,2 Millionen Besucher aus der ganzen Republik das Angebot des größten Mannheimer Parks, der bekannt ist als eine der schönsten Parkanlagen Europas."
                 },
                 new Attraction
                 {
@@ -355,6 +384,47 @@ namespace CityGuide.Data
                     Filter = restaurantFilter,
                     Interest = 2,
                     Background = new SolidColorBrush(restaurantFilter.Color)
+                },
+                new Attraction
+                {
+                    Titel = "Carl-Benz Stadion",
+                    DefaultDurationInMinutes = 75,
+                    Location = new Location(49.479456, 8.502636, 0.0),
+                    Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
+                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                },
+                new Attraction
+                {
+                    Titel = "Schillerplatz",
+                    DefaultDurationInMinutes = 45,
+                    Location = new Location(49.486379, 8.462053, 0.0),
+                    Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
+                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                },
+                new Attraction
+                {
+                    Titel = "Marktplatz",
+                    DefaultDurationInMinutes = 30,
+                    Location = new Location(49.489706, 8.4674, 0.0),
+                    Filter = shoppingFilter,
+                    Interest = 5,
+                    Background = new SolidColorBrush(shoppingFilter.Color),
+                },
+                new Attraction
+                {
+                    Titel = "Citybeach",
+                    DefaultDurationInMinutes = 75,
+                    Location = new Location(49.492939,8.472303, 0.0),
+                    Filter = sehenswürdigkeitenFilter,
+                    Interest = 5,
+                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
+                    IsSpezialSunset = true,
+                    OpeningHours = "18:00 - open end",
+                    Address = "Friedrichsring 48‎, 68161 Mannheim",
+                    Teaser =
+                        "Ein sehr ruhig gelegenes Cafe mit einem schönen Ausblick auf den Neckar"
                 },
                 new Attraction
                 {
