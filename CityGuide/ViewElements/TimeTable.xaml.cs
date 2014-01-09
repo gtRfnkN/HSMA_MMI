@@ -9,6 +9,8 @@ using CityGuide.Data;
 using CityGuide.Data.Route;
 using CityGuide.Extensions;
 using Microsoft.Maps.MapControl.WPF;
+using System.Windows.Input;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace CityGuide.ViewElements
 {
@@ -19,6 +21,7 @@ namespace CityGuide.ViewElements
     {
         #region Fields
         public MapLayer RouteMapLayer { get; set; }
+        public ScatterView InfoBoxContainer { get; set; }
 
         /// <summary>
         /// SortedDictionary<Tuple<Uid, row, rowSpan, colum, columSpan>, Grid UIElement>
@@ -215,7 +218,7 @@ namespace CityGuide.ViewElements
                     }
                 }
                 RouteMapLayer.Children.Clear();
-                
+
                 // add Routes to Routes Map Layer
                 foreach (var route in EventTransports)
                 {
@@ -248,10 +251,21 @@ namespace CityGuide.ViewElements
         #region TimeTable Attraction Element Methods
         private TimeTableEventAttraction CreateAttractionToTimeTableByDropRegion(Rectangle rec, Attraction attraction, int row, out int rowSpan)
         {
-            rowSpan = attraction.DefaultDurationInMinutes / 15;
-            rowSpan = (rowSpan == 0) ? 3 : rowSpan;
+            EventHandler<TouchEventArgs> touchLableEvent = (sender, e) =>
+            {
+                Point positionPoint = e.GetTouchPoint(this).Position;
+                var infoBox = new InfoBox(attraction);
 
-            var timeTableAttractionElement = CreateTimeTableElementAttraction(rec, attraction, row, rowSpan);
+                infoBox.Orientation = 0.0;
+                positionPoint.X = positionPoint.X + infoBox.Width / 2;
+                positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
+
+                infoBox.Center = positionPoint;
+
+                InfoBoxContainer.Items.Add(infoBox);
+            };
+
+            var timeTableAttractionElement = CreateTimeTableElementAttraction(rec, attraction, row, out rowSpan, touchLableEvent);
             EventAttractions.Add(row, timeTableAttractionElement.Event);
             return timeTableAttractionElement;
         }
@@ -268,7 +282,7 @@ namespace CityGuide.ViewElements
         private int GetEndRowOfAttraction(int row)
         {
             var attraction = EventAttractions[row];
-            int result = attraction.Attraction.DefaultDurationInMinutes / 15 + row;
+            int result = attraction.GetRowSpan();
             return result;
         }
         #endregion
@@ -279,9 +293,8 @@ namespace CityGuide.ViewElements
             var route = Routes[routeTuple];
             rowSpan = route.Duration / 60 / 15;
             rowSpan = (rowSpan == 0) ? 1 : rowSpan;
-            int startRow = GetEndRowOfAttraction(routeTuple.Item1);
 
-            var routeTimeTableElement = CreateTimeTableElementTransport(route, routeTuple.Item1, rowSpan, startRow);
+            var routeTimeTableElement = CreateTimeTableElementTransport(route, routeTuple.Item1, rowSpan);
             return routeTimeTableElement;
         }
 
@@ -358,7 +371,7 @@ namespace CityGuide.ViewElements
         }
 
         #region Create Time Table Elements Methods
-        private TimeTableEventTransportation CreateTimeTableElementTransport(Route route, int row, int rowSpan, int startrow)
+        private TimeTableEventTransportation CreateTimeTableElementTransport(Route route, int row, int rowSpan)
         {
             var attraction = EventAttractions[row];
             var starTime = attraction.StopTime;
@@ -375,21 +388,21 @@ namespace CityGuide.ViewElements
 
             result.Event = eventTransport;
 
-            Grid.SetRow(result, startrow);
+            Grid.SetRow(result, attraction.GetRowSpan() + row);
             Grid.SetColumn(result, 3);
             Grid.SetRowSpan(result, rowSpan);
 
             return result;
         }
 
-        private TimeTableEventAttraction CreateTimeTableElementAttraction(FrameworkElement rec, Attraction attraction, int row, int rowSpan)
+        private TimeTableEventAttraction CreateTimeTableElementAttraction(FrameworkElement rec, Attraction attraction, int row, out int rowSpan, EventHandler<TouchEventArgs> touchAttractionLabelEvent)
         {
             var startTimeString = rec.Name.Substring("DropTarget".Length);
             int hours = Convert.ToInt32(startTimeString.Substring(0, 2));
             int minutes = Convert.ToInt32(startTimeString.Substring(2));
             var starTime = new DateTime(1, 1, 1, hours, minutes, 0);
 
-            var result = new TimeTableEventAttraction();
+            var result = new TimeTableEventAttraction(touchAttractionLabelEvent);
             var eventAttraction = new EventAttraction
             {
                 Attraction = attraction,
@@ -400,6 +413,8 @@ namespace CityGuide.ViewElements
             };
 
             result.Event = eventAttraction;
+            result.TimeTable = this;
+            rowSpan = result.GetRowSpan();
 
             Grid.SetRow(result, row);
             Grid.SetColumn(result, 3);
@@ -473,6 +488,79 @@ namespace CityGuide.ViewElements
 
             //Clear Routes
             RouteMapLayer.Children.Clear();
+        }
+
+        public void RedrawTimeTableTimeChange(TimeTableEventAttraction tteAttraction)
+        {
+            var changedItem = _gridInformationDictionary.FirstOrDefault(item => item.Key.Item1.Equals(tteAttraction.Uid));
+            if (!changedItem.Equals(new KeyValuePair<Tuple<String, int, int, int, int>, UIElement>()))
+            {
+                //Changed Attraction
+                _gridInformationDictionary.Remove(changedItem.Key);
+
+                EventAttractions.Remove(changedItem.Key.Item2);
+                EventAttractions.Add(changedItem.Key.Item2, tteAttraction.Event);
+
+                int rowSpan = tteAttraction.GetRowSpan();
+                Grid.SetRowSpan(tteAttraction, rowSpan);
+                var oldKey = changedItem.Key;
+                var newKey = new Tuple<String, int, int, int, int>(oldKey.Item1, oldKey.Item2, rowSpan, oldKey.Item4, oldKey.Item5);
+                _gridInformationDictionary.Add(newKey, tteAttraction);
+
+                //Changed Route
+                var routeItem = _gridInformationDictionary.FirstOrDefault(item => item.Key.Item1.Contains("TimeTableEventTransporation") && item.Key.Item2 == oldKey.Item2);
+                if (!routeItem.Equals(new KeyValuePair<Tuple<String, int, int, int, int>, UIElement>()))
+                {
+                    _gridInformationDictionary.Remove(routeItem.Key);
+
+                    var oldTransportEvent = EventTransports[routeItem.Key.Item2];
+                    EventTransports.Remove(routeItem.Key.Item2);
+                    var tteTransport = CreateTimeTableElementTransport(oldTransportEvent.Route, newKey.Item2, oldTransportEvent.GetRowSpan());
+                    EventTransports.Add(changedItem.Key.Item2, tteTransport.Event);
+
+                    var oldRouteKey = routeItem.Key;
+                    var newRouteKey = new Tuple<String, int, int, int, int>(oldRouteKey.Item1, oldRouteKey.Item2, oldTransportEvent.GetRowSpan(), oldRouteKey.Item4, oldRouteKey.Item5);
+                    _gridInformationDictionary.Add(newRouteKey, tteTransport);
+                }
+
+                //Add Or Remove DropTargates
+                if (oldKey.Item3 < rowSpan)
+                {
+                    RemoveOverlapedDropTargets(newKey.Item2, newKey.Item2 + rowSpan);
+                }
+                else
+                {
+                    AddNewDropTargets(newKey.Item2 + rowSpan, oldKey.Item2 + oldKey.Item3, tteAttraction.Event.StopTime);
+                }
+
+                //Redraw TimeTable
+                TimeTableGrid.Children.Clear();
+                foreach (var item in _gridInformationDictionary)
+                {
+                    TimeTableGrid.Children.Add(item.Value);
+                }
+            }
+        }
+
+        private void AddNewDropTargets(int startRow, int stopRow, DateTime startTime)
+        {
+            int hours = startTime.Hour;
+            int minutes = startTime.Minute / 15;
+            for (int counter = startRow; counter <= stopRow; counter++)
+            {
+                if (minutes == 3)
+                {
+                    hours++;
+                    minutes = 1;
+                }
+                String displayminutes = minutes * 15 + "";
+                if (!_gridInformationDictionary.Any(item => item.Key.Item2 == counter))
+                {
+                    CreateDropTargetRectangle(hours, counter, displayminutes);
+                }
+
+                minutes++;
+            }
         }
     }
 }

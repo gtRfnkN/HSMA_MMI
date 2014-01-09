@@ -46,13 +46,16 @@ namespace CityGuide
 
                 AddPushPins();
 
+                TimeTable.RouteMapLayer = _routeMapLayer;
+                TimeTable.InfoBoxContainer = InfoBoxContainer;
+
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
+                Canvas.SetZIndex(CurrentLocationButton, 5);
 
                 Reset.Click += ResetMouseClick;
                 Reset.TouchUp += ResetTouchUp;
-
-                TimeTable.RouteMapLayer = _routeMapLayer;
+                Canvas.SetZIndex(Reset, 5);
             }
             catch (Exception e)
             {

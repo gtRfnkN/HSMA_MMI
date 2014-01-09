@@ -7,5 +7,12 @@ namespace CityGuide.Data
     {
         public RouteModes TransportTyp { get; set; }
         public Route.Route Route { get; set; }
+
+        public override int GetRowSpan()
+        {
+            int result = Convert.ToInt32(DurationTime().TotalMinutes) / 15;
+            result = (result == 0) ? 1 : result;
+            return result;
+        }
     }
 }

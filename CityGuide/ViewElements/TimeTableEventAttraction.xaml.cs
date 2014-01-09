@@ -35,7 +35,10 @@ namespace CityGuide.ViewElements
             }
         }
 
-        public TimeTableEventAttraction()
+        public TimeTable TimeTable { get; set; }
+        private bool MunitsAdded { get; set; }
+
+        public TimeTableEventAttraction(EventHandler<TouchEventArgs> TouchEventLabel)
         {
             InitializeComponent();
 
@@ -47,6 +50,8 @@ namespace CityGuide.ViewElements
             AttrationNameLabel.TouchDown += TouchEventLabel;
 
             ResizeCanvas.TouchMove += TouchMoveResizeButton;
+
+            MunitsAdded = false;
         }
 
         #region Lock Button Events & Methods
@@ -60,11 +65,6 @@ namespace CityGuide.ViewElements
         {
             var button = sender as Button;
             LockEvent(button);
-        }
-
-        private static void TouchMoveResizeButton(Object sender, TouchEventArgs e)
-        {
-            //TODO: Add rezise and recoginition off time
         }
 
         private void LockEvent(Button button)
@@ -82,13 +82,27 @@ namespace CityGuide.ViewElements
         }
         #endregion
 
-        private void TouchEventLabel(Object sender, TouchEventArgs e)
+        private void TouchMoveResizeButton(Object sender, TouchEventArgs e)
         {
-            if (Event.GetType() == typeof(EventAttraction))
+            var parent = Parent as TimeTable;
+
+            if (!MunitsAdded)
             {
-                var eventAttraction = Event as EventAttraction;
-                //TODO: Open Information for Event
+               Event.StopTime = Event.StopTime.AddMinutes(30);
+                MunitsAdded = true;
+                TimeTable.RedrawTimeTableTimeChange(this);
             }
+            else
+            {
+                Event.StopTime = Event.StopTime.AddMinutes(-30);
+                MunitsAdded = false;
+                TimeTable.RedrawTimeTableTimeChange(this);
+            }
+        }
+
+        public int GetRowSpan()
+        {
+            return Event.GetRowSpan();
         }
     }
 }

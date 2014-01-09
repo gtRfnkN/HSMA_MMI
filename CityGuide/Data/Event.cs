@@ -16,6 +16,9 @@ namespace CityGuide.Data
         {
             return StopTime - StarTime;
         }
+
+        public abstract int GetRowSpan();
+
         #endregion
     }
 }

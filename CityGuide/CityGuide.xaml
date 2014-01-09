@@ -28,7 +28,7 @@
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent"
             IsManipulationEnabled="True" >
-                <Button Canvas.Right="180" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
+                <Button Canvas.Right="180" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False"/>
                 <Button Canvas.Right="285" Canvas.Bottom="15" Content="Reset" Height="25" Name="Reset" Width="75" IsCancel="False" />
             </Canvas>
         </m:Map>
