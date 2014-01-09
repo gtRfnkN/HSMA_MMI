@@ -65,7 +65,7 @@ namespace CityGuide.Data
         #region Init Methods
         private void InitFilter(Canvas drawCanvas, Canvas interactCanvas)
         {
-            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter], Radius = 200, TagID = _filterColors.Keys.ToArray()[counter] }).ToList();
+            this.Filters = _filterNames.Select((t, counter) => new Filter { Name = t, Color = _filterColors[counter], Radius = 200, TagID = _filterColors.Keys.ToArray()[counter]+1}).ToList();
 
             this.TagViewItems = new Dictionary<long, TagCircle>();
             foreach (var filter in Filters)
