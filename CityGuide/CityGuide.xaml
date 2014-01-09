@@ -7,8 +7,7 @@
     Width="1920"
     Height="1080"
     Title="City Guide Mannheim"
-    x:Name="SurfaceApplicationWrapper"
-    >
+    x:Name="SurfaceApplicationWrapper" WindowState="Maximized" WindowStyle="None">
     <Grid>
         <m:Map
            x:Name="Map"  Mode="AerialWithLabels"
