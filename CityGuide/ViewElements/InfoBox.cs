@@ -8,6 +8,9 @@ using System.Windows.Media;
 using Microsoft.Surface.Presentation.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
+using System.Windows.Input;
+using System.Windows;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace CityGuide.ViewElements
 {
@@ -20,6 +23,9 @@ namespace CityGuide.ViewElements
         private TextBox _descriptionTextBox;
         private TextBox _openingHoursTextBox;
         private TextBox _informationTextBox;
+
+        private Attraction _attraction;
+        private Point _startPoint;
 
         public InfoBox()
         {
@@ -44,6 +50,10 @@ namespace CityGuide.ViewElements
             _titleLabel.Height = 40;
             _titleLabel.Content = "toller titel";
             _titleLabel.Background = new SolidColorBrush(Colors.Black);
+            _titleLabel.TouchDown += LabelTouchDown;
+            _titleLabel.TouchMove += LableTouchMove;
+            _titleLabel.MouseDown += LabelMouseDown;
+            _titleLabel.MouseMove += LableMouseMove;
             Canvas.SetLeft(_titleLabel, 0);
             Canvas.SetTop(_titleLabel, 0);
             //Init closeButton
@@ -144,6 +154,59 @@ namespace CityGuide.ViewElements
             _descriptionTextBox.Text = attraction.Teaser;
             _openingHoursTextBox.Text = attraction.OpeningHours;
             _informationTextBox.Text = attraction.Information;
+            _attraction = attraction;
         }
+
+        #region DragDrop Methods
+        private void LabelTouchDown(object sender, TouchEventArgs e)
+        {
+            // Store the mouse position
+            _startPoint = e.TouchDevice.GetTouchPoint(this).Position;
+            e.Handled = true;
+        }
+
+        private void LableTouchMove(object sender, TouchEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.TouchDevice.GetTouchPoint(this).Position;
+            Vector diff = _startPoint - mousePos;
+            //TODO: change to Infobox Object
+
+            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                //TODO: get Attraction from Infobox
+                // Initialize the drag & drop operation
+                var dragData = new DataObject("Attraction", _attraction);
+                DragDrop.DoDragDrop(dragSource: this, data: dragData, allowedEffects: DragDropEffects.Move);
+            }
+            e.Handled = true;
+        }
+
+        private void LabelMouseDown(object sender, MouseEventArgs e)
+        {
+            // Store the mouse position
+            _startPoint = e.GetPosition(this);
+            e.Handled = true;
+        }
+
+        private void LableMouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(this);
+            Vector diff = _startPoint - mousePos;
+            //TODO: change to Infobox Object
+
+            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                //TODO: get Attraction from Infobox
+                // Initialize the drag & drop operation
+                var dragData = new DataObject("Attraction", _attraction);
+                DragDrop.DoDragDrop(dragSource: this, data: dragData, allowedEffects: DragDropEffects.Move);
+            }
+            e.Handled = true;
+        }
+        #endregion 
     }
 }

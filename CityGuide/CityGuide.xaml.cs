@@ -45,7 +45,6 @@ namespace CityGuide
                 AddTouchAndMouseEventsForDebbugConsole();
 
                 AddPushPins();
-                InfoBoxContainer.Items.Add(new InfoBox());
 
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
@@ -54,14 +53,6 @@ namespace CityGuide
                 Reset.TouchUp += ResetTouchUp;
 
                 TimeTable.RoutMapLayer = _routeMapLayer;
-
-                foreach (Attraction a in _pushPinsMapLayer.Children)
-                {
-                    if (a.Interest <= FILTER_INTEREST)
-                    {
-                        a.Opacity = 0.5;
-                    }
-                }
             }
             catch (Exception e)
             {
@@ -85,24 +76,12 @@ namespace CityGuide
             {
                 attraction.TouchDown += TouchDownEventAttraction;
                 attraction.MouseDown += MouseDownEventAttraction;
-                attraction.ToolTip = new TextBlock { Text = attraction.Titel + " " + attraction.Address };
+                if (attraction.Interest <= FILTER_INTEREST)
+                {
+                    attraction.Opacity = 0.5;
+                }
                 _pushPinsMapLayer.AddChild(attraction, attraction.Location);
             }
-
-            //TODO: test Attraktion Data
-            _testAttraction = mockData.Attractions.FirstOrDefault(a => a.Titel == "Skyline");
-            var testEvent = new EventAttraction
-            {
-                Attraction = _testAttraction,
-                StarTime = new DateTime(1, 1, 1, 11, 0, 0)
-            };
-            if (_testAttraction != null)
-                testEvent.StopTime = testEvent.StarTime.AddMinutes(_testAttraction.DefaultDurationInMinutes);
-            TimeTableEvent.Event = testEvent;
-            TimeTableEvent.TouchDown += LabelTouchDown;
-            TimeTableEvent.TouchMove += LableTouchMove;
-            TimeTableEvent.MouseDown += LabelMouseDown;
-            TimeTableEvent.MouseMove += LableMouseMove;
         }
 
         private void TouchDownEventAttraction(object sender, TouchEventArgs e)
@@ -127,27 +106,12 @@ namespace CityGuide
             var attraction = sender as Attraction;
             if (attraction != null)
             {
-                var infoBox = new TextBox { Width = 200, Height = 200 };
+                var infoBox = new InfoBox(attraction);
 
                 Canvas.SetLeft(infoBox, positionPoint.X - 100);
                 Canvas.SetTop(infoBox, positionPoint.Y - 100);
 
-                infoBox.Uid = attraction.Titel.Replace(' ', '_') + "InfoBox";
-                infoBox.Text = attraction.Titel + ", " + attraction.Address + ", " + attraction.Teaser;
-
-                if (_pushPinsInfosMapLayer.Children != null)
-                {
-                    int index;
-                    if (!_pushPinsInfosMapLayer.Children.Contains(infoBox, out index))
-                    {
-                        var location = new Location();
-                        _pushPinsInfosMapLayer.AddChild(infoBox, location.GetLocationByEvent(positionPoint, Map));
-                    }
-                    else
-                    {
-                        _pushPinsInfosMapLayer.Children.RemoveAt(index);
-                    }
-                }
+                InfoBoxContainer.Items.Add(infoBox);
             }
         }
         #endregion
@@ -196,9 +160,6 @@ namespace CityGuide
         // A collection of key/value pairs containing the event name  
         // and the number of times the event fired.
         private readonly Dictionary<string, int> _eventCount = new Dictionary<string, int>();
-
-        private Point _startPoint;
-        private Attraction _testAttraction;
 
         private void MapWithEvents_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
@@ -501,59 +462,6 @@ namespace CityGuide
         }
         #endregion
 
-        #region DragDrop Methods
-        private void LabelTouchDown(object sender, TouchEventArgs e)
-        {
-            // Store the mouse position
-            _startPoint = e.TouchDevice.GetTouchPoint(this).Position;
-            e.Handled = true;
-        }
-
-        private void LableTouchMove(object sender, TouchEventArgs e)
-        {
-            // Get the current mouse position
-            Point mousePos = e.TouchDevice.GetTouchPoint(this).Position;
-            Vector diff = _startPoint - mousePos;
-            //TODO: change to Infobox Object
-
-            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
-            {
-                //TODO: get Attraction from Infobox
-                // Initialize the drag & drop operation
-                var dragData = new DataObject("Attraction", _testAttraction);
-                DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
-            }
-            e.Handled = true;
-        }
-
-        private void LabelMouseDown(object sender, MouseEventArgs e)
-        {
-            // Store the mouse position
-            _startPoint = e.GetPosition(this);
-            e.Handled = true;
-        }
-
-        private void LableMouseMove(object sender, MouseEventArgs e)
-        {
-            // Get the current mouse position
-            Point mousePos = e.GetPosition(this);
-            Vector diff = _startPoint - mousePos;
-            //TODO: change to Infobox Object
-
-            if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
-            {
-                //TODO: get Attraction from Infobox
-                // Initialize the drag & drop operation
-                var dragData = new DataObject("Attraction", _testAttraction);
-                DragDrop.DoDragDrop(dragSource: TimeTableEvent, data: dragData, allowedEffects: DragDropEffects.Move);
-            }
-            e.Handled = true;
-        }
-        #endregion 
-
-       
         private void ResetMouseClick(object sender, RoutedEventArgs e)
         {
             ResetTimeTableAndMapPosition();

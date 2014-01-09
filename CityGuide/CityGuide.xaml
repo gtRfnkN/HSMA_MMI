@@ -30,18 +30,15 @@
             IsManipulationEnabled="True" >
                 <Button Canvas.Right="180" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
                 <Button Canvas.Right="285" Canvas.Bottom="15" Content="Reset" Height="25" Name="Reset" Width="75" IsCancel="False" />
-                              
-                <my:TimeTableEventAttraction x:Name="TimeTableEvent" Background="White" Height="45" Width="150"/>
             </Canvas>
         </m:Map>
 
         <my:TimeTable x:Name="TimeTable" Height="780" Width="360" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
+        <s:ScatterView Name="InfoBoxContainer" Height="1080" Width="1920" />
+        
         <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
             <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />
         </Border>
-        <s:ScatterView Name="InfoBoxContainer" Height="1080" Width="1920">
-            
-        </s:ScatterView>
     </Grid>
 </s:SurfaceWindow>
