@@ -78,6 +78,7 @@
     <Compile Include="Extensions\LocationExtensions.cs" />
     <Compile Include="Extensions\PointExtentions.cs" />
     <Compile Include="Extensions\UIElementCollectionExtentions.cs" />
+    <Compile Include="ViewElements\InfoBox.cs" />
     <Compile Include="ViewElements\TimeTableEventTransportation.xaml.cs">
       <DependentUpon>TimeTableEventTransportation.xaml</DependentUpon>
     </Compile>
