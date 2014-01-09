@@ -27,12 +27,12 @@
             x:Name="CnvInteract"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent"
-            IsManipulationEnabled="True" >
-                <Button Canvas.Right="180" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False"/>
-                <Button Canvas.Right="285" Canvas.Bottom="15" Content="Reset" Height="25" Name="Reset" Width="75" IsCancel="False" />
-            </Canvas>
+            IsManipulationEnabled="True" />
         </m:Map>
 
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,0,200,20" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False"/>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,0,310,20" Content="Reset" Height="25" Name="Reset" Width="75" IsCancel="False" />
+        
         <my:TimeTable x:Name="TimeTable" Height="780" Width="360" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
         <s:ScatterView Name="InfoBoxContainer" Height="1080" Width="1920" />

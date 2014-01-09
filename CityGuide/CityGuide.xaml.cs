@@ -39,6 +39,7 @@ namespace CityGuide
             {
                 InitializeComponent();
 
+                Grid.SetZIndex(Map, 0);
                 Map.Children.Add(_routeMapLayer);
                 Map.Children.Add(_pushPinsMapLayer);
                 Map.Children.Add(_pushPinsInfosMapLayer);
