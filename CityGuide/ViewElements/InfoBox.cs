@@ -16,13 +16,12 @@ namespace CityGuide.ViewElements
 {
     class InfoBox : ScatterViewItem
     {
-        private SurfaceButton _closeButton;
         private Label _titleLabel;
         private Canvas _uiElements;
         private Image _attractionImage;
-        private TextBox _descriptionTextBox;
-        private TextBox _openingHoursTextBox;
-        private TextBox _informationTextBox;
+        private SurfaceTextBox _descriptionTextBox;
+        private SurfaceTextBox _openingHoursTextBox;
+        private SurfaceTextBox _informationTextBox;
 
         private Attraction _attraction;
         private Point _startPoint;
@@ -79,12 +78,14 @@ namespace CityGuide.ViewElements
             Canvas.SetLeft(_attractionImage, 0);
             Canvas.SetTop(_attractionImage, 40);
             //Init TextBox
-            _descriptionTextBox = new TextBox();
-            _descriptionTextBox.Height = 120;
+            _descriptionTextBox = new SurfaceTextBox();
+            _descriptionTextBox.Height = 100;
             _descriptionTextBox.Width = this.Width;
+            _descriptionTextBox.FontSize = 10.0;
+            _descriptionTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _descriptionTextBox.TextWrapping = System.Windows.TextWrapping.Wrap;
-            //_descriptionTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            //_descriptionTextBox.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            _descriptionTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            _descriptionTextBox.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             _descriptionTextBox.Text = "Lustiger Beschreibungstext!";
             _descriptionTextBox.IsReadOnly = true;
             _descriptionTextBox.BorderThickness = new System.Windows.Thickness(0);
@@ -93,7 +94,7 @@ namespace CityGuide.ViewElements
             Canvas.SetLeft(_descriptionTextBox, 0);
             Canvas.SetTop(_descriptionTextBox, 250);
             //TODO Öffnungszeiten Box
-            _openingHoursTextBox = new TextBox();
+            _openingHoursTextBox = new SurfaceTextBox();
             _openingHoursTextBox.Height = 60;
             _openingHoursTextBox.Width = this.Width / 2;
             _openingHoursTextBox.IsReadOnly = true;
@@ -106,8 +107,7 @@ namespace CityGuide.ViewElements
             Canvas.SetLeft(_openingHoursTextBox, 0);
             Canvas.SetTop(_openingHoursTextBox, 190);
             //TODO Anschrift
-            _informationTextBox = new TextBox();
-            _informationTextBox = new TextBox();
+            _informationTextBox = new SurfaceTextBox();
             _informationTextBox.Height = 60;
             _informationTextBox.Width = this.Width / 2;
             _informationTextBox.Text = "Informationen";
@@ -154,8 +154,8 @@ namespace CityGuide.ViewElements
         {
             _titleLabel.Content = attraction.Titel;
             _descriptionTextBox.Text = attraction.Teaser;
-            _openingHoursTextBox.Text = attraction.OpeningHours;
-            _informationTextBox.Text = attraction.Information;
+            _openingHoursTextBox.Text = "Öffnungzeiten:\n" + attraction.OpeningHours;
+            _informationTextBox.Text = "Informationen:\n" + attraction.Address + "\n" + attraction.Information;
             if (!String.IsNullOrWhiteSpace(attraction.TitelPhotoPath))
             {
                 _attractionImage.Source = new BitmapImage(new Uri(attraction.TitelPhotoPath, UriKind.Relative));
@@ -168,6 +168,7 @@ namespace CityGuide.ViewElements
             _titleLabel.Background = new SolidColorBrush(_attraction.Filter.Color);
             _informationTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
             _openingHoursTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
+            _descriptionTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
         }
 
         #region DragDrop Methods
