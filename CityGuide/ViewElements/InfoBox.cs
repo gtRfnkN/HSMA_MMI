@@ -156,7 +156,7 @@ namespace CityGuide.ViewElements
             _informationTextBox.Text = attraction.Information;
             if (!String.IsNullOrWhiteSpace(attraction.TitelPhotoPath))
             {
-               
+                _attractionImage.Source = new BitmapImage(new Uri(attraction.TitelPhotoPath, UriKind.Relative));
             }
             else
             {

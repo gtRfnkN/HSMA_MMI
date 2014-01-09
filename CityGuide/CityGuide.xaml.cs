@@ -52,7 +52,7 @@ namespace CityGuide
                 Reset.Click += ResetMouseClick;
                 Reset.TouchUp += ResetTouchUp;
 
-                TimeTable.RoutMapLayer = _routeMapLayer;
+                TimeTable.RouteMapLayer = _routeMapLayer;
             }
             catch (Exception e)
             {

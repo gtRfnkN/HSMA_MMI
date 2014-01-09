@@ -116,11 +116,11 @@ namespace CityGuide
             else
             {
                 restRequest = string.Format(
-                "http://dev.virtualearth.net/REST/V1/Routes/{3}?waypoint.0={0}&waypoint.1={1}&rpo=Points&key={2}"
-                , from, to, BingMapKey, routeMode);
+                           "http://dev.virtualearth.net/REST/V1/Routes/{3}?waypoint.0={0}&waypoint.1={1}&rpo=Points&key={2}"
+                           , from, to, BingMapKey, routeMode);
 
-                jObject = GetJaonResponse(restRequest);
-                route = new Route(jObject, fromLocation, toLocation, routeMode);
+                    jObject = GetJaonResponse(restRequest);
+                    route = new Route(jObject, fromLocation, toLocation, routeMode);
             }
 
             return route;

@@ -18,7 +18,7 @@ namespace CityGuide.ViewElements
     public partial class TimeTable : UserControl
     {
         #region Fields
-        public MapLayer RoutMapLayer { get; set; }
+        public MapLayer RouteMapLayer { get; set; }
 
         /// <summary>
         /// SortedDictionary<Tuple<Uid, row, rowSpan, colum, columSpan>, Grid UIElement>
@@ -214,6 +214,13 @@ namespace CityGuide.ViewElements
                         }
                     }
                 }
+                RouteMapLayer.Children.Clear();
+                
+                // add Routes to Routes Map Layer
+                foreach (var route in EventTransports)
+                {
+                    DrawRoute(route.Value.Route.CreateMapPolylines(_routeColorBrush));
+                }
             }
         }
 
@@ -229,12 +236,6 @@ namespace CityGuide.ViewElements
             if (timeTableRouteAfter != null && afterRouteChecck)
             {
                 AddRouteToTimeTable(afterRouteTupel.Item1, rowSpanRouteAfter, timeTableRouteAfter);
-            }
-
-            // add Routes to Routes Map Layer
-            foreach (var route in EventTransports)
-            {
-                DrawRoute(route.Value.Route.CreateMapPolylines(_routeColorBrush));
             }
         }
 
@@ -411,7 +412,6 @@ namespace CityGuide.ViewElements
         #region Route Handling
         private void ResetRoutesAndCheckIfNewRoutesAreNeeded()
         {
-            RoutMapLayer.Children.Clear();
             var beforAttraction = new KeyValuePair<int, EventAttraction>();
 
             if (EventAttractions.Count > 1)
@@ -453,7 +453,7 @@ namespace CityGuide.ViewElements
         {
             foreach (var routePolyline in routePolylines)
             {
-                RoutMapLayer.Children.Add(routePolyline);
+                RouteMapLayer.Children.Add(routePolyline);
             }
         }
         #endregion
@@ -472,7 +472,7 @@ namespace CityGuide.ViewElements
             Routes = new SortedDictionary<Tuple<int, int, RouteModes>, Route>();
 
             //Clear Routes
-            RoutMapLayer.Children.Clear();
+            RouteMapLayer.Children.Clear();
         }
     }
 }
