@@ -120,7 +120,7 @@ namespace CityGuide.Data
                     Address = "Hans-Reschke-Ufer 2, 68165 Mannheim",
                     OpeningHours = "10.00 bis 24.00 Uhr\nKüchenzeiten: 11.30 - 14.00 und 18.00 - 22.00 Uhr",
                     Information =
-                        "Tel.: +49 621 419290 Fax: +49 621 4192911 E-Mail: info@skyline-ma.de Internet: http://www.skyline-ma.de",
+                        "Tel.: +49 621 419290\n Fax: +49 621 4192911\n E-Mail: info@skyline-ma.de \nInternet: http://www.skyline-ma.de",
                     Teaser =
                         "Über dem Aussichtsgeschoss liegt in 125 m Höhe das Drehrestaurant Skyline, welches sich mit seinen 150 Sitzplätzen einmal in der Stunde um die eigene Achse dreht.\nMaximale Personenanzahl: 150 Personen\nAbgegrenzter Raucherbereich: Nein\nBewirtung im Freien möglich: Nein"
                 },
