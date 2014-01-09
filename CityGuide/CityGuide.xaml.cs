@@ -1,3 +1,4 @@
+#define debuge
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace CityGuide
     /// </summary>
     public partial class CityGuideWindow
     {
+        
         #region Fields
         private Dictionary<long, TagCircle> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
@@ -124,6 +126,7 @@ namespace CityGuide
 
         private void AddTouchAndMouseEventsForDebbugConsole()
         {
+#if debuge
             //***************** Test Mous Events ***********************//
             // Fires every animated frame from one location to another.
             Map.ViewChangeOnFrame +=
@@ -151,7 +154,8 @@ namespace CityGuide
                 MapWithEvents_MouseLeftButtonDown;
             // Fires when the left mouse button is released
             Map.MouseLeftButtonUp +=
-                MapWithEvents_MouseLeftButtonUp;
+                MapWithEvents_MouseLeftButtonUp; 
+#endif
 
             Map.TouchDown += MapTouchDownEvent;
             Map.TouchMove += MapTouchMoveEvent;
@@ -160,6 +164,7 @@ namespace CityGuide
         #endregion
 
         #region Mouse and Touch Event Debug Console Methods
+#if debuge
         // A collection of key/value pairs containing the event name 
         // and the text block to display the event to.
         private readonly Dictionary<string, TextBlock> _eventBlocks = new Dictionary<string, TextBlock>();
@@ -231,15 +236,18 @@ namespace CityGuide
             var location = new Location();
             // Updates the number of times the map mode changed.
             ShowEvent("ModeChanged", location, 0x1869f);
-        }
+        }  
+#endif
 
         private void MapTouchUpEvent(object sender, TouchEventArgs e)
         {
             var location = new Location();
 
+#if debuge
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
-                    e.TouchDevice.GetTagData().Value : 0x1869f);
+                    e.TouchDevice.GetTagData().Value : 0x1869f);  
+#endif
             if (TagGone(e))
             {
                 e.Handled = true;
@@ -249,9 +257,11 @@ namespace CityGuide
         private void MapTouchMoveEvent(object sender, TouchEventArgs e)
         {
             var location = new Location();
+#if debuge
             ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
-                    e.TouchDevice.GetTagData().Value : 0x1869f);
+                    e.TouchDevice.GetTagData().Value : 0x1869f);  
+#endif
             if (TagMove(e))
             {
                 e.Handled = true;
@@ -293,9 +303,11 @@ namespace CityGuide
             }
 
             var location = new Location();
+            #if debuge
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
+#endif
             if (TagDown(e))
             {
                 e.Handled = true;
@@ -303,6 +315,7 @@ namespace CityGuide
         }
 
 
+#if debuge
         private void ShowEvent(string eventName, Location location, long tagValue)
         {
             // Updates the display box showing the number of times 
@@ -324,7 +337,8 @@ namespace CityGuide
             _eventBlocks[eventName].Text = String.Format(
                 "{0}: [{1} times] {2} (HH:mm:ss:ffff) {3}, Tag Value: {4}",
                 eventName, _eventCount[eventName], DateTime.Now, location.Latitude + "," + location.Longitude, tagValue);
-        }
+        }  
+#endif
         #endregion
 
         #region Tag Related Metheods
