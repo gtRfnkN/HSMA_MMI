@@ -57,7 +57,7 @@ namespace CityGuide.Data
                 };
 
         private readonly String[] _shoppingCategorieNames = { "Kleidung", "Schmuck", "Schuhe", "Soveniers" };
-        private readonly String[] _restaurantCategorieNames = { "Italienisch", "Französisch", "Griechisch", "Asiatisch", "Bürgerlich" };
+        private readonly String[] _restaurantCategorieNames = { "Italienisch", "Französisch", "Griechisch", "Asiatisch", "Bürgerlich", "Fast Food" };
         private readonly String[] _nightlifeCategorieNames = { "Bars", "Clubs", "Diskos", "Andere" };
         private readonly String[] _sehenswuerdigkeitenCategorieNames = { "Musen", "Wahrzeichen", "Parks", "Andere" };
         #endregion
@@ -321,7 +321,8 @@ namespace CityGuide.Data
                     Location = new Location(49.485037, 8.473592, 0.0),
                     Filter = restaurantFilter,
                     Interest = 2,
-                    Background = new SolidColorBrush(restaurantFilter.Color)
+                    Background = new SolidColorBrush(restaurantFilter.Color),
+                    Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
                 new Attraction
                 {
@@ -330,7 +331,8 @@ namespace CityGuide.Data
                     Location = new Location(49.484034, 8.473700, 0.0),
                     Filter = restaurantFilter,
                     Interest = 2,
-                    Background = new SolidColorBrush(restaurantFilter.Color)
+                    Background = new SolidColorBrush(restaurantFilter.Color),
+                    Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
                 new Attraction
                 {
@@ -383,7 +385,8 @@ namespace CityGuide.Data
                     Location = new Location(49.486639, 8.465338, 0.0),
                     Filter = restaurantFilter,
                     Interest = 2,
-                    Background = new SolidColorBrush(restaurantFilter.Color)
+                    Background = new SolidColorBrush(restaurantFilter.Color),
+                    Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
                 new Attraction
                 {
@@ -437,7 +440,10 @@ namespace CityGuide.Data
                 }
             };
 
-            //TODO: Init Mock data
+            var categorieFastFood = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"));
+            categorieFastFood.Attractions.Add(Attractions.FirstOrDefault(a => a.Titel.Equals("Subway")));
+            categorieFastFood.Attractions.Add(Attractions.FirstOrDefault(a => a.Titel.Equals("Starbucks")));
+            categorieFastFood.Attractions.Add(Attractions.FirstOrDefault(a => a.Titel.Equals("Burger King")));
         }
         #endregion
     }

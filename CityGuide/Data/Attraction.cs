@@ -7,6 +7,7 @@ namespace CityGuide.Data
         #region Fields
         public int ID { get; set; }
         public Filter Filter { get; set; }
+        public Categorie Categorie { get; set; }
 
         public String Titel { get; set; }
         public String TitelPhotoPath { get; set; }
@@ -20,12 +21,12 @@ namespace CityGuide.Data
 
         public Boolean IsHighlighted { get; set; }
         public Boolean IsFilterd { get; set; }
+        public int Interest { get; set; }
 
         public Boolean IsSpezialSunrise { get; set; }
         public Boolean IsSpezialSunset { get; set; }
         public int[] SpezialTimes { get; set; }
-
-        public int Interest { get; set; }
+        
         #endregion
     }
 }
