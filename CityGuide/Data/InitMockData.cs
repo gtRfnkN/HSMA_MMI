@@ -150,6 +150,7 @@ namespace CityGuide.Data
                     OpeningHours = "10.00 bis 24.00 Uhr\nKüchenzeiten: 11.30 - 14.00 und 18.00 - 22.00 Uhr",
                     Information =
                         "Tel.: +49 621 419290 Fax: +49 621 4192911 E-Mail: info@skyline-ma.de Internet: http://www.skyline-ma.de",
+                        TitelPhotoPath = "/Resources/skiline.jpg",
                     Teaser =
                         "Über dem Aussichtsgeschoss liegt in 125 m Höhe das Drehrestaurant Skyline, welches sich mit seinen 150 Sitzplätzen einmal in der Stunde um die eigene Achse dreht.\nMaximale Personenanzahl: 150 Personen\nAbgegrenzter Raucherbereich: Nein\nBewirtung im Freien möglich: Nein"
                 },
@@ -164,6 +165,7 @@ namespace CityGuide.Data
                     Address = "Museumsstraße 1,68165 Mannheim",
                     OpeningHours = "täglich 9.00 - 17.00 Uhr, (am 24. und 31. Dezember geschlossen)",
                     Information = "Tel.: +49 621 42989 Fax: +49 621 4298754 E-Mail: info@technoseum.de",
+                    TitelPhotoPath = "/Resources/technoseum.jpg",
                     Teaser =
                         "Zu einer spannenden Zeitreise durch die Industrialisierung des deutschen Südwestens lädt das TECHNOSEUM ein.\nMehr als 16 Stationen des \"arbeitenden Museums\" machen den technisch-sozialen Wandel der letzten zweieinhalb Jahrhunderte hautnah erlebbar. Zum Anfassen, Experimentieren und Staunen zeigen die ausgestellten Werkstätten, Maschinen und Gerätschaften, wie technische Neuerungen die Arbeits- und Lebensbedingungen des Menschen veränder(te)n.\nKein Wunder, dass dieses technikgeschichtliche Museum gerade in Mannheim angesiedelt ist. Schließlich stammen viele herausragende Erfindungen und Innovationen der Technik aus der Region."
                 },
@@ -179,6 +181,7 @@ namespace CityGuide.Data
                     OpeningHours =
                         "Tageskasse öffnet jeweils eine Stunde vor Beginn der jeweiligen Vorstellung.\nTelefonische Kartenreserviereung:\nDi / Mi / Do / Fr 8.30 - 12.30 und 14.00 - 16.00 Uhr\nMi zusätzlich 17.00 - 19.00 Uhr\nSa / So / Feiertage 12.30 - 16.30 Uhr",
                     Information = "Tel.: +49 621 415692 Internet: http://www.planetarium-mannheim.de",
+                    TitelPhotoPath = "/Resources/planetarium.jpg",
                     Teaser =
                         "Im Zweiten Weltkrieg fast völlig zerstört und erst 50 Jahre später unweit des alten Standortes auf dem Europaplatz neu errichtet. Heute erwarten den \"Sternengucker\" ein brillanter Himmelsanblick und modernste Multimedia-Sternenshows. \nGroße und kleine Besucher erfahren Wissenswertes über Sterne, Nebel und Galaxien. Spazieren auf der Milchstraße, die Geburtsstätten neuer Sterne kennen lernen oder die Magellan'schen Wolken betrachten - dies alles ermöglicht die innovative Glasfaseroptik von Carl Zeiss Jena. \nEinen Besuch bei den Gestirnen sollten Sie in Mannheim nicht versäumen!"
                 },
@@ -195,6 +198,7 @@ namespace CityGuide.Data
                     OpeningHours =
                         "Sonntag bis Donnerstag: 14:00 bis 1:00 Uhr\nFreitag & Samstag: 14:00 bis 3:00 Uhr\nvor Feiertagen: 14:00 bis 3:00 Uhr",
                     Address = "Stadthaus N1, 68161 Mannheim",
+                    TitelPhotoPath = "/Resources/stars.jpg",
                     Teaser =
                         "Seit 1994 sind wir “die Cocktailmacher” hoch über den Dächern der Stadt!\nGenießen Sie bei uns neben klassischen Cocktails wie Pina Colada oder Caipirinha auch zahllose Eigenkreationen, die Sie ausschließlich bei uns finden werden. \nÜber 180 Cocktails mit und ohne Alkohol erwarten Sie bei uns, zudem natürlich auch erfrischende Biere, kühle Softdrinks und belebende Kaffeespezialitäten.",
                     Information = "Tel. 0621 / 21 600 E-Mail: info@turmcafe-stars.de"
@@ -211,6 +215,7 @@ namespace CityGuide.Data
                     OpeningHours = "Mo - So 10.00 - 1.00 Küche 11.00 - 24.00",
                     Information =
                         "Tel.: +49 621 1259777 Fax: +49 621 1259779 E-Mail: mannheim1@vapiano.de Internet: http://www.vapiano.de",
+                        TitelPhotoPath = "/Resources/vapiano.jpg",
                     Teaser =
                         "Vapiano, das heißt mediterranes Flair, frische Pasta und hausgemachte Pizza aus dem Steinofen, knackige Salate, leckere Dolci und duftende Kräuter in einem hellen, großzügigen Ambiente mit  einem stilvollen Loungebereich.\nMaximale Personenanzahl: 232 Sitzplätze plus 80 Sitzplätze auf der Terrasse\nAbgegrenzter Raucherbereich: Nein\nBewirtung im Freien möglich: Ja\n"
                 },
@@ -226,6 +231,7 @@ namespace CityGuide.Data
                     Teaser =
                         "Als Kurfürst Carl Philipp im Jahr 1720 von Heidelberg nach Mannheim zog wurde die Stadt zur Residenz und zum strahlenden Mittelpunkt für Wissenschaften, Kunst und Kultur. Im selben Jahr legte er den Grundstein zum Neubau dieser imponierenden Schlossanlage. 450 Meter lang ist die Stadtfront, etwa sechs Hektar Fläche sind hier umbaut, und einst gab es ca. 1.000 Räume und Säle. Schloss Mannheim gehört zu den größten Barockanlagen Deutschlands.\nDas Mannheimer Schloss öffnet sich zur Stadt hin mit dem Ehrenhof. An den mittig gelegenen Haupttrakt schließen sich der Ost- und der Westflügel an. Hinter den Gebäuden liegt zum Rhein hin der weitläufige Schlossgarten. Im Ostflügel richtete Carl Theodor eine Bibliothek ein, die zu den bedeutendsten ihrer Zeit zählte. Seine Hofkapelle wurde zum Wegbereiter der europäischen Klassik und ging als „Mannheimer Schule“ in die Musikgeschichte ein. Heute ist das Schloss teilweise Sitz der Universität, die somit als eine der schönsten Deutschlands gelten darf.",
                     Address = "Bismarckstraße, 68161 Mannheim",
+                    TitelPhotoPath = "/Resources/schlossnacht.jpg",
                     Information =
                         "http://www.schloss-mannheim.de/ Telefon:+49 621 - 2922891\nEintrittspreise\nBesichtigung mit Audioguide\nErwachsene 6,00 €\nErmäßigte 3,00 €\nFamilien 15,50 €\nGruppen pro Pers. 5,40 €\n(mit Audioguide)\n\nBesichtigung mit ca. einstündiger Schlossführung\nErwachsene 8,00 €\nErmäßigte 4,00 €\nFamilien 20,00 €\nGruppen bis 20 Personen 144,00 €\nGruppen pro Pers 7,20 €\n\nÖffentliche Führungen\ntägl. 11.00 und 15.00 Uhr\nSamstag 11.00, 13.00 und 15.00 Uhr\nSonntag und Feiertage\nstündl. 11.00 – 16.00 Uhr\n"
                 },
@@ -239,6 +245,7 @@ namespace CityGuide.Data
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                     Address = "Willy-Brandt-Platz, 68161 Mannheim",
                     Information = "Internet: http://www.bahn.de",
+                    TitelPhotoPath = "/Resources/hauptbahnhof.jpg",
                     Teaser =
                         "In den Jahren 1871 bis 1876 als gemeinsames Projekt der Badischen und der Preußisch-Hessischen Bahn entstanden, ist der Mannheimer Hauptbahnhof heute einer der deutschlandweit bedeutendsten ICE-Knotenpunkte.\nTäglich erreichen den Hauptbahnhof über 500 Züge, davon fast 200 Fernzüge. Rund 70.000 Reisende passieren Tag für Tag den Bahnhof.\nEinst im ganzen Land bekannt für sein sehr vornehmes, im Renaissancestil erbautes Empfangsgebäude, erstrahlt der Mannheimer Hauptbahnhof heute - nach unzähligen Um- und Wiederaufbauten - als hochmodernes Reisezentrum mit traditionellem Charme."
                 },
@@ -253,6 +260,7 @@ namespace CityGuide.Data
                     Address = "Am Goetheplatz, 68161 Mannheim",
                     OpeningHours = "Abendverkauf an allen Vorstellungstagen von 18.00 - 20.00 Uhr",
                     Information = "Tel.: +49 621 1680310 Internet: http://www.nationaltheater-mannheim.de",
+                    TitelPhotoPath = "/Resources/nationaltheater.jpg",
                     Teaser =
                         "Die \"Schillerbühne\", benannt nach der legendären Uraufführung von Schillers \"Die Räuber\" anno 1782, zählt zu den anerkanntesten Theatern Deutschlands.\nDie große Operntradition, mitreißendes Schauspiel, klassisches wie auch modernes Ballett sowie einzigartige Inszenierungen zeitgenössischer Werke machen das Vier-Sparten-Haus zu einem unvergleichlichen kulturellen Highlight der gesamten Region."
                 },
@@ -267,6 +275,7 @@ namespace CityGuide.Data
                     Address = "D 5, 68159 Mannheim",
                     OpeningHours = "11:00 - 18:00",
                     Information = "Tel.: +49 621 293 3150 Internet: http://www.rem-mannheim.de",
+                    TitelPhotoPath = "/Resources/Reiss-Engelhorn-Museum.jpg",
                     Teaser =
                         "Die Reiss-Engelhorn-Museen Mannheim (rem genannt) haben sich in den letzten Jahren zu einem international agierenden Museumskomplex entwickelt. Mit der Verbindung von vier Ausstellungshäusern und zahlreichen Forschungsstellen und Instituten sind sie an der Nahtstelle von Natur- und Geisteswissenschaften, Technik und Vermittlung tätig."
                 },
@@ -280,6 +289,7 @@ namespace CityGuide.Data
                     Interest = 7,
                     Address = "Xaver-Fuhr-Str.150, 68163 Mannheim",
                     Information = "Tel.: +49 621 18190333 Internet: http://www.saparena.de",
+                    TitelPhotoPath = "/Resources/saparena.jpg",
                     Teaser =
                         "Spektakuläres vielfältigster Art erwartet Sie in der SAP Arena. Weithin sichtbares Kennzeichen der größten und modernsten Sport- und Veranstaltungshalle im Südwesten ist das, von Mannheimern gerne UFO genannte, Aluminiumdach.\nDie gigantische, 15.000 Besucher fassende Multifunktionshalle beheimatet den Eishockey Rekordmeister, die Mannheimer Adler, sowie den Handball Bundesligisten, die Rhein-Neckar-Löwen.\nDie Arena ist außerdem Veranstaltungsort für zahlreiche Großereignisse aus dem Musik-, Kultur- und Showbereich.",
                     OpeningHours = "Zu Veranstallungen"
@@ -294,6 +304,7 @@ namespace CityGuide.Data
                     IsSpezialSunrise = true,
                     IsSpezialSunset = true,
                     Interest = 10,
+                    TitelPhotoPath = "/Resources/wasserturm.jpg",
                     OpeningHours = "Immer, Im Winter sind die Brunnen ohne Wasser.",
                     Address = "Friedrichsplatz, 68161 Mannheim",
                     Teaser =
@@ -311,6 +322,7 @@ namespace CityGuide.Data
                     Interest = 10,
                     OpeningHours = "Immer von 09:00. Kassenschlus 21:00",
                     Address = "Theodor-Heuss-Anlage 2, 68165 Mannheim",
+                    TitelPhotoPath = "/Resources/luisenpark.jpg",
                     Teaser =
                         "Sehen, Hören, Riechen, Fühlen – die Farben der Natur, das Singen der Vögel, den Duft der Blumen oder die Rinde uralter Bäume: Ein Besuch im Luisenpark aktiviert die Sinne, ist Erholungs- und Frischekur für Körper, Geist und Seele zugleich, ein Ort purer Entspannung und Entschleunigung. An 365 Tagen im Jahr genießen 1,2 Millionen Besucher aus der ganzen Republik das Angebot des größten Mannheimer Parks, der bekannt ist als eine der schönsten Parkanlagen Europas."
                 },
@@ -322,6 +334,7 @@ namespace CityGuide.Data
                     Filter = restaurantFilter,
                     Interest = 2,
                     Background = new SolidColorBrush(restaurantFilter.Color),
+                    TitelPhotoPath = "/Resources/burgerking.jpg",
                     Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
                 new Attraction
@@ -331,6 +344,7 @@ namespace CityGuide.Data
                     Location = new Location(49.484034, 8.473700, 0.0),
                     Filter = restaurantFilter,
                     Interest = 2,
+                    TitelPhotoPath = "/Resources/starbucks.jpg",
                     Background = new SolidColorBrush(restaurantFilter.Color),
                     Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
@@ -340,6 +354,7 @@ namespace CityGuide.Data
                     Location = new Location(49.479254, 8.461713, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 6,
+                     TitelPhotoPath = "/Resources/reinterassen.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -349,6 +364,7 @@ namespace CityGuide.Data
                     Location = new Location(49.485462, 8.457977, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 5,
+                    TitelPhotoPath = "/Resources/eisstadion.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -358,6 +374,7 @@ namespace CityGuide.Data
                     Location = new Location(49.496267, 8.472735, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 5,
+                    TitelPhotoPath = "/Resources/altermessplatz.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -367,6 +384,7 @@ namespace CityGuide.Data
                     Location = new Location(49.487844, 8.466678, 0.0),
                     Filter = shoppingFilter,
                     Interest = 4,
+                    TitelPhotoPath = "/Resources/galeriakaufhof.jpg",
                     Background = new SolidColorBrush(shoppingFilter.Color)
                 },
                 new Attraction
@@ -376,6 +394,7 @@ namespace CityGuide.Data
                     Location = new Location(49.483477, 8.471519, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 4,
+                    TitelPhotoPath = "/Resources/cineplex.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -385,6 +404,7 @@ namespace CityGuide.Data
                     Location = new Location(49.486639, 8.465338, 0.0),
                     Filter = restaurantFilter,
                     Interest = 2,
+                    TitelPhotoPath = "/Resources/subway.jpg",
                     Background = new SolidColorBrush(restaurantFilter.Color),
                     Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
                 },
@@ -395,6 +415,7 @@ namespace CityGuide.Data
                     Location = new Location(49.479456, 8.502636, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 5,
+                    TitelPhotoPath = "/Resources/carlbenzstadion.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -404,6 +425,7 @@ namespace CityGuide.Data
                     Location = new Location(49.486379, 8.462053, 0.0),
                     Filter = sehenswürdigkeitenFilter,
                     Interest = 5,
+                    TitelPhotoPath = "/Resources/schillerplatz.jpg",
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 },
                 new Attraction
@@ -413,6 +435,7 @@ namespace CityGuide.Data
                     Location = new Location(49.489706, 8.4674, 0.0),
                     Filter = shoppingFilter,
                     Interest = 5,
+                    TitelPhotoPath = "/Resources/altermarktplatz.jpg",
                     Background = new SolidColorBrush(shoppingFilter.Color),
                 },
                 new Attraction
@@ -424,19 +447,11 @@ namespace CityGuide.Data
                     Interest = 5,
                     Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                     IsSpezialSunset = true,
+                    TitelPhotoPath = "/Resources/citybeach.jpg",
                     OpeningHours = "18:00 - open end",
                     Address = "Friedrichsring 48‎, 68161 Mannheim",
                     Teaser =
                         "Ein sehr ruhig gelegenes Cafe mit einem schönen Ausblick auf den Neckar"
-                },
-                new Attraction
-                {
-                    Titel = "Carl-Benz Stadion",
-                    DefaultDurationInMinutes = 75,
-                    Location = new Location(49.479456, 8.502636, 0.0),
-                    Filter = sehenswürdigkeitenFilter,
-                    Interest = 5,
-                    Background = new SolidColorBrush(sehenswürdigkeitenFilter.Color),
                 }
             };
 

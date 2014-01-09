@@ -143,11 +143,36 @@
     <None Include="Resources\TimeTable\TimeTableFake.psd" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\luisenpark.jpg" />
+    <Resource Include="Resources\planetarium.jpg" />
+    <Resource Include="Resources\reinterassen.jpg" />
+    <Resource Include="Resources\Reiss-Engelhorn-Museum.jpg" />
+    <Resource Include="Resources\saparena.jpg" />
+    <Resource Include="Resources\schillerplatz.JPG" />
+    <Resource Include="Resources\subway.jpg" />
+    <Resource Include="Resources\nationaltheater.jpg" />
+    <Resource Include="Resources\schloss.JPG" />
+    <Resource Include="Resources\schlossnacht.jpg" />
+    <Resource Include="Resources\skiline.jpg" />
+    <Resource Include="Resources\starbucks.jpg" />
+    <Resource Include="Resources\stars.jpg" />
+    <Resource Include="Resources\technoseum.jpg" />
+    <Resource Include="Resources\vapiano.jpg" />
+    <Resource Include="Resources\wasserturm.jpg" />
     <Resource Include="Resources\TimeTable\TimeTableFake.png" />
     <Resource Include="Resources\JsonConverter\Driving.xml" />
     <Resource Include="Resources\JsonConverter\JsonRestSample.txt" />
     <Resource Include="Resources\filter.png" />
     <Resource Include="Resources\filter_on.png" />
+    <Resource Include="Resources\burgerking.jpg" />
+    <Resource Include="Resources\hauptbahnhof.jpg" />
+    <Resource Include="Resources\altermarktplatz.jpg" />
+    <Resource Include="Resources\altermessplatz.jpg" />
+    <Resource Include="Resources\carlbenzstadion.jpg" />
+    <Resource Include="Resources\cineplex.jpg" />
+    <Resource Include="Resources\citybeach.jpg" />
+    <Resource Include="Resources\eisstadion.jpg" />
+    <Resource Include="Resources\galeriakaufhof.jpg" />
     <Content Include="Resources\JsonConverter\Newtonsoft.Json.dll" />
     <Resource Include="Resources\JsonConverter\Rest XML GeoCode.xml" />
     <Resource Include="Resources\JsonConverter\XmlToJsonRestSample.txt" />

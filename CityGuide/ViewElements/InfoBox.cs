@@ -77,7 +77,7 @@ namespace CityGuide.ViewElements
             _attractionImage = new Image();
             _attractionImage.Height = 150;
             _attractionImage.Width = this.Width;
-            _attractionImage.Source = new BitmapImage(new Uri("/Resources/wasserturm.jpg", UriKind.Relative));
+            _attractionImage.Source = new BitmapImage(new Uri("", UriKind.Relative));
             _attractionImage.Stretch = Stretch.Fill;
             Canvas.SetLeft(_attractionImage, 0);
             Canvas.SetTop(_attractionImage, 40);
@@ -154,6 +154,14 @@ namespace CityGuide.ViewElements
             _descriptionTextBox.Text = attraction.Teaser;
             _openingHoursTextBox.Text = attraction.OpeningHours;
             _informationTextBox.Text = attraction.Information;
+            if (!String.IsNullOrWhiteSpace(attraction.TitelPhotoPath))
+            {
+               
+            }
+            else
+            {
+                _attractionImage.Source = new BitmapImage(new Uri("", UriKind.Relative));
+            }
             _attraction = attraction;
         }
 
