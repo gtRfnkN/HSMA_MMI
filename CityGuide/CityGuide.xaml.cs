@@ -45,7 +45,7 @@ namespace CityGuide
                 AddTouchAndMouseEventsForDebbugConsole();
 
                 AddPushPins();
-
+                InfoBoxContainer.Items.Add(new InfoBox());
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
 
