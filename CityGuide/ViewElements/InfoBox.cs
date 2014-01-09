@@ -46,6 +46,7 @@ namespace CityGuide.ViewElements
             this.Padding = new System.Windows.Thickness(0);
             //Init titleLabel
             _titleLabel = new Label();
+            _titleLabel.Foreground = new SolidColorBrush(Colors.Black);
             _titleLabel.Width = this.Width;
             _titleLabel.Height = 40;
             _titleLabel.Content = "toller titel";
@@ -61,18 +62,14 @@ namespace CityGuide.ViewElements
             triangle.Points.Add(new System.Windows.Point(0, 0));
             triangle.Points.Add(new System.Windows.Point(40, 40));
             triangle.Points.Add(new System.Windows.Point(40, 0));
-            _closeButton = new SurfaceButton();
-            _closeButton.Content = triangle;
-            _closeButton.MinHeight = 10;
-            _closeButton.MinWidth = 10;
-            _closeButton.Width = 40;
-            _closeButton.Height = 40;
-            _closeButton.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
-            _closeButton.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
-            _closeButton.Click += new System.Windows.RoutedEventHandler(_closeButton_Click);
-            _closeButton.Background = new SolidColorBrush(Colors.Blue);
-            Canvas.SetLeft(_closeButton, this.Width - _closeButton.Width - 1);
-            Canvas.SetTop(_closeButton, -1);
+            triangle.Fill = new SolidColorBrush(Colors.Red);
+            triangle.Margin = new System.Windows.Thickness(0);
+            triangle.Width = 40;
+            triangle.Height = 40;
+            triangle.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
+            triangle.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
+            Canvas.SetLeft(triangle, this.Width - triangle.Width);
+            Canvas.SetTop(triangle, 0);
             //Init imageBox
             _attractionImage = new Image();
             _attractionImage.Height = 150;
@@ -99,8 +96,7 @@ namespace CityGuide.ViewElements
             _openingHoursTextBox.Width = this.Width / 2;
             _openingHoursTextBox.IsReadOnly = true;
             _openingHoursTextBox.FontSize = 10.0;
-            _openingHoursTextBox.Background = new SolidColorBrush(Colors.Black);
-            _openingHoursTextBox.Foreground = new SolidColorBrush(Colors.White);
+            _openingHoursTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _openingHoursTextBox.Text = "Öffnungszeiten";
             _openingHoursTextBox.BorderThickness = new System.Windows.Thickness(0);
             Canvas.SetLeft(_openingHoursTextBox, 0);
@@ -109,18 +105,18 @@ namespace CityGuide.ViewElements
             _informationTextBox = new TextBox();
             _informationTextBox = new TextBox();
             _informationTextBox.Height = 60;
-            _informationTextBox.Width = this.Width /2;
+            _informationTextBox.Width = this.Width / 2;
             _informationTextBox.Text = "Informationen";
             _informationTextBox.IsReadOnly = true;
             _informationTextBox.FontSize = 10.0;
-            _informationTextBox.Background = new SolidColorBrush(Colors.Black);
-            _informationTextBox.Foreground = new SolidColorBrush(Colors.White);
+
+            _informationTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _informationTextBox.BorderThickness = new System.Windows.Thickness(0);
-            Canvas.SetLeft(_informationTextBox, this.Width/2);
+            Canvas.SetLeft(_informationTextBox, this.Width / 2);
             Canvas.SetTop(_informationTextBox, 190);
             //Add elements to Canvas
             _uiElements.Children.Add(_titleLabel);
-            _uiElements.Children.Add(_closeButton);
+            _uiElements.Children.Add(triangle);
             _uiElements.Children.Add(_attractionImage);
             _uiElements.Children.Add(_descriptionTextBox);
             _uiElements.Children.Add(_openingHoursTextBox);
@@ -163,6 +159,9 @@ namespace CityGuide.ViewElements
                 _attractionImage.Source = new BitmapImage(new Uri("", UriKind.Relative));
             }
             _attraction = attraction;
+            _titleLabel.Background = new SolidColorBrush(_attraction.Filter.Color);
+            _informationTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
+            _openingHoursTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
         }
 
         #region DragDrop Methods
@@ -215,6 +214,6 @@ namespace CityGuide.ViewElements
             }
             e.Handled = true;
         }
-        #endregion 
+        #endregion
     }
 }
