@@ -88,6 +88,8 @@ namespace CityGuide.ViewElements
             _descriptionTextBox.Text = "Lustiger Beschreibungstext!";
             _descriptionTextBox.IsReadOnly = true;
             _descriptionTextBox.BorderThickness = new System.Windows.Thickness(0);
+            _descriptionTextBox.TextWrapping = TextWrapping.Wrap;
+            _descriptionTextBox.AcceptsReturn = true;
             Canvas.SetLeft(_descriptionTextBox, 0);
             Canvas.SetTop(_descriptionTextBox, 250);
             //TODO Öffnungszeiten Box
@@ -99,6 +101,8 @@ namespace CityGuide.ViewElements
             _openingHoursTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _openingHoursTextBox.Text = "Öffnungszeiten";
             _openingHoursTextBox.BorderThickness = new System.Windows.Thickness(0);
+            _openingHoursTextBox.TextWrapping = TextWrapping.Wrap;
+            _openingHoursTextBox.AcceptsReturn = true;
             Canvas.SetLeft(_openingHoursTextBox, 0);
             Canvas.SetTop(_openingHoursTextBox, 190);
             //TODO Anschrift
@@ -109,6 +113,8 @@ namespace CityGuide.ViewElements
             _informationTextBox.Text = "Informationen";
             _informationTextBox.IsReadOnly = true;
             _informationTextBox.FontSize = 10.0;
+            _informationTextBox.TextWrapping = TextWrapping.Wrap;
+            _informationTextBox.AcceptsReturn = true;
 
             _informationTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _informationTextBox.BorderThickness = new System.Windows.Thickness(0);
