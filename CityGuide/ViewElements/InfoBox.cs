@@ -63,7 +63,7 @@ namespace CityGuide.ViewElements
             _attractionImage = new Image();
             _attractionImage.Height = 150;
             _attractionImage.Width = this.Width;
-            _attractionImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/wasserturm.jpg"));
+            _attractionImage.Source = new BitmapImage(new Uri("/Resources/wasserturm.jpg", UriKind.Relative));
             Canvas.SetLeft(_attractionImage, 0);
             Canvas.SetTop(_attractionImage, 40);
             //TODO Init TextBox
@@ -106,7 +106,7 @@ namespace CityGuide.ViewElements
         public InfoBox(Attraction attraction)
             : base()
         {
-            _titleLabel.Content = attraction.Name;
+            _titleLabel.Content = attraction.Information;
             _descriptionTextBox.Text = attraction.Information;
         }
     }
