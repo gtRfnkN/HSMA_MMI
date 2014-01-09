@@ -429,6 +429,12 @@ namespace CityGuide
         #region Helper Methods
         public void FilterPins(Filter filter, Location location, double radius)
         {
+            var categorie = filter.Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"));
+            if (categorie != null)
+            {
+               var attractions = categorie.Attractions; // sind alle Attractionen die diese Categorie haben.
+            }
+
             foreach (Attraction a in _pushPinsMapLayer.Children)
             {
                 if (a.Filter == filter){
