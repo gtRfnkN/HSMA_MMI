@@ -442,14 +442,12 @@ namespace CityGuide
         #region Map Related Methods
         private void CurrentLocationButtonMouseDown(object sender, RoutedEventArgs e)
         {
-            Map.Center = new Location(49.479886, 8.469992, 0.0);
-            Map.ZoomLevel = 15.00;
+            SetMapNorthAndMannheimAsCenter();
         }
 
         private void CurrentLocationButtonTouchDown(object sender, TouchEventArgs e)
         {
-            Map.Center = new Location(49.479886, 8.469992, 0.0);
-            Map.ZoomLevel = 15.00;
+            SetMapNorthAndMannheimAsCenter();
         }
 
         private void DrawRoute(IEnumerable<MapPolyline> routePolylines)
@@ -554,6 +552,14 @@ namespace CityGuide
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             TimeTable.Reset();
+            SetMapNorthAndMannheimAsCenter();
+        }
+
+        private void SetMapNorthAndMannheimAsCenter()
+        {
+            Map.Center = new Location(49.479886, 8.469992, 0.0);
+            Map.ZoomLevel = 15.00;
+            Map.Heading = 0;
         }
         #endregion
     }
