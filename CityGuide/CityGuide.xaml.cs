@@ -107,9 +107,11 @@ namespace CityGuide
             if (attraction != null)
             {
                 var infoBox = new InfoBox(attraction);
+                infoBox.Orientation = 0.0;
+                positionPoint.X = positionPoint.X + infoBox.Width/2;
+                positionPoint.Y = positionPoint.Y + infoBox.Height/2;
 
-                Canvas.SetLeft(infoBox, positionPoint.X - 100);
-                Canvas.SetTop(infoBox, positionPoint.Y - 100);
+                infoBox.Center = positionPoint;
 
                 InfoBoxContainer.Items.Add(infoBox);
             }
