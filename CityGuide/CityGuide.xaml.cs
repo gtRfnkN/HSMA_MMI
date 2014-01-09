@@ -35,7 +35,6 @@ namespace CityGuide
             try
             {
                 InitializeComponent();
-
                 Map.Children.Add(_routeMapLayer);
                 Map.Children.Add(_pushPinsMapLayer);
                 Map.Children.Add(_pushPinsInfosMapLayer);
@@ -53,10 +52,13 @@ namespace CityGuide
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.MouseDown += CurrentLocationButtonMouseDown;
                 InfoBox testBox = new InfoBox();
+                InfoBox nextTestBox = new InfoBox();
                 testBox.Orientation = 0;
                 testBox.Center = new Point(500, 500);
+                nextTestBox.Orientation = 0;
+                nextTestBox.Center = new Point(500, 500);
                 InfoBoxContainer.Items.Add(testBox);
-
+                InfoBoxContainer.Items.Add(nextTestBox);
                 //Map.Children.Add(textBox);
                 Canvas.SetTop(testBox, 300);
                 Canvas.SetLeft(testBox, 500);

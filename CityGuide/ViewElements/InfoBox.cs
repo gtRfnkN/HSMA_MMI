@@ -25,6 +25,7 @@ namespace CityGuide.ViewElements
             this.Height = 350;
             this.CanScale = false;
             this.Background = new SolidColorBrush(Colors.White);
+            this.Deceleration = 0.002;
             _uiElements = new Canvas();
             InitUiElements();
             this.AddChild(_uiElements);
@@ -105,7 +106,8 @@ namespace CityGuide.ViewElements
         public InfoBox(Attraction attraction)
             : base()
         {
-
+            _titleLabel.Content = attraction.Name;
+            _descriptionTextBox.Text = attraction.Information;
         }
     }
 }
