@@ -116,6 +116,7 @@ namespace CityGuide.ViewElements
             // touch handlers
             _dragger.TouchMove += RectMove;
             _dragger.TouchDown += RectClicked;
+            _dragger.TouchUp += RectUp;
             _dragger.IsManipulationEnabled = true;
 
             _coolDownTimer = new CoolDownTimer(0, 0, 10) { Name = "CoolDownTimer " + TagID };
@@ -202,6 +203,18 @@ namespace CityGuide.ViewElements
             {
                 Redraw();
                 e.Handled = true;
+
+                // feedback by color
+                _circle.Stroke = Brushes.Yellow;
+                _rect.Stroke = Brushes.Yellow;
+
+                // update dragger size
+                _dragger.Width = TEXTBOX_WIDTH * 3;
+                _dragger.Height = TEXTBOX_HEIGHT * 4;
+
+                // set position of the dragger
+                Canvas.SetLeft(_dragger, -(_dragger.Width / 2));
+                Canvas.SetTop(_dragger, -Filter.Radius - (_dragger.Height / 2));
             }
             else
             {
@@ -225,6 +238,21 @@ namespace CityGuide.ViewElements
             {
                 e.Handled = false;
             }
+        }
+
+        private void RectUp(object sender, TouchEventArgs e)
+        {
+            // reset color feedback
+            _circle.Stroke = Brushes.White;
+            _rect.Stroke = Brushes.White;
+
+            // update dragger size
+            _dragger.Width = TEXTBOX_WIDTH * 1.5;
+            _dragger.Height = TEXTBOX_HEIGHT * 2;
+
+            // set position of the dragger
+            Canvas.SetLeft(_dragger, -(_dragger.Width / 2));
+            Canvas.SetTop(_dragger, -Filter.Radius - (_dragger.Height / 2));
         }
 
         public void UpdateResolution(double res)
