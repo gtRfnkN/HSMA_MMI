@@ -299,6 +299,11 @@ namespace CityGuide.ViewElements
             _imageClicked = !_imageClicked;
             Filter.SubFilter = _imageClicked;
             e.Handled = true;
+
+            if (cgWindow != null)
+            {
+                cgWindow.FilterPins(Filter, cLocation, GetRadius());
+            }
         }
 
         public void UpdateResolution(double res)
