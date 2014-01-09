@@ -132,7 +132,7 @@ namespace CityGuide.ViewElements
                 var attraction = e.Data.GetData("Attraction") as Attraction;
                 if (attraction != null)
                 {
-                    var data = InitMockData.Init();
+                    var data = MockData.Init();
                     if (data != null)
                     {
                         int index;

@@ -8,30 +8,30 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace CityGuide.Data
 {
-    public class InitMockData
+    public class MockData
     {
         #region Singelten
-        private static InitMockData _initMockData { get; set; }
+        public static MockData MockDataInstance { get; private set; }
 
-        public static InitMockData Init(Canvas drawCanvas, Canvas interactCanvas)
+        public static MockData Init(Canvas drawCanvas, Canvas interactCanvas)
         {
-            if (_initMockData == null)
+            if (MockDataInstance == null)
             {
-                var data = new InitMockData();
+                var data = new MockData();
                 data.InitFilter(drawCanvas, interactCanvas);
                 data.InitCategories(data.Filters);
                 data.InitAttractions();
-                _initMockData = data;
+                MockDataInstance = data;
             }
-            return _initMockData;
+            return MockDataInstance;
         }
 
-        public static InitMockData Init()
+        public static MockData Init()
         {
-            return _initMockData;
+            return MockDataInstance;
         }
 
-        private InitMockData() { }
+        private MockData() { }
         #endregion
 
         #region Fields
@@ -445,6 +445,16 @@ namespace CityGuide.Data
             categorieFastFood.Attractions.Add(Attractions.FirstOrDefault(a => a.Titel.Equals("Starbucks")));
             categorieFastFood.Attractions.Add(Attractions.FirstOrDefault(a => a.Titel.Equals("Burger King")));
         }
+
+        public void ResetMockingData(Canvas drawCanvas, Canvas interactCanvas)
+        {
+            var data = new MockData();
+            data.InitFilter(drawCanvas, interactCanvas);
+            data.InitCategories(data.Filters);
+            data.InitAttractions();
+            MockDataInstance = data;
+        }
+        
         #endregion
     }
 }

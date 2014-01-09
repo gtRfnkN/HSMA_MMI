@@ -46,8 +46,12 @@ namespace CityGuide
 
                 AddPushPins();
                 InfoBoxContainer.Items.Add(new InfoBox());
+
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
+
+                Reset.Click += ResetMouseClick;
+                Reset.TouchUp += ResetTouchUp;
 
                 TimeTable.RoutMapLayer = _routeMapLayer;
 
@@ -74,7 +78,7 @@ namespace CityGuide
         #region PushPin
         private void AddPushPins()
         {
-            var mockData = InitMockData.Init(CnvDraw, CnvInteract);
+            var mockData = MockData.Init(CnvDraw, CnvInteract);
             _filterCircles = mockData.TagViewItems;
 
             foreach (var attraction in mockData.Attractions)
@@ -549,10 +553,22 @@ namespace CityGuide
         }
         #endregion 
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
+       
+        private void ResetMouseClick(object sender, RoutedEventArgs e)
+        {
+            ResetTimeTableAndMapPosition();
+        }
+
+        private void ResetTouchUp(object sender, TouchEventArgs e)
+        {
+            ResetTimeTableAndMapPosition();
+        }
+
+        private void ResetTimeTableAndMapPosition()
         {
             TimeTable.Reset();
             SetMapNorthAndMannheimAsCenter();
+            MockData.MockDataInstance.ResetMockingData(CnvDraw, CnvInteract);
         }
 
         private void SetMapNorthAndMannheimAsCenter()
