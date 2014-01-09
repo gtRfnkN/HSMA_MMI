@@ -62,7 +62,7 @@ namespace CityGuide.ViewElements
             _attractionImage = new Image();
             _attractionImage.Height = 150;
             _attractionImage.Width = this.Width;
-            _attractionImage.Source = new BitmapImage(new Uri("C:\\Users\\Patrick\\Documents\\GitHub\\HSMA_MMI\\CityGuide\\Resources\\wasserturm.jpg"));
+            _attractionImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/wasserturm.jpg"));
             Canvas.SetLeft(_attractionImage, 0);
             Canvas.SetTop(_attractionImage, 40);
             //TODO Init TextBox

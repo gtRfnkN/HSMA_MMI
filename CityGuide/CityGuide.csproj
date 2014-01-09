@@ -148,6 +148,7 @@
     <None Include="Resources\TimeTable\TimeTableFake.psd" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\wasserturm.jpg" />
     <Resource Include="Resources\TimeTable\TimeTableFake.png" />
     <Resource Include="Resources\JsonConverter\Driving.xml" />
     <Resource Include="Resources\JsonConverter\JsonRestSample.txt" />
