@@ -146,6 +146,8 @@
     <Resource Include="Resources\TimeTable\TimeTableFake.png" />
     <Resource Include="Resources\JsonConverter\Driving.xml" />
     <Resource Include="Resources\JsonConverter\JsonRestSample.txt" />
+    <Resource Include="Resources\filter.png" />
+    <Resource Include="Resources\filter_on.png" />
     <Content Include="Resources\JsonConverter\Newtonsoft.Json.dll" />
     <Resource Include="Resources\JsonConverter\Rest XML GeoCode.xml" />
     <Resource Include="Resources\JsonConverter\XmlToJsonRestSample.txt" />

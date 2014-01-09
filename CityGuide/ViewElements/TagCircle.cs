@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CityGuide.Data;
 using Microsoft.Surface.Presentation.Input;
@@ -30,6 +31,9 @@ namespace CityGuide.ViewElements
         private readonly Rectangle _rect; // TextBlock wrapper
         private readonly TextBlock _text; // TextBlock for the radius
         private readonly Rectangle _dragger;
+
+        private Image _image;
+        private bool _imageClicked;
 
         private bool _firstDraw = true;
 
@@ -127,6 +131,20 @@ namespace CityGuide.ViewElements
                     Filter.Radius = 200;
                 }
             };
+
+            _image = new Image
+            {
+                Width = 500,
+                Height = 500,
+                Visibility = Visibility.Visible
+            };
+
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri("pack://application:,,,/CityGuide;component/Resources/filter.png");
+            logo.EndInit();
+            _image.Source = logo;
+            _image.TouchDown += filterOn;
         }
 
 
@@ -155,10 +173,17 @@ namespace CityGuide.ViewElements
             {
                 // add the circle to the draw container
                 _drawContainer.Children.Add(_circle);
-                _drawContainer.Children.Add(_rect);
-                _drawContainer.Children.Add(_text);
+                if (Filter.Name.Equals("Restaurants"))
+                {
+                    _interactContainer.Children.Add(_image);
+                }
+                else
+                {
+                    _drawContainer.Children.Add(_rect);
+                    _drawContainer.Children.Add(_text);
 
-                _interactContainer.Children.Add(_dragger);
+                    _interactContainer.Children.Add(_dragger);
+                }
             }
 
             // add grid to canvas
@@ -255,6 +280,27 @@ namespace CityGuide.ViewElements
             Canvas.SetTop(_dragger, -Filter.Radius - (_dragger.Height / 2));
         }
 
+        private void filterOn(object sender, TouchEventArgs e)
+        {
+
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            if (_imageClicked)
+            {
+                logo.UriSource = new Uri("pack://application:,,,/CityGuide;component/Resources/filter.png");
+            }
+            else
+            {
+                logo.UriSource = new Uri("pack://application:,,,/CityGuide;component/Resources/filter_on.png");
+            }
+            logo.EndInit();
+            _image.Source = logo;
+
+            _imageClicked = !_imageClicked;
+            Filter.SubFilter = _imageClicked;
+            e.Handled = true;
+        }
+
         public void UpdateResolution(double res)
         {
             resolution = res;
@@ -284,6 +330,10 @@ namespace CityGuide.ViewElements
             // set position of the circle
             Canvas.SetLeft(_circle, -Filter.Radius);
             Canvas.SetTop(_circle, -Filter.Radius);
+
+            // set position of the dragger
+            Canvas.SetLeft(_image, -Filter.Radius - 50);
+            Canvas.SetTop(_image, -Filter.Radius - 50);
 
             // set position of the rect
             Canvas.SetLeft(_rect, -(_rect.Width / 2));

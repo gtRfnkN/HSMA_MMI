@@ -11,6 +11,7 @@ namespace CityGuide.Data
         #region Fields
         public String Name { get; set; }
         public long TagID { get; set; }
+        public bool SubFilter { get; set; }
         
         public Color Color { get; set; }
         public int Radius { get; set; }

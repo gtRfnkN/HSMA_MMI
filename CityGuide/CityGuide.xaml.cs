@@ -432,9 +432,8 @@ namespace CityGuide
             foreach (Attraction a in _pushPinsMapLayer.Children)
             {
                 if (a.Filter == filter)
-                {
                     // if reset or pin in filter range: full opacity
-                    if ((radius == -1 && a.Interest > FILTER_INTEREST)  || GetDistance(location, a.Location) < (radius / 1000.0))
+                    if ((!filter.SubFilter || a.Categorie.Name.Equals("Fast Food")) && ((radius == -1 && a.Interest > FILTER_INTEREST) || GetDistance(location, a.Location) < (radius / 1000.0)))
                     {
                         a.Opacity = 1;
                     }
