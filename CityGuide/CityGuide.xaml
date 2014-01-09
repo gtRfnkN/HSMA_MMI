@@ -9,7 +9,14 @@
     Title="City Guide Mannheim"
     x:Name="SurfaceApplicationWrapper">
     <Grid>
-        <m:Map
+        <s:ScatterView Canvas.Left="0" Canvas.Top="0" Height="1080" Name="InfoBoxContainer" Width="1920" Background="Transparent">
+            <s:ScatterViewItem />
+            <my:TimeTable x:Name="TimeTable" Height="520" Width="240" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
+                <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />
+            </Border>
+            <s:ScatterViewItem Height="1080" HorizontalAlignment="Left" Name="MapContainerItem" VerticalAlignment="Top" Width="1920" Center="960,540" Orientation="0" CanMove="False" CanRotate="False" CanScale="False" ZIndex="-1" IsTopmostOnActivation="False">
+                <m:Map
            x:Name="Map"  Mode="AerialWithLabels"
            CredentialsProvider="AtQ9U9V-4N1Z8Btk44H3T6gU2_7Q12BxUW3SZmyaE-BHbhRJwXfHSAkc_HKXZU4Q"
            Padding="5"
@@ -17,24 +24,21 @@
            ZoomLevel="15.000" AnimationLevel="None" 
            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
            Culture="de-DE">
-            <Canvas
+                    <Canvas
             x:Name="CnvDraw"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent" />
 
-            <Canvas
+                    <Canvas
             x:Name="CnvInteract"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Background="Transparent"
             IsManipulationEnabled="True" >
-                <Button Canvas.Right="175" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
-                <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150" Canvas.Left="390" Canvas.Top="143" />
-            </Canvas>
-        </m:Map>
-        <s:ScatterView Canvas.Left="0" Canvas.Top="0" Height="1080" Name="InfoBoxContainer" Width="1920" Background="Transparent"/>
-        <my:TimeTable x:Name="TimeTable" Height="520" Width="240" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-        <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right"  Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
-            <StackPanel x:Name="EventsPanel" IsHitTestVisible="False" />
-        </Border>
+                        <Button Canvas.Right="175" Canvas.Bottom="15" Content="Current Location" Height="25" Name="CurrentLocationButton" Width="100" IsCancel="False" />
+                        <my:TimeTableEvent x:Name="TimeTableEvent" Background="White" Height="45" Width="150" Canvas.Left="390" Canvas.Top="143" />
+                    </Canvas>
+                </m:Map>
+            </s:ScatterViewItem>
+        </s:ScatterView>
     </Grid>
 </s:SurfaceWindow>

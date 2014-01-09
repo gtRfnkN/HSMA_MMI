@@ -25,6 +25,7 @@ namespace CityGuide.ViewElements
         {
             this.Width = 450;
             this.Height = 350;
+            this.ZIndex = 1000;
             this.CanScale = false;
             this.Background = new SolidColorBrush(Colors.White);
             this.Deceleration = 0.002;
