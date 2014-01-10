@@ -117,14 +117,28 @@ namespace CityGuide
             var attraction = sender as Attraction;
             if (attraction != null)
             {
+                attraction.Uid = attraction.Titel.Replace(' ', '-');
                 var infoBox = new InfoBox(attraction);
-                infoBox.Orientation = orientation-270;
+                infoBox.Orientation = 0.0;
+                infoBox.Uid = "Infobox" + attraction.Uid;
                 positionPoint.X = positionPoint.X + infoBox.Width / 2;
                 positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
 
                 infoBox.Center = positionPoint;
 
-                InfoBoxContainer.Items.Add(infoBox);
+                bool singelton = false;
+                foreach (UIElement item in InfoBoxContainer.Items)
+                {
+                    if (item.Uid.Equals(infoBox.Uid))
+                    {
+                        singelton = true;
+                    }
+                }
+
+                if (!singelton)
+                {
+                    InfoBoxContainer.Items.Add(infoBox);
+                }
             }
         }
         #endregion

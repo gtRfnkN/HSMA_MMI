@@ -255,14 +255,25 @@ namespace CityGuide.ViewElements
             {
                 Point positionPoint = e.GetTouchPoint(this).Position;
                 var infoBox = new InfoBox(attraction);
-
+                infoBox.Uid = "Infobox" + attraction.Uid;
                 infoBox.Orientation = 0.0;
                 positionPoint.X = positionPoint.X + infoBox.Width / 2;
                 positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
 
                 infoBox.Center = positionPoint;
+                bool singelton = false;
+                foreach (UIElement item in InfoBoxContainer.Items)
+                {
+                    if (item.Uid.Equals(infoBox.Uid))
+                    {
+                        singelton = true;
+                    }
+                }
 
-                InfoBoxContainer.Items.Add(infoBox);
+                if (!singelton)
+                {
+                    InfoBoxContainer.Items.Add(infoBox);
+                }
             };
 
             var timeTableAttractionElement = CreateTimeTableElementAttraction(rec, attraction, row, out rowSpan, touchLableEvent);
