@@ -1,4 +1,4 @@
-#define debuge
+//#define debuge
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +20,12 @@ namespace CityGuide
     /// </summary>
     public partial class CityGuideWindow
     {
-        
+
         #region Fields
         private Dictionary<long, TagCircle> _filterCircles;
         private readonly MapLayer _pushPinsMapLayer = new MapLayer { Name = "PushPins", CacheMode = new BitmapCache() };
         private readonly MapLayer _pushPinsInfosMapLayer = new MapLayer { Name = "PushPinsInfos", CacheMode = new BitmapCache() };
-        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes"};
+        private readonly MapLayer _routeMapLayer = new MapLayer { Name = "Routes" };
         private readonly CoolDownTimer _coolDownTimer = new CoolDownTimer(0, 0, 1) { Name = "DoubleTouchCoolDownTimer" };
         private readonly Point _diffPoint = new Point { X = 200.00, Y = 200.00 };
         private Point _lastTapPosition;
@@ -55,10 +55,14 @@ namespace CityGuide
                 CurrentLocationButton.TouchDown += CurrentLocationButtonTouchDown;
                 CurrentLocationButton.Click += CurrentLocationButtonMouseDown;
                 Canvas.SetZIndex(CurrentLocationButton, 5);
+                CurrentLocationButton.Foreground = new SolidColorBrush(Colors.Black);
+                CurrentLocationButton.FontSize = 11;
 
                 Reset.Click += ResetMouseClick;
                 Reset.TouchUp += ResetTouchUp;
                 Canvas.SetZIndex(Reset, 5);
+                Reset.Foreground = new SolidColorBrush(Colors.Black);
+                Reset.FontSize = 11;
             }
             catch (Exception e)
             {
@@ -114,8 +118,8 @@ namespace CityGuide
             {
                 var infoBox = new InfoBox(attraction);
                 infoBox.Orientation = 0.0;
-                positionPoint.X = positionPoint.X + infoBox.Width/2;
-                positionPoint.Y = positionPoint.Y + infoBox.Height/2;
+                positionPoint.X = positionPoint.X + infoBox.Width / 2;
+                positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
 
                 infoBox.Center = positionPoint;
 
@@ -154,7 +158,7 @@ namespace CityGuide
                 MapWithEvents_MouseLeftButtonDown;
             // Fires when the left mouse button is released
             Map.MouseLeftButtonUp +=
-                MapWithEvents_MouseLeftButtonUp; 
+                MapWithEvents_MouseLeftButtonUp;
 #endif
 
             Map.TouchDown += MapTouchDownEvent;
@@ -236,7 +240,7 @@ namespace CityGuide
             var location = new Location();
             // Updates the number of times the map mode changed.
             ShowEvent("ModeChanged", location, 0x1869f);
-        }  
+        }
 #endif
 
         private void MapTouchUpEvent(object sender, TouchEventArgs e)
@@ -246,7 +250,7 @@ namespace CityGuide
 #if debuge
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
-                    e.TouchDevice.GetTagData().Value : 0x1869f);  
+                    e.TouchDevice.GetTagData().Value : 0x1869f);
 #endif
             if (TagGone(e))
             {
@@ -260,7 +264,7 @@ namespace CityGuide
 #if debuge
             ShowEvent("HoldGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
-                    e.TouchDevice.GetTagData().Value : 0x1869f);  
+                    e.TouchDevice.GetTagData().Value : 0x1869f);
 #endif
             if (TagMove(e))
             {
@@ -303,7 +307,7 @@ namespace CityGuide
             }
 
             var location = new Location();
-            #if debuge
+#if debuge
             ShowEvent("TapGesture", location.GetLocationByEvent(e, Map, this),
                 e.TouchDevice.GetIsTagRecognized() ?
                     e.TouchDevice.GetTagData().Value : 0x1869f);
@@ -337,7 +341,7 @@ namespace CityGuide
             _eventBlocks[eventName].Text = String.Format(
                 "{0}: [{1} times] {2} (HH:mm:ss:ffff) {3}, Tag Value: {4}",
                 eventName, _eventCount[eventName], DateTime.Now, location.Latitude + "," + location.Longitude, tagValue);
-        }  
+        }
 #endif
         #endregion
 
@@ -449,20 +453,22 @@ namespace CityGuide
         {
             foreach (Attraction a in _pushPinsMapLayer.Children)
             {
-                if (a.Filter == filter){
+                if (a.Filter == filter)
+                {
                     // if reset or pin in filter range: full opacity
                     if (filter.SubFilter && a.Categorie == null)
                     {
                         a.Opacity = 0.5;
-                    } else 
-                    if ((!filter.SubFilter || a.Categorie.Name.Equals("Fast Food")) && ((radius == -1 && a.Interest > FILTER_INTEREST) || GetDistance(location, a.Location) < (radius / 1000.0)))
-                    {
-                        a.Opacity = 1;
                     }
-                    else // else fade
-                    {
-                        a.Opacity = 0.5;
-                    }
+                    else
+                        if ((!filter.SubFilter || a.Categorie.Name.Equals("Fast Food")) && ((radius == -1 && a.Interest > FILTER_INTEREST) || GetDistance(location, a.Location) < (radius / 1000.0)))
+                        {
+                            a.Opacity = 1;
+                        }
+                        else // else fade
+                        {
+                            a.Opacity = 0.5;
+                        }
                 }
             }
         }

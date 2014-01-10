@@ -45,6 +45,8 @@ namespace CityGuide.ViewElements
             //Lock button Events
             LockButton.TouchDown += TouchLockButton;
             LockButton.Click += MouseClickLockButton;
+            LockButton.Foreground = new SolidColorBrush(Colors.Black);
+            LockButton.FontSize = 11;
 
             AttrationNameLabel.Foreground = new SolidColorBrush(Colors.Black);
             AttrationNameLabel.TouchDown += TouchEventLabel;
