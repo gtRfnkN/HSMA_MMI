@@ -119,7 +119,7 @@ namespace CityGuide
             {
                 attraction.Uid = attraction.Titel.Replace(' ', '-');
                 var infoBox = new InfoBox(attraction);
-                infoBox.Orientation = 0.0;
+                infoBox.Orientation = orientation - 270;
                 infoBox.Uid = "Infobox" + attraction.Uid;
                 positionPoint.X = positionPoint.X + infoBox.Width / 2;
                 positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
