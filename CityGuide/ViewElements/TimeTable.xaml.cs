@@ -442,11 +442,11 @@ namespace CityGuide.ViewElements
                         Tuple<int, int, RouteModes> routeKey = null;
                         if (beforAttraction.Key < eventAttraction.Key)
                         {
-                            routeKey = new Tuple<int, int, RouteModes>(beforAttraction.Key, eventAttraction.Key, RouteModes.Driving);
+                            routeKey = new Tuple<int, int, RouteModes>(beforAttraction.Key, eventAttraction.Key, RouteModes.Walking);
                         }
                         else
                         {
-                            routeKey = new Tuple<int, int, RouteModes>(eventAttraction.Key, beforAttraction.Key, RouteModes.Driving);
+                            routeKey = new Tuple<int, int, RouteModes>(eventAttraction.Key, beforAttraction.Key, RouteModes.Walking);
                         }
 
                         if (!Routes.ContainsKey(routeKey))
@@ -454,7 +454,7 @@ namespace CityGuide.ViewElements
                             String fromAdress = beforAttraction.Value.Attraction.Address;
                             String toAddress = eventAttraction.Value.Attraction.Address;
 
-                            Route route = BingMapRestHelper.Route(fromAdress, toAddress, false, RouteModes.Driving);
+                            Route route = BingMapRestHelper.Route(fromAdress, toAddress, false, RouteModes.Walking);
                             Routes.Add(routeKey, route);
                         }
 

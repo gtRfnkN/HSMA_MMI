@@ -23,7 +23,7 @@ namespace CityGuide.ViewElements
                 {
                     _event = value;
                     var eventTransport = _event as EventTransport;
-                    TransportNameLabel.Content = "Auto " + eventTransport.DurationTime();
+                    TransportNameLabel.Content = "Zu Fuß " + eventTransport.DurationTime();
                     TransportNameLabel.Background = new SolidColorBrush(Colors.Orange);
 
                     if ((_event.Route.Duration / 60 / 15) <= 1)
