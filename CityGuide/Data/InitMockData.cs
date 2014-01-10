@@ -50,10 +50,10 @@ namespace CityGuide.Data
 
         private readonly Dictionary<long, Color> _filterColors = new Dictionary<long, Color>
                 {
-                    {0x00,  Color.FromArgb(90, 255, 227, 159)},
-                    {0x01, Color.FromArgb(90, 22, 134, 109)},
-                    {0x02,  Color.FromArgb(90, 16, 143, 151)},
-                    {0x03,Color.FromArgb(90, 255, 139, 107)}
+                    {0x00,  Color.FromArgb(90, 1, 176, 240)},
+                    {0x01, Color.FromArgb(90, 174, 238, 0)},
+                    {0x02,  Color.FromArgb(90, 65, 54, 89)},
+                    {0x03,Color.FromArgb(90, 255, 53, 139)}
                 };
 
         private readonly String[] _shoppingCategorieNames = { "Kleidung", "Schmuck", "Schuhe", "Soveniers" };
