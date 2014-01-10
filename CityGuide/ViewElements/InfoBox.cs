@@ -22,7 +22,7 @@ namespace CityGuide.ViewElements
         private SurfaceTextBox _descriptionTextBox;
         private SurfaceTextBox _openingHoursTextBox;
         private SurfaceTextBox _informationTextBox;
-
+        private Polygon _triangle;
         private Attraction _attraction;
         private Point _startPoint;
 
@@ -57,18 +57,17 @@ namespace CityGuide.ViewElements
             Canvas.SetLeft(_titleLabel, 0);
             Canvas.SetTop(_titleLabel, 0);
             //Init closeButton
-            var triangle = new Polygon();
-            triangle.Points.Add(new System.Windows.Point(0, 0));
-            triangle.Points.Add(new System.Windows.Point(40, 40));
-            triangle.Points.Add(new System.Windows.Point(40, 0));
-            triangle.Fill = new SolidColorBrush(Colors.Red);
-            triangle.Margin = new System.Windows.Thickness(0);
-            triangle.Width = 40;
-            triangle.Height = 40;
-            triangle.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
-            triangle.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
-            Canvas.SetLeft(triangle, this.Width - triangle.Width);
-            Canvas.SetTop(triangle, 0);
+            _triangle = new Polygon();
+            _triangle.Points.Add(new System.Windows.Point(0, 0));
+            _triangle.Points.Add(new System.Windows.Point(40, 40));
+            _triangle.Points.Add(new System.Windows.Point(40, 0));
+            _triangle.Margin = new System.Windows.Thickness(0);
+            _triangle.Width = 40;
+            _triangle.Height = 40;
+            _triangle.TouchDown += new EventHandler<System.Windows.Input.TouchEventArgs>(_closeButton_TouchUp);
+            _triangle.MouseDown += new System.Windows.Input.MouseButtonEventHandler(_closeButton_MouseUp);
+            Canvas.SetLeft(_triangle, this.Width - _triangle.Width);
+            Canvas.SetTop(_triangle, 0);
             //Init imageBox
             _attractionImage = new Image();
             _attractionImage.Height = 150;
@@ -122,7 +121,7 @@ namespace CityGuide.ViewElements
             Canvas.SetTop(_informationTextBox, 190);
             //Add elements to Canvas
             _uiElements.Children.Add(_titleLabel);
-            _uiElements.Children.Add(triangle);
+            _uiElements.Children.Add(_triangle);
             _uiElements.Children.Add(_attractionImage);
             _uiElements.Children.Add(_descriptionTextBox);
             _uiElements.Children.Add(_openingHoursTextBox);
@@ -165,10 +164,11 @@ namespace CityGuide.ViewElements
                 _attractionImage.Source = new BitmapImage(new Uri("", UriKind.Relative));
             }
             _attraction = attraction;
-            _titleLabel.Background = new SolidColorBrush(_attraction.Filter.Color);
-            _informationTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
-            _openingHoursTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
-            _descriptionTextBox.Background = new SolidColorBrush(_attraction.Filter.Color);
+            _titleLabel.Background = new SolidColorBrush(Colors.White);
+            _informationTextBox.Background = new SolidColorBrush(Colors.LightGray);
+            _openingHoursTextBox.Background = new SolidColorBrush(Colors.LightGray);
+            _descriptionTextBox.Background = new SolidColorBrush(Colors.White);
+            _triangle.Fill = new SolidColorBrush(_attraction.Filter.Color);
         }
 
         #region DragDrop Methods

@@ -99,7 +99,8 @@ namespace CityGuide
             if (!e.TouchDevice.GetIsTagRecognized())
             {
                 Point positionPoint = e.GetTouchPoint(this).Position;
-                AddAttractionInfobox(sender, positionPoint);
+                var orientation = e.TouchDevice.GetOrientation(null);
+                AddAttractionInfobox(sender, positionPoint,orientation);
                 e.Handled = false;
             }
         }
@@ -111,13 +112,13 @@ namespace CityGuide
             e.Handled = false;
         }
 
-        private void AddAttractionInfobox(object sender, Point positionPoint)
+        private void AddAttractionInfobox(object sender, Point positionPoint, double orientation = 0.0d)
         {
             var attraction = sender as Attraction;
             if (attraction != null)
             {
                 var infoBox = new InfoBox(attraction);
-                infoBox.Orientation = 0.0;
+                infoBox.Orientation = orientation-270;
                 positionPoint.X = positionPoint.X + infoBox.Width / 2;
                 positionPoint.Y = positionPoint.Y + infoBox.Height / 2;
 
