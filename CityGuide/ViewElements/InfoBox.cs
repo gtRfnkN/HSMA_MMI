@@ -17,6 +17,7 @@ namespace CityGuide.ViewElements
     class InfoBox : ScatterViewItem
     {
         private Label _titleLabel;
+        private Canvas _mask;
         private Canvas _uiElements;
         private Image _attractionImage;
         private SurfaceTextBox _descriptionTextBox;
@@ -33,7 +34,7 @@ namespace CityGuide.ViewElements
             this.ZIndex = 1000;
             this.CanScale = false;
             this.Background = new SolidColorBrush(Colors.White);
-            this.Deceleration = 0.002;
+            this.Deceleration = 0.0008;
             _uiElements = new Canvas();
             InitUiElements();
             this.AddChild(_uiElements);
@@ -92,7 +93,7 @@ namespace CityGuide.ViewElements
             _descriptionTextBox.AcceptsReturn = true;
             Canvas.SetLeft(_descriptionTextBox, 0);
             Canvas.SetTop(_descriptionTextBox, 250);
-            //TODO Öffnungszeiten Box
+            // Öffnungszeiten
             _openingHoursTextBox = new SurfaceTextBox();
             _openingHoursTextBox.Height = 60;
             _openingHoursTextBox.Width = this.Width / 2;
@@ -105,7 +106,7 @@ namespace CityGuide.ViewElements
             _openingHoursTextBox.AcceptsReturn = true;
             Canvas.SetLeft(_openingHoursTextBox, 0);
             Canvas.SetTop(_openingHoursTextBox, 190);
-            //TODO Anschrift
+            // Anschrift
             _informationTextBox = new SurfaceTextBox();
             _informationTextBox.Height = 60;
             _informationTextBox.Width = this.Width / 2;
@@ -114,11 +115,18 @@ namespace CityGuide.ViewElements
             _informationTextBox.FontSize = 10.0;
             _informationTextBox.TextWrapping = TextWrapping.Wrap;
             _informationTextBox.AcceptsReturn = true;
-
             _informationTextBox.Foreground = new SolidColorBrush(Colors.Black);
             _informationTextBox.BorderThickness = new System.Windows.Thickness(0);
+            _informationTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             Canvas.SetLeft(_informationTextBox, this.Width / 2);
             Canvas.SetTop(_informationTextBox, 190);
+            //masking Canvas
+            this._mask = new Canvas();
+            _mask.Width = this.Width - 25;
+            _mask.Height = 310;
+            Canvas.SetLeft(_mask,0);
+            Canvas.SetTop(_mask,40);
+            _mask.Background = new SolidColorBrush(Colors.Transparent);
             //Add elements to Canvas
             _uiElements.Children.Add(_titleLabel);
             _uiElements.Children.Add(_triangle);
@@ -126,6 +134,7 @@ namespace CityGuide.ViewElements
             _uiElements.Children.Add(_descriptionTextBox);
             _uiElements.Children.Add(_openingHoursTextBox);
             _uiElements.Children.Add(_informationTextBox);
+            _uiElements.Children.Add(_mask);
         }
 
         void _closeButton_Click(object sender, System.Windows.RoutedEventArgs e)

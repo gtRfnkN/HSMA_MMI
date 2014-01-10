@@ -336,7 +336,11 @@ namespace CityGuide.Data
                     Background = new SolidColorBrush(restaurantFilter.Color),
                     TitelPhotoPath = "/Resources/burgerking.jpg",
                     Address = "Heidelberger Straße 18, 68161 Mannheim ",
-                    Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food"))
+                    Categorie = Categories.FirstOrDefault(c => c.Name.Equals("Fast Food")),
+                    OpeningHours = "05:00 - 04:00",
+                    Information = "Tel.: +49 621 FAT FOOD\nInternet: http://www.burgerking.de/mannheim",
+                    Teaser =
+                        "In unseren BURGER KING® Restaurants gibt es immer wieder etwas Neues zu entdecken. So wurden seit 2011 bereits über 200 Restaurants mit unserem neuen Design gestaltet und über 100 Restaurants mit dem BURGER KING Café ausgestattet. 2013 wurde das neue Design sogar noch verbessert: Hellere und freundliche Farben, modernere und hochwertige Materialien sowie ein digitales Menuboard schaffen ein besonderes Wohlfühlambiente, das den Bedürfnissen einer breiteren Zielgruppe entspricht. Neben Design und Geschmack legen wir vor allem Wert auf Nachhaltigkeit. Neben dem Einsatz von saisonalem regionalem Gemüse hat BURGER KING® bereits zwei Green Restaurants in Deutschland eröffnet, durch die 45 % der Energiekosten gespart und der CO2-Ausstoß je Restaurant um mehr als 120 Tonnen gesenkt werden. Hättest Du das gedacht?"
                 },
                 new Attraction
                 {

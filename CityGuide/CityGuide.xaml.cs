@@ -112,7 +112,7 @@ namespace CityGuide
             e.Handled = false;
         }
 
-        private void AddAttractionInfobox(object sender, Point positionPoint, double orientation = 0.0d)
+        private void AddAttractionInfobox(object sender, Point positionPoint, double orientation = 270.0d)
         {
             var attraction = sender as Attraction;
             if (attraction != null)
